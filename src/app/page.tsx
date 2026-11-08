@@ -232,15 +232,15 @@ export default function Home() {
             {/* Left Hero Identity & Bio */}
             <div className="lg:col-span-7 space-y-6">
               {/* System Status Badge */}
-              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-red-500/35 bg-red-950/60 text-red-300 text-[11px] sm:text-xs font-mono-code tracking-wider backdrop-blur-md shadow-[0_0_20px_rgba(255,80,56,0.25)]">
-                <span className="w-2 h-2 rounded-full bg-red-500 beacon-active" />
-                <span className="truncate">CELESTIAL SYSTEM ONLINE {"//"} OPEN TO SDE ROLES</span>
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-amber-500/35 bg-black/80 text-amber-300 text-[11px] sm:text-xs font-mono-code tracking-wider backdrop-blur-md shadow-[0_0_20px_rgba(245,158,11,0.2)]">
+                <span className="w-2 h-2 rounded-full bg-amber-400 beacon-active" />
+                <span className="truncate">NOCTURNAL RUNTIME ONLINE {"//"} SDE &amp; SYSTEMS ARCHITECT</span>
               </div>
 
               {/* Main Name Title */}
               <div className="space-y-1">
-                <div className="text-xs font-mono-code text-red-400 flex items-center gap-2">
-                  <span>&gt;_</span> SOFTWARE_ENGINEER {"//"} ORBITAL_NODE
+                <div className="text-xs font-mono-code text-amber-400/90 flex items-center gap-2">
+                  <span>&gt;_</span> SOFTWARE_ENGINEER {"//"} NEO_NOIR_SYSTEMS
                 </div>
                 <h1 className="text-4xl xs:text-5xl sm:text-7xl md:text-8xl font-extrabold tracking-tight text-white leading-none font-heading drop-shadow-[0_4px_30px_rgba(0,0,0,0.95)]">
                   .Ishwar<br />
@@ -562,7 +562,7 @@ export default function Home() {
           <div className="cyber-panel p-6 sm:p-8 rounded-2xl border border-white/15">
             <h3 className="text-base sm:text-lg font-bold text-white font-mono-code mb-4 flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-red-400" />
-              <span>CORE COMPILED PROFICIENCIES (INTERVIEW-READY)</span>
+              <span>CORE COMPILED PROFICIENCIES (PRODUCTION MATRIX)</span>
             </h3>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 font-mono-code text-xs">
@@ -854,7 +854,7 @@ export default function Home() {
             {/* Coordinates Footer */}
             <div className="mt-8 pt-4 border-t border-white/10 flex flex-wrap items-center justify-between text-[11px] font-mono-code text-slate-500 gap-2">
               <span>COORDINATES: LAT 12.9716° N / LON 77.5946° E</span>
-              <span className="text-slate-400">© 2026 ISHWAR PATRO {"//"} KOWLOON CELESTIAL NODE</span>
+              <span className="text-slate-400">© 2026 ISHWAR PATRO {"//"} NEO-NOIR ARCHITECTURE NODE</span>
             </div>
           </div>
         </section>

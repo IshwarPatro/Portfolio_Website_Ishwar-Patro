@@ -44,7 +44,7 @@ const ContactForm = () => {
             Direct Transmission
           </CardTitle>
           <CardDescription className="text-xs font-mono text-[#F5EBDD]/70">
-            Send an inquiry or interview invite directly to Ishwar Patro.
+            Send an engineering inquiry or direct transmission to Ishwar Patro.
           </CardDescription>
         </CardHeader>
         <CardContent className="pt-4 space-y-4">

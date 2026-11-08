@@ -134,7 +134,7 @@ export const portfolioConfig = {
       "Distributed Systems Enthusiast",
     ],
 
-    // 1. CONFIRMED SKILLS (Production & Interview-Ready)
+    // 1. CONFIRMED SKILLS (Production & Architecture Systems)
     confirmedSkills: {
       languages: [
         { name: "JavaScript", level: "Confirmed" },
@@ -196,7 +196,7 @@ export const portfolioConfig = {
         { name: "AI Agents", note: "Autonomous Agentic Pipelines & Workflows" },
         { name: "Model Fine-tuning", note: "LoRA / QLoRA Techniques" },
       ],
-      csInterviewPrep: [
+      computerScienceCore: [
         { name: "Data Structures & Algorithms (Python)", note: "Canonical Problem Patterns" },
         { name: "Low-Level Design (LLD)", note: "Object-Oriented Design & Patterns" },
         { name: "High-Level Design (HLD)", note: "Distributed Systems Architecture" },

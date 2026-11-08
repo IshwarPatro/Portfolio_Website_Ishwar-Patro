@@ -67,24 +67,37 @@ export default function MegacityBackground() {
       { spanIdx: 2, t: 0.4, speed: 0.0003, dir: 1, color: "#38bdf8" },
     ];
 
+    // Neo-Noir Rain Particle System
+    const isMobileInitial = width < 768;
+    const rainCount = isMobileInitial ? 70 : 150;
+    const rainDrops = Array.from({ length: rainCount }, () => ({
+      x: Math.random() * (width + 300) - 100,
+      y: Math.random() * height,
+      len: 16 + Math.random() * 24,
+      speedY: 15 + Math.random() * 10,
+      speedX: -2.4 - Math.random() * 1.6,
+      alpha: 0.12 + Math.random() * 0.22,
+      thickness: 0.75 + Math.random() * 0.65,
+    }));
+
     // Atmospheric embers
-    const embers = Array.from({ length: 50 }, () => ({
+    const embers = Array.from({ length: 45 }, () => ({
       x: Math.random() * width,
       y: Math.random() * height,
       size: 1 + Math.random() * 2,
       speedY: 0.7 + Math.random() * 1.3,
       speedX: (Math.random() - 0.5) * 0.4,
-      alpha: 0.2 + Math.random() * 0.45,
-      hue: Math.random() > 0.6 ? 12 : 200,
+      alpha: 0.2 + Math.random() * 0.4,
+      hue: Math.random() > 0.65 ? 38 : 205, // Sodium amber or cool neon cyan
     }));
 
-    // Steam puffs
+    // Steam & mist puffs
     const steamPuffs = Array.from({ length: 18 }, () => ({
       x: Math.random() * width,
       y: Math.random() * height,
       radius: 18 + Math.random() * 40,
       speedY: -0.3 - Math.random() * 0.35,
-      alpha: 0.06 + Math.random() * 0.1,
+      alpha: 0.05 + Math.random() * 0.09,
       grow: 0.04 + Math.random() * 0.07,
     }));
 
@@ -324,20 +337,20 @@ export default function MegacityBackground() {
 
       ctx.clearRect(0, 0, width, height);
 
-      // Layer 0: Sky Strata Gradient
+      // Layer 0: Neo-Noir Atmospheric Chiaroscuro Gradient
       const skyGrad = ctx.createLinearGradient(0, 0, 0, height);
       if (scrollProgress < 0.35) {
-        skyGrad.addColorStop(0, "#101827");
-        skyGrad.addColorStop(0.6, "#152438");
-        skyGrad.addColorStop(1, "#080c14");
+        skyGrad.addColorStop(0, "#05070c");
+        skyGrad.addColorStop(0.55, "#0b121e");
+        skyGrad.addColorStop(1, "#030408");
       } else if (scrollProgress < 0.7) {
-        skyGrad.addColorStop(0, "#181525");
-        skyGrad.addColorStop(0.5, "#341624");
-        skyGrad.addColorStop(1, "#0a0812");
+        skyGrad.addColorStop(0, "#070a12");
+        skyGrad.addColorStop(0.5, "#140e1a");
+        skyGrad.addColorStop(1, "#040509");
       } else {
-        skyGrad.addColorStop(0, "#260917");
-        skyGrad.addColorStop(0.6, "#3c0817");
-        skyGrad.addColorStop(1, "#040307");
+        skyGrad.addColorStop(0, "#09060a");
+        skyGrad.addColorStop(0.6, "#18080f");
+        skyGrad.addColorStop(1, "#020305");
       }
       ctx.fillStyle = skyGrad;
       ctx.fillRect(0, 0, width, height);
@@ -447,7 +460,7 @@ export default function MegacityBackground() {
         ctx.fill();
       });
 
-      // Steam Puffs
+      // Steam & Industrial Mist
       steamPuffs.forEach((s) => {
         s.y += s.speedY;
         s.radius += s.grow;
@@ -455,11 +468,33 @@ export default function MegacityBackground() {
           s.y = height + 40;
           s.radius = 18 + Math.random() * 35;
         }
-        ctx.fillStyle = `rgba(255, 80, 56, ${s.alpha})`;
+        const puffColor = s.radius % 2 === 0 ? "148, 163, 184" : "245, 158, 11";
+        ctx.fillStyle = `rgba(${puffColor}, ${s.alpha * 0.75})`;
         ctx.beginPath();
         ctx.arc(s.x, s.y, s.radius, 0, Math.PI * 2);
         ctx.fill();
       });
+
+      // Layer 6: Neo-Noir Rain Particle Engine (Diagonal Atmospheric Drizzle)
+      ctx.save();
+      rainDrops.forEach((drop) => {
+        drop.x += drop.speedX;
+        drop.y += drop.speedY;
+        if (drop.y > height) {
+          drop.y = -drop.len;
+          drop.x = Math.random() * (width + 200) - 50;
+        }
+        if (drop.x < -60) {
+          drop.x = width + 60;
+        }
+        ctx.strokeStyle = `rgba(186, 215, 245, ${drop.alpha})`;
+        ctx.lineWidth = drop.thickness;
+        ctx.beginPath();
+        ctx.moveTo(drop.x, drop.y);
+        ctx.lineTo(drop.x + drop.speedX * 1.5, drop.y + drop.len);
+        ctx.stroke();
+      });
+      ctx.restore();
 
       animId = requestAnimationFrame(renderScene);
     }
