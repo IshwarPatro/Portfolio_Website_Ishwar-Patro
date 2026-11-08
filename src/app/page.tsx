@@ -1,782 +1,778 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import {
+  Activity,
   ArrowRight,
-  Award,
-  BookOpen,
-  Briefcase,
-  Building,
-  Building2,
-  Calendar,
+  Binary,
+  Boxes,
   CheckCircle2,
-  ChevronRight,
-  Code2,
+  Copy,
   Cpu,
-  Database,
-  GraduationCap,
-  Heart,
-  Layers,
-  LightbulbIcon,
-  Linkedin,
+  Download,
+  ExternalLink,
   Github,
+  Layers,
+  Linkedin,
   Mail,
-  MapPin,
+  Network,
+  Radio,
+  Send,
   Server,
-  ShieldCheck,
   Sparkles,
   Terminal,
-  User2,
-  Wrench,
-  AlertCircle,
 } from "lucide-react";
-
-import SocialLinks from "@/components/SocialLinks";
-import HeroTexts from "@/components/HeroTexts";
-import HeroImage from "@/components/HeroImage";
-import GithubBtn from "@/components/animation/GithubBtn";
-import DownLoadResumeBtn from "@/components/DownLoadResumeBtn";
-import FramerWrapper from "@/components/animation/FramerWrapper";
-import Heading from "@/components/Heading";
-import ProjectCards from "@/components/ProjectsCard";
-import SkillsFooter from "@/components/SkillsFotter";
 import ContactForm from "@/components/ContactForm";
-import { Badge } from "@/components/ui/badge";
 import { portfolioConfig } from "@/config/portfolio.config";
 
-export default function Home() {
-  const { confirmedSkills, currentlyLearning } = portfolioConfig.skills;
+interface ToastItem {
+  id: number;
+  message: string;
+}
 
-  const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
-    e.preventDefault();
-    const el = document.getElementById(id);
-    if (el) {
-      el.scrollIntoView({ behavior: "smooth", block: "start" });
-      window.history.pushState(null, "", `#${id}`);
+interface CliHistoryItem {
+  type: "cmd" | "output" | "error";
+  text: string;
+}
+
+export default function Home() {
+  // Toast notifications
+  const [toasts, setToasts] = useState<ToastItem[]>([]);
+  const toastIdRef = useRef(0);
+
+  const showToast = (message: string) => {
+    const id = ++toastIdRef.current;
+    setToasts((prev) => [...prev, { id, message }]);
+    setTimeout(() => {
+      setToasts((prev) => prev.filter((t) => t.id !== id));
+    }, 3500);
+  };
+
+  // Telemetry Console tab state
+  const [telemetryTab, setTelemetryTab] = useState<"logs" | "stack" | "arch">("logs");
+  const [telemetryLatency, setTelemetryLatency] = useState("0.14");
+  const [logs, setLogs] = useState([
+    { time: "[00:01.04]", tag: "INIT", color: "text-cyan-400", msg: "Initializing Enterprise Runtime & Telemetry..." },
+    { time: "[00:01.32]", tag: "AUTH", color: "text-purple-400", msg: "Microsoft Store WACK: MSIX packaging verified" },
+    { time: "[00:02.15]", tag: "CORE", color: "text-red-400", msg: "Achivr & LMS: Multi-tenant lead & social architecture active" },
+    { time: "[00:02.52]", tag: "DIST", color: "text-amber-400", msg: "Dell RMN: Tabletop standee local cloud distribution online" },
+    { time: "[00:02.88]", tag: "PIPE", color: "text-sky-400", msg: "her.store / Shopify HMAC webhook bridge online" },
+    { time: "[00:03.40]", tag: "FLOW", color: "text-yellow-400", msg: "Lenovo Partner: Lead management & NLP analysis active" },
+    { time: "[00:03.95]", tag: "SUCCESS", color: "text-emerald-400", msg: "All enterprise integration health checks passed (0 errors)" },
+  ]);
+
+  // Dynamic log streamer
+  useEffect(() => {
+    const pool = [
+      { tag: "CACHE", color: "text-sky-400", msg: "Redis warm cache hits: 99.4% (8.2k ops/sec)" },
+      { tag: "HEARTBEAT", color: "text-emerald-400", msg: "Edge Standee ping acknowledged by cloud gateway" },
+      { tag: "VECTOR", color: "text-purple-400", msg: "Pinecone index synced: 14,200 embeddings" },
+      { tag: "MSIX", color: "text-amber-400", msg: "WACK certified manifest signature validated" },
+      { tag: "HMAC", color: "text-red-400", msg: "Shopify cryptographic webhook verified [status: 200]" },
+      { tag: "ROUTER", color: "text-cyan-400", msg: "NLP intent classifier latency: 142ms (<180ms threshold)" },
+    ];
+
+    const interval = setInterval(() => {
+      const item = pool[Math.floor(Math.random() * pool.length)];
+      const now = new Date();
+      const timeStr = `[00:${now.getSeconds() < 10 ? "0" : ""}${now.getSeconds()}.${Math.floor(
+        now.getMilliseconds() / 10
+      )}]`;
+
+      setLogs((prev) => {
+        const next = [...prev, { time: timeStr, tag: item.tag, color: item.color, msg: item.msg }];
+        if (next.length > 12) return next.slice(next.length - 12);
+        return next;
+      });
+
+      setTelemetryLatency((0.12 + Math.random() * 0.05).toFixed(2));
+    }, 4200);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  // Interactive Cyber CLI Terminal
+  const [cliInput, setCliInput] = useState("");
+  const [cliHistory, setCliHistory] = useState<CliHistoryItem[]>([
+    {
+      type: "output",
+      text: "Welcome to Ishwar Patro's Cyber Shell [Version 3.4.1-prod]\nConnected to Megacity Gateway Hub. Type 'help' to view available system routines.",
+    },
+  ]);
+  const cliOutputRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    if (cliOutputRef.current) {
+      cliOutputRef.current.scrollTop = cliOutputRef.current.scrollHeight;
     }
+  }, [cliHistory]);
+
+  const executeCli = (cmdRaw: string) => {
+    const cmd = cmdRaw.trim().toLowerCase();
+    if (!cmd) return;
+
+    const newHistory: CliHistoryItem[] = [
+      ...cliHistory,
+      { type: "cmd", text: `ishwar@megacity:~$ ${cmdRaw}` },
+    ];
+
+    switch (cmd) {
+      case "help":
+        newHistory.push({
+          type: "output",
+          text:
+            "AVAILABLE COMMANDS:\n  skills     - Print compiled engineering capabilities (Languages & Frameworks)\n  projects   - List production enterprise highlights (11 verified systems)\n  telemetry  - Query active system status & runtime metrics\n  whoami     - Inspect engineer identity & clearance level\n  contact    - Display transmission frequency link\n  clear      - Clear terminal scrollback buffer",
+        });
+        break;
+      case "skills":
+        newHistory.push({
+          type: "output",
+          text:
+            "// TECH MATRIX:\n• Core Languages: JavaScript, Python, Dart, SQL, C\n• Frameworks: Node.js, Next.js, React, GraphQL, Flutter\n• Databases & Cloud: PostgreSQL, Redis, MongoDB, Docker, Git, GCP, Firebase\n• Architecture: Multi-Tenant Architecture, Shopify HMAC Webhooks, MSIX Packaging",
+        });
+        break;
+      case "projects":
+        newHistory.push({
+          type: "output",
+          text:
+            "// 11 FEATURED PRODUCTION SYSTEMS:\n1. Achivr LMS & Social Engine (Full-stack Flutter + Node.js + MongoDB)\n2. Dell Retail Media Network (Edge Tabletop Standee IoT Platform)\n3. her.store (Zero-loss Shopify HMAC Cryptographic Pipeline)\n4. Lenovo Partner Lead NLP Router (Automated Sentiment & Contract Routing)\n5. Numaish Exhibition App (Commercial Fair Commerce & Payment Gateway)\n6. FamilyCentral (Family Office Encrypted Vault Storage)\n7. CX9 Architecture (Unified Modular Multi-Product Engine)\n8. Acer RMN & HC Retail (Microsoft Store Certified MSIX Packaging)\n9. Dell LMS (Lead Management System, Flutter 3.47)\n10. Autodev-Codex AI Engine (Autonomous Coding Agent Loop)\n11. Computer Vision Verification (Python / OpenCV)",
+        });
+        break;
+      case "telemetry":
+        newHistory.push({
+          type: "output",
+          text: `STATUS: ONLINE | SANDBOX: VERIFIED\nSYS_ID: IP-7F9B2 | LATENCY: ${telemetryLatency}ms | UPTIME: 99.98%\nLOCATION: Bangalore, India`,
+        });
+        break;
+      case "whoami":
+        newHistory.push({
+          type: "output",
+          text:
+            "Ishwar Patro — Software Engineer & AI Systems Builder (3+ years experience)\nProfessional Experience: Hash Connect Integrated Services & SMBXL Pvt Ltd\nEducation: B.Tech in CSE, NIST Berhampur (2018–2022)\nOpen for SDE-2, Senior Backend, Full-Stack & Distributed Systems Roles.",
+        });
+        break;
+      case "contact":
+        newHistory.push({
+          type: "output",
+          text:
+            "TRANSMISSION FREQUENCY: ishwarpatro@gmail.com\nLinkedIn: https://www.linkedin.com/in/ishwar-patro-0b3a8b210/\nGitHub: https://github.com/IshwarPatro",
+        });
+        break;
+      case "clear":
+        setCliHistory([]);
+        setCliInput("");
+        return;
+      default:
+        newHistory.push({
+          type: "error",
+          text: `zsh: command not found: ${cmdRaw}. Type 'help' for available commands.`,
+        });
+        break;
+    }
+
+    setCliHistory(newHistory);
+    setCliInput("");
+  };
+
+  const copyEmail = () => {
+    navigator.clipboard.writeText("ishwarpatro@gmail.com");
+    showToast("TRANSMISSION ADDRESS COPIED: ishwarpatro@gmail.com");
+  };
+
+  const handleResumeDownload = () => {
+    showToast("INITIALIZING RESUME DOWNLOAD PACKET...");
+    const link = document.createElement("a");
+    link.href = "/Ishwar_Patro_Resume.pdf";
+    link.download = "Ishwar_Patro_Software_Engineer_Resume.pdf";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   };
 
   return (
-    <div className="w-full flex flex-col gap-28 sm:gap-36">
-      {/* =========================================================================
-          SECTION 1: HERO & IDENTITY (#home)
-          ========================================================================= */}
-      <section
-        id="home"
-        className="w-full min-h-[85vh] flex flex-col justify-center gap-10 pt-4 scroll-mt-28"
-      >
-        <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-          {/* LEFT SIDE: HERO TYPOGRAPHY & IDENTITY */}
-          <FramerWrapper
-            className="lg:col-span-7 flex flex-col justify-start gap-5"
-            y={10}
-            x={0}
-            duration={0.25}
+    <>
+      {/* ================= TOAST NOTIFICATION CONTAINER ================= */}
+      <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 pointer-events-none flex flex-col gap-2 items-center">
+        {toasts.map((toast) => (
+          <div
+            key={toast.id}
+            className="px-4 py-2.5 rounded-xl bg-slate-900/95 border border-red-500/40 text-slate-200 text-xs font-mono-code shadow-2xl flex items-center gap-2 backdrop-blur-md animate-in fade-in slide-in-from-bottom-2 duration-200"
           >
-            <HeroTexts />
-
-            <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
-              <DownLoadResumeBtn />
-              <a
-                href="#projects"
-                onClick={(e) => scrollToSection(e, "projects")}
-                className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg border border-[#F2765E] bg-[#F2765E]/10 hover:bg-[#F2765E] text-[#F5EBDD] hover:text-[#121014] font-rubik text-sm font-semibold transition-all shadow-md group"
-              >
-                <span>Explore 11 Professional Projects</span>
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </a>
-            </div>
-
-            <div className="pt-1">
-              <SocialLinks />
-            </div>
-          </FramerWrapper>
-
-          {/* RIGHT SIDE: ENGINEERING TELEMETRY NODE */}
-          <FramerWrapper
-            className="lg:col-span-5 w-full flex justify-center"
-            y={10}
-            x={0}
-            duration={0.25}
-          >
-            <HeroImage />
-          </FramerWrapper>
-        </div>
-
-        {/* SYSTEM ARCHITECTURE CAPABILITIES STRIP */}
-        <FramerWrapper
-          className="w-full rounded-xl p-4 sm:p-5 bg-[#201828]/80 border border-[#315B8C]/40 backdrop-blur-md flex flex-wrap items-center justify-between gap-4 font-mono text-xs text-[#F5EBDD]/80 shadow-md"
-          y={20}
-          delay={0.1}
-        >
-          <div className="flex items-center gap-2">
-            <Code2 className="w-4 h-4 text-[#F2765E]" />
-            <span className="font-semibold text-[#F5EBDD]">SPECIALIZED DOMAINS:</span>
-            <span>Enterprise Cross-Platform, Node.js API Bridges, Retail Media Networks, MSIX Packaging</span>
+            <span className="w-2 h-2 rounded-full bg-red-400 beacon-active" />
+            <span>{toast.message}</span>
           </div>
-          <div className="flex items-center gap-3 text-[11px] text-[#F2765E]">
-            <span>• BACKEND BRIDGES</span>
-            <span>• CROSS-PLATFORM ENTERPRISE</span>
-            <span>• RETAIL MEDIA NETWORKS</span>
-          </div>
-        </FramerWrapper>
-      </section>
+        ))}
+      </div>
 
-      {/* =========================================================================
-          SECTION 2: ABOUT ISHWAR PATRO (#about)
-          ========================================================================= */}
-      <section
-        id="about"
-        className="w-full flex flex-col items-start gap-10 pt-10 scroll-mt-28"
-      >
-        {/* BADGE */}
-        <Badge
-          variant="outline"
-          className="gap-2 py-1.5 px-3 border-[#F2765E]/40 bg-[#315B8C]/20 text-[#F5EBDD] font-mono text-xs"
-        >
-          <User2 className="h-4 w-4 text-[#F2765E]" />
-          <span>ENGINEERING_PROFILE // ABOUT ME</span>
-        </Badge>
-
-        {/* HEADER & BIO */}
-        <div className="flex flex-col gap-4 max-w-4xl">
-          <Heading>About Ishwar Patro</Heading>
-          <div className="font-mono text-xs uppercase tracking-wider text-[#F2765E] flex items-center gap-2">
-            <Terminal className="w-4 h-4" />
-            <span>SOFTWARE ENGINEER · 3+ YEARS EXPERIENCE · SDE-2 CANDIDATE</span>
-          </div>
-
-          <FramerWrapper y={20} x={0} delay={0.1}>
-            <div className="flex flex-col gap-4 font-poppins text-base sm:text-lg text-[#F5EBDD]/85 leading-relaxed">
-              <p>{portfolioConfig.about.bio}</p>
-              <div className="p-4 rounded-xl bg-[#201828]/75 border-l-4 border-l-[#F2765E] border-y border-r border-[#315B8C]/30 text-sm font-mono text-[#F5EBDD]/90 backdrop-blur-md">
-                <span className="text-[#F2765E] font-bold">[ENGINEERING PHILOSOPHY]</span>{" "}
-                {portfolioConfig.about.engineeringPhilosophy}
+      {/* ================= MAIN CONTENT CONTAINER ================= */}
+      <main className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 md:px-12 pt-28 sm:pt-36 pb-36 space-y-28 sm:space-y-40">
+        {/* =========================================================================
+             SECTION 01: HERO & IDENTITY (#hero)
+             ========================================================================= */}
+        <section id="hero" className="min-h-[80vh] flex flex-col justify-center scroll-mt-28">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
+            {/* Left Hero Identity & Bio */}
+            <div className="lg:col-span-7 space-y-6">
+              {/* System Status Badge */}
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-red-500/35 bg-red-950/60 text-red-300 text-[11px] sm:text-xs font-mono-code tracking-wider backdrop-blur-md shadow-[0_0_20px_rgba(255,80,56,0.25)]">
+                <span className="w-2 h-2 rounded-full bg-red-500 beacon-active" />
+                <span className="truncate">CELESTIAL SYSTEM ONLINE {"//"} OPEN TO SDE ROLES</span>
               </div>
-            </div>
-          </FramerWrapper>
-        </div>
 
-        {/* THREE DISTINCT ENGINEERING IDENTITIES */}
-        <FramerWrapper y={30} x={0} delay={0.15} className="w-full">
-          <div className="font-mono text-xs uppercase tracking-widest text-[#315B8C] font-semibold mb-3">
-            {"// THREE PILLARS OF ENGINEERING IDENTITY"}
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div className="p-5 rounded-xl bg-[#201828]/85 border border-[#315B8C]/40 flex flex-col gap-3 shadow-md backdrop-blur-md">
-              <div className="flex items-center gap-2 text-[#F2765E] font-rubik font-semibold text-lg">
-                <Cpu className="w-5 h-5" />
-                <span>01. Application Engineering</span>
+              {/* Main Name Title */}
+              <div className="space-y-1">
+                <div className="text-xs font-mono-code text-red-400 flex items-center gap-2">
+                  <span>&gt;_</span> SOFTWARE_ENGINEER {"//"} ORBITAL_NODE
+                </div>
+                <h1 className="text-5xl sm:text-7xl md:text-8xl font-extrabold tracking-tight text-white leading-none font-heading drop-shadow-[0_4px_30px_rgba(0,0,0,0.95)]">
+                  .Ishwar<br />
+                  <span className="text-slate-100">Patro</span>
+                  <span className="inline-block w-3.5 h-3.5 sm:w-4 sm:h-4 rounded-full bg-red-500 ml-1.5 shadow-[0_0_15px_#ff5038]" />
+                </h1>
+                <div className="w-24 sm:w-28 h-1.5 bg-gradient-to-r from-red-500 via-orange-500 to-transparent rounded-full my-3" />
               </div>
-              <div className="font-mono text-xs text-[#315B8C] font-semibold">ESTABLISHED PRODUCTION</div>
-              <p className="text-xs text-[#F5EBDD]/80 font-poppins leading-relaxed">
-                Flutter, Dart, cross-platform enterprise architecture, lead management systems, retail media networks,
-                and Windows MSIX application packaging for the Microsoft Store.
+
+              {/* Headline */}
+              <p className="text-xl sm:text-2xl md:text-3xl font-medium text-slate-100 drop-shadow-md">
+                Engineering <span className="text-red-400 font-bold glow-coral">AI Systems Builder</span>
               </p>
-            </div>
 
-            <div className="p-5 rounded-xl bg-[#201828]/85 border border-[#315B8C]/40 flex flex-col gap-3 shadow-md backdrop-blur-md">
-              <div className="flex items-center gap-2 text-[#F2765E] font-rubik font-semibold text-lg">
-                <Server className="w-5 h-5" />
-                <span>02. Backend &amp; Full-Stack</span>
-              </div>
-              <div className="font-mono text-xs text-[#315B8C] font-semibold">SCALED SYSTEMS &amp; APIS</div>
-              <p className="text-xs text-[#F5EBDD]/80 font-poppins leading-relaxed">
-                Node.js, Express, Shopify Admin REST &amp; GraphQL APIs, authenticated webhooks, MySQL database design,
-                and fault-tolerant cross-platform data synchronization pipelines.
+              {/* Biography Description inside Dark Glass Panel (Guarantees Mobile Readability) */}
+              <p className="text-slate-200 text-sm sm:text-base leading-relaxed bg-black/60 p-4 sm:p-5 rounded-xl border border-white/10 backdrop-blur-md shadow-lg max-w-xl">
+                Software Engineer with 3+ years of experience engineering production-ready applications,
+                cross-platform enterprise systems, and high-scale backend integrations.
               </p>
-            </div>
 
-            <div className="p-5 rounded-xl bg-[#201828]/85 border border-[#315B8C]/40 flex flex-col gap-3 shadow-md backdrop-blur-md">
-              <div className="flex items-center gap-2 text-[#F2765E] font-rubik font-semibold text-lg">
-                <Terminal className="w-5 h-5" />
-                <span>03. AI &amp; Systems Engineering</span>
+              {/* Core Specializations Pills */}
+              <div className="flex flex-wrap gap-2 pt-1">
+                <div className="cyber-badge px-3 py-1.5 rounded-xl text-xs font-mono-code text-slate-200 flex items-center gap-2">
+                  <Layers className="w-3.5 h-3.5 text-red-400" />
+                  <span>Backend Architecture &amp; APIs</span>
+                </div>
+                <div className="cyber-badge px-3 py-1.5 rounded-xl text-xs font-mono-code text-slate-200 flex items-center gap-2">
+                  <Network className="w-3.5 h-3.5 text-cyan-400" />
+                  <span>Distributed Systems &amp; Reliability</span>
+                </div>
+                <div className="cyber-badge px-3 py-1.5 rounded-xl text-xs font-mono-code text-slate-200 flex items-center gap-2">
+                  <Terminal className="w-3.5 h-3.5 text-amber-400" />
+                  <span>Cross-Platform Systems</span>
+                </div>
               </div>
-              <div className="font-mono text-xs text-[#315B8C] font-semibold">EMERGING SPECIALIZATION</div>
-              <p className="text-xs text-[#F5EBDD]/80 font-poppins leading-relaxed">
-                Python, FastAPI, RAG architectures, LLM integrations, conversational NLP call analysis,
-                distributed systems, and low-level system design.
-              </p>
+
+              {/* CTA Buttons */}
+              <div className="flex flex-wrap items-center gap-3 pt-2">
+                <a
+                  href="#projects"
+                  className="px-5 sm:px-6 py-3 rounded-xl bg-gradient-to-r from-red-500 to-orange-500 hover:from-red-600 hover:to-orange-600 text-white font-medium text-xs sm:text-sm shadow-[0_0_25px_rgba(255,80,56,0.4)] transition-all flex items-center gap-2"
+                >
+                  <span>Explore 11 Professional Projects</span>
+                  <ArrowRight className="w-4 h-4" />
+                </a>
+                <button
+                  onClick={handleResumeDownload}
+                  type="button"
+                  className="px-4 sm:px-5 py-3 rounded-xl border border-white/15 hover:border-white/35 bg-white/5 hover:bg-white/10 text-slate-200 font-mono-code text-xs sm:text-sm transition-all flex items-center gap-2"
+                >
+                  <Download className="w-4 h-4 text-cyan-400" />
+                  <span>Download Resume</span>
+                </button>
+                <a
+                  href="https://github.com/IshwarPatro"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="p-3 rounded-xl border border-white/10 hover:border-white/30 bg-white/5 hover:bg-white/10 text-slate-300 hover:text-white transition-all"
+                  title="GitHub Profile"
+                >
+                  <Github className="w-4 h-4" />
+                </a>
+                <a
+                  href="https://www.linkedin.com/in/ishwar-patro-0b3a8b210/"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="p-3 rounded-xl border border-white/10 hover:border-white/30 bg-white/5 hover:bg-white/10 text-slate-300 hover:text-white transition-all"
+                  title="LinkedIn Profile"
+                >
+                  <Linkedin className="w-4 h-4 text-sky-400" />
+                </a>
+              </div>
             </div>
-          </div>
-        </FramerWrapper>
 
-        {/* PROFESSIONAL EMPLOYMENT HISTORY */}
-        <FramerWrapper y={30} x={0} delay={0.2} className="w-full flex flex-col gap-4">
-          <h2 className="text-2xl font-rubik font-bold text-[#F5EBDD] flex items-center gap-2">
-            <Briefcase className="w-6 h-6 text-[#F2765E]" />
-            <span>Professional Experience</span>
-          </h2>
-
-          <div className="space-y-6">
-            {portfolioConfig.experience.map((exp, idx) => (
-              <div
-                key={idx}
-                className="p-5 sm:p-6 rounded-xl bg-[#201828]/85 border border-[#315B8C]/40 flex flex-col gap-3 text-sm shadow-md backdrop-blur-md"
-              >
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[#315B8C]/30 pb-3">
-                  <div>
-                    <h3 className="text-xl font-rubik font-bold text-[#F5EBDD]">{exp.role}</h3>
-                    <div className="text-base text-[#F2765E] font-medium flex items-center gap-1.5 mt-0.5">
-                      <Building2 className="w-4 h-4" />
-                      <span>{exp.company}</span>
-                    </div>
+            {/* Right: Telemetry Console Node Window */}
+            <div className="lg:col-span-5 w-full">
+              <div className="cyber-panel cyber-panel-accent rounded-2xl overflow-hidden shadow-2xl">
+                {/* Titlebar */}
+                <div className="flex items-center justify-between px-4 py-3 bg-slate-900/95 border-b border-white/10 font-mono-code text-xs">
+                  <div className="flex items-center gap-2">
+                    <span className="w-3 h-3 rounded-full bg-red-500/80 inline-block shadow-[0_0_8px_#ff5038]" />
+                    <span className="w-3 h-3 rounded-full bg-amber-500/80 inline-block" />
+                    <span className="w-3 h-3 rounded-full bg-emerald-500/80 inline-block" />
+                    <span className="text-slate-200 ml-2 font-semibold text-[11px] tracking-wide truncate">
+                      TELEMETRY_NODE :: ISHWAR_PATRO.sys
+                    </span>
                   </div>
-                  <div className="flex sm:flex-col items-start sm:items-end gap-1 font-mono text-xs text-[#F5EBDD]/70">
-                    <span className="flex items-center gap-1">
-                      <Calendar className="w-3.5 h-3.5 text-[#315B8C]" />
-                      {exp.period}
-                    </span>
-                    <span className="flex items-center gap-1">
-                      <MapPin className="w-3.5 h-3.5 text-[#315B8C]" />
-                      {exp.location}
-                    </span>
+                  <div className="flex items-center gap-1.5 text-red-400 text-[10px] font-bold">
+                    <Activity className="w-3.5 h-3.5 animate-pulse" />
+                    <span>ONLINE</span>
                   </div>
                 </div>
 
-                <ul className="space-y-2 text-xs sm:text-[13px] text-[#F5EBDD]/85 font-mono">
-                  {exp.highlights.map((highlight, hIdx) => (
-                    <li key={hIdx} className="flex items-start gap-2">
-                      <ChevronRight className="w-4 h-4 text-[#F2765E] flex-shrink-0 mt-0.5" />
-                      <span>{highlight}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
-        </FramerWrapper>
-
-        {/* HOBBIES & ENGINEERING PASSIONS */}
-        <FramerWrapper y={30} x={0} delay={0.25} className="w-full flex flex-col gap-3">
-          <h2 className="text-xl font-rubik font-bold text-[#F5EBDD] flex items-center gap-2">
-            <Heart className="w-5 h-5 text-[#F2765E]" />
-            <span>Core Engineering Pursuits &amp; Hobbies</span>
-          </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
-            {portfolioConfig.about.hobbies.map((hobby, idx) => (
-              <div
-                key={idx}
-                className="p-3 rounded-lg bg-[#18121f]/85 border border-[#315B8C]/30 flex items-center gap-2 font-mono text-xs text-[#F5EBDD]/90 shadow-sm"
-              >
-                <CheckCircle2 className="w-4 h-4 text-[#F2765E] flex-shrink-0" />
-                <span>{hobby}</span>
-              </div>
-            ))}
-          </div>
-        </FramerWrapper>
-      </section>
-
-      {/* =========================================================================
-          SECTION 3: TECHNICAL SKILLS & COMPETENCIES (#skills)
-          ========================================================================= */}
-      <section
-        id="skills"
-        className="w-full flex flex-col items-start gap-12 pt-10 scroll-mt-28"
-      >
-        {/* BADGE */}
-        <Badge
-          variant="outline"
-          className="gap-2 py-1.5 px-3 border-[#F2765E]/40 bg-[#315B8C]/20 text-[#F5EBDD] font-mono text-xs"
-        >
-          <LightbulbIcon className="w-4 h-4 text-[#F2765E]" />
-          <span>TECHNICAL_INVENTORY // VERIFIED &amp; LEARNING MATRIX</span>
-        </Badge>
-
-        {/* HEADER */}
-        <div className="flex flex-col gap-3 max-w-4xl">
-          <Heading>Technical Skills &amp; Competencies</Heading>
-          <FramerWrapper y={20} x={0} delay={0.1}>
-            <p className="font-poppins text-base sm:text-lg text-[#F5EBDD]/80 leading-relaxed">
-              Organized strictly into technologies with confirmed production experience and planned career developments.
-              My primary core centers on production cross-platform client architecture, backend API engineering, and
-              autonomous AI tooling—progressing toward SDE-2 and distributed backend systems.
-            </p>
-          </FramerWrapper>
-        </div>
-
-        {/* 1. CONFIRMED PRODUCTION SKILLS */}
-        <FramerWrapper y={30} x={0} delay={0.15} className="w-full flex flex-col gap-6">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[#315B8C]/40 pb-3">
-            <div className="flex items-center gap-2">
-              <ShieldCheck className="w-6 h-6 text-emerald-400" />
-              <h2 className="text-2xl font-rubik font-bold text-[#F5EBDD]">
-                1. Confirmed &amp; Interview-Ready Skills
-              </h2>
-            </div>
-            <span className="font-mono text-xs text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 px-3 py-1 rounded-full w-fit">
-              ● PRODUCTION VERIFIED
-            </span>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-            {/* 1.1 Programming Languages */}
-            <div className="p-5 rounded-xl bg-[#201828]/85 border border-[#315B8C]/40 flex flex-col gap-3 shadow-md backdrop-blur-md">
-              <div className="flex items-center gap-2 text-[#F2765E] font-rubik font-semibold text-lg border-b border-[#315B8C]/25 pb-2">
-                <Terminal className="w-5 h-5" />
-                <span>Programming Languages</span>
-              </div>
-              <div className="grid grid-cols-2 gap-2 text-xs font-mono">
-                {confirmedSkills.languages.map((item, idx) => (
-                  <div
-                    key={idx}
-                    className="p-2 rounded bg-[#140f1a] border border-[#315B8C]/30 flex items-center justify-between"
+                {/* Tabs Selection */}
+                <div className="flex border-b border-white/10 bg-black/75 text-[11px] font-mono-code">
+                  <button
+                    type="button"
+                    onClick={() => setTelemetryTab("logs")}
+                    className={`px-4 py-2.5 transition-all font-semibold ${
+                      telemetryTab === "logs"
+                        ? "border-b-2 border-red-500 text-red-400 bg-red-500/15"
+                        : "text-slate-400 hover:text-slate-200"
+                    }`}
                   >
-                    <span className="text-[#F5EBDD] font-medium">{item.name}</span>
-                    <span className="text-[10px] text-[#F2765E]">{item.level}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* 1.2 Frameworks & Development */}
-            <div className="p-5 rounded-xl bg-[#201828]/85 border border-[#315B8C]/40 flex flex-col gap-3 shadow-md backdrop-blur-md">
-              <div className="flex items-center gap-2 text-[#F2765E] font-rubik font-semibold text-lg border-b border-[#315B8C]/25 pb-2">
-                <Layers className="w-5 h-5" />
-                <span>Frameworks &amp; Development</span>
-              </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-mono">
-                {confirmedSkills.frameworks.map((item, idx) => (
-                  <div
-                    key={idx}
-                    className="p-2 rounded bg-[#140f1a] border border-[#315B8C]/30 flex items-center justify-between"
+                    [1] AGENT LOG
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setTelemetryTab("stack")}
+                    className={`px-4 py-2.5 transition-all font-semibold ${
+                      telemetryTab === "stack"
+                        ? "border-b-2 border-red-500 text-red-400 bg-red-500/15"
+                        : "text-slate-400 hover:text-slate-200"
+                    }`}
                   >
-                    <span className="text-[#F5EBDD] font-medium">{item.name}</span>
-                    <span className="text-[10px] text-emerald-400">{item.level}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* 1.3 Cloud, Backend & Databases */}
-            <div className="p-5 rounded-xl bg-[#201828]/85 border border-[#315B8C]/40 flex flex-col gap-3 shadow-md backdrop-blur-md">
-              <div className="flex items-center gap-2 text-[#F2765E] font-rubik font-semibold text-lg border-b border-[#315B8C]/25 pb-2">
-                <Database className="w-5 h-5" />
-                <span>Cloud, Backend &amp; Databases</span>
-              </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-mono">
-                {confirmedSkills.cloudBackendDatabases.map((item, idx) => (
-                  <div
-                    key={idx}
-                    className="p-2 rounded bg-[#140f1a] border border-[#315B8C]/30 flex items-center justify-between"
+                    [2] CORE STACK
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setTelemetryTab("arch")}
+                    className={`px-4 py-2.5 transition-all font-semibold ${
+                      telemetryTab === "arch"
+                        ? "border-b-2 border-red-500 text-red-400 bg-red-500/15"
+                        : "text-slate-400 hover:text-slate-200"
+                    }`}
                   >
-                    <span className="text-[#F5EBDD] font-medium">{item.name}</span>
-                    <span className="text-[10px] text-[#315B8C]">{item.level}</span>
+                    [3] SYSTEM ARCH
+                  </button>
+                </div>
+
+                {/* Tab Content: [1] AGENT LOG */}
+                {telemetryTab === "logs" && (
+                  <div className="p-4 sm:p-5 font-mono-code text-xs space-y-2 text-slate-200 leading-relaxed bg-[#0a0d16]/95 min-h-[320px] max-h-[360px] overflow-y-auto terminal-scroll">
+                    <p className="text-cyan-400 font-bold tracking-wide">{"// ENTERPRISE PRODUCTION RUNTIME"}</p>
+                    <p className="text-slate-400 text-[10px]">&gt; target: enterprise_distribution_pipeline</p>
+
+                    <div className="space-y-1.5 pt-2 text-[11px]">
+                      {logs.map((log, idx) => (
+                        <div key={idx} className="leading-tight">
+                          <span className="text-slate-500">{log.time}</span>{" "}
+                          <span className={`${log.color} font-bold`}>{log.tag}</span> {log.msg}
+                        </div>
+                      ))}
+                    </div>
+
+                    <div className="pt-3 border-t border-white/10 flex items-center justify-between text-[10px] text-slate-400 mt-3">
+                      <span className="flex items-center gap-1.5 text-slate-300">
+                        <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-ping" /> HEARTBEAT: STABLE
+                      </span>
+                      <span className="text-red-400 font-bold">LATENCY: {telemetryLatency}ms</span>
+                    </div>
                   </div>
-                ))}
-              </div>
-            </div>
+                )}
 
-            {/* 1.4 Development Tools & Packaging */}
-            <div className="p-5 rounded-xl bg-[#201828]/85 border border-[#315B8C]/40 flex flex-col gap-3 shadow-md backdrop-blur-md">
-              <div className="flex items-center gap-2 text-[#F2765E] font-rubik font-semibold text-lg border-b border-[#315B8C]/25 pb-2">
-                <Wrench className="w-5 h-5" />
-                <span>Development Tools &amp; Distribution</span>
-              </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-mono">
-                {confirmedSkills.developmentTools.map((item, idx) => (
-                  <div
-                    key={idx}
-                    className="p-2 rounded bg-[#140f1a] border border-[#315B8C]/30 flex items-center justify-between"
-                  >
-                    <span className="text-[#F5EBDD] font-medium">{item.name}</span>
-                    <span className="text-[10px] text-[#F2765E]">{item.level}</span>
+                {/* Tab Content: [2] CORE STACK */}
+                {telemetryTab === "stack" && (
+                  <div className="p-4 sm:p-5 font-mono-code text-xs space-y-2.5 bg-[#0a0d16]/95 min-h-[320px] text-slate-200">
+                    <p className="text-cyan-400 font-bold">{"// COMPILED RUNTIME DEPENDENCIES"}</p>
+                    <div className="space-y-2 text-[11px] pt-1">
+                      <div className="p-2.5 rounded bg-white/5 border border-white/10 flex justify-between items-center">
+                        <span className="text-amber-400 font-semibold">CORE LANGUAGES:</span>
+                        <span className="text-right">JavaScript, Python, Dart, SQL, C</span>
+                      </div>
+                      <div className="p-2.5 rounded bg-white/5 border border-white/10 flex justify-between items-center">
+                        <span className="text-sky-400 font-semibold">FRAMEWORKS:</span>
+                        <span className="text-right">Node.js, Next.js, React, GraphQL, Flutter</span>
+                      </div>
+                      <div className="p-2.5 rounded bg-white/5 border border-white/10 flex justify-between items-center">
+                        <span className="text-emerald-400 font-semibold">DATA &amp; INFRA:</span>
+                        <span className="text-right">PostgreSQL, Redis, Docker, GCP, Firebase</span>
+                      </div>
+                      <div className="p-2.5 rounded bg-white/5 border border-white/10 flex justify-between items-center">
+                        <span className="text-purple-400 font-semibold">ENTERPRISE:</span>
+                        <span className="text-right">MSIX Packaging, WACK, Shopify HMAC</span>
+                      </div>
+                    </div>
                   </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </FramerWrapper>
+                )}
 
-        {/* 2. CURRENTLY LEARNING */}
-        <FramerWrapper y={30} x={0} delay={0.2} className="w-full flex flex-col gap-6">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[#F2765E]/40 pb-3">
-            <div className="flex items-center gap-2">
-              <Sparkles className="w-6 h-6 text-[#F2765E]" />
-              <h2 className="text-2xl font-rubik font-bold text-[#F5EBDD]">
-                2. Currently Exploring &amp; Career Expansion
-              </h2>
-            </div>
-            <span className="font-mono text-xs text-[#F2765E] bg-[#F2765E]/10 border border-[#F2765E]/30 px-3 py-1 rounded-full w-fit">
-              ● SDE-2 &amp; BACKEND ROADMAP
-            </span>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 text-xs font-mono">
-            {/* Frontend */}
-            <div className="p-4 rounded-xl bg-[#1d1624]/85 border border-[#315B8C]/30 flex flex-col gap-2.5">
-              <div className="text-[#F2765E] font-semibold flex items-center gap-1.5 uppercase">
-                <Code2 className="w-4 h-4" />
-                <span>Modern Frontend</span>
-              </div>
-              <div className="space-y-1.5">
-                {currentlyLearning.frontend.map((item, i) => (
-                  <div key={i} className="flex items-center justify-between p-1.5 rounded bg-[#120e17] border border-[#315B8C]/20">
-                    <span className="text-[#F5EBDD]">{item.name}</span>
-                    <span className="text-[10px] text-[#F5EBDD]/50">{item.note}</span>
+                {/* Tab Content: [3] SYSTEM ARCH */}
+                {telemetryTab === "arch" && (
+                  <div className="p-4 sm:p-5 font-mono-code text-xs space-y-3 bg-[#0a0d16]/95 min-h-[320px] text-slate-200">
+                    <p className="text-cyan-400 font-bold">{"// HIGH-AVAILABILITY TOPOLOGY"}</p>
+                    <div className="p-3 rounded bg-black/60 border border-white/10 text-[11px] leading-relaxed text-slate-300 font-mono">
+                      [Client App / Mobile Standee]<br />
+                      &nbsp;&nbsp;&nbsp;&nbsp;│ (Zero-Trust HMAC / SSL Mutual)<br />
+                      &nbsp;&nbsp;&nbsp;&nbsp;▼<br />
+                      [API Gateway &amp; Rate-Limiting Envoy]<br />
+                      &nbsp;&nbsp;&nbsp;&nbsp;├──&gt; [Multi-Tenant Microservices]<br />
+                      &nbsp;&nbsp;&nbsp;&nbsp;├──&gt; [Vector Pipeline / Semantic Search]<br />
+                      &nbsp;&nbsp;&nbsp;&nbsp;└──&gt; [Event Stream -&gt; Worker Pool]
+                    </div>
                   </div>
-                ))}
-              </div>
-            </div>
+                )}
 
-            {/* Backend Engineering */}
-            <div className="p-4 rounded-xl bg-[#1d1624]/85 border border-[#315B8C]/30 flex flex-col gap-2.5">
-              <div className="text-[#315B8C] font-semibold flex items-center gap-1.5 uppercase">
-                <Server className="w-4 h-4" />
-                <span>Backend System Design</span>
-              </div>
-              <div className="space-y-1.5">
-                {currentlyLearning.backendEngineering.map((item, i) => (
-                  <div key={i} className="flex items-center justify-between p-1.5 rounded bg-[#120e17] border border-[#315B8C]/20">
-                    <span className="text-[#F5EBDD]">{item.name}</span>
-                    <span className="text-[10px] text-[#F5EBDD]/50">{item.note}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Cloud & DevOps */}
-            <div className="p-4 rounded-xl bg-[#1d1624]/85 border border-[#315B8C]/30 flex flex-col gap-2.5">
-              <div className="text-[#F2765E] font-semibold flex items-center gap-1.5 uppercase">
-                <Database className="w-4 h-4" />
-                <span>Cloud &amp; DevOps</span>
-              </div>
-              <div className="space-y-1.5">
-                {currentlyLearning.cloudDevOps.map((item, i) => (
-                  <div key={i} className="flex items-center justify-between p-1.5 rounded bg-[#120e17] border border-[#315B8C]/20">
-                    <span className="text-[#F5EBDD]">{item.name}</span>
-                    <span className="text-[10px] text-[#F5EBDD]/50">{item.note}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* AI & GenAI */}
-            <div className="p-4 rounded-xl bg-[#1d1624]/85 border border-[#315B8C]/30 flex flex-col gap-2.5">
-              <div className="text-[#315B8C] font-semibold flex items-center gap-1.5 uppercase">
-                <Sparkles className="w-4 h-4" />
-                <span>AI &amp; Generative AI</span>
-              </div>
-              <div className="space-y-1.5">
-                {currentlyLearning.aiGenerativeAI.map((item, i) => (
-                  <div key={i} className="flex items-center justify-between p-1.5 rounded bg-[#120e17] border border-[#315B8C]/20">
-                    <span className="text-[#F5EBDD]">{item.name}</span>
-                    <span className="text-[10px] text-[#F5EBDD]/50">{item.note}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* CS & Interview Prep */}
-            <div className="p-4 rounded-xl bg-[#1d1624]/85 border border-[#315B8C]/30 flex flex-col gap-2.5 md:col-span-2">
-              <div className="text-[#F2765E] font-semibold flex items-center gap-1.5 uppercase">
-                <Terminal className="w-4 h-4" />
-                <span>Computer Science &amp; System Design (Python)</span>
-              </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5">
-                {currentlyLearning.csInterviewPrep.map((item, i) => (
-                  <div key={i} className="flex items-center justify-between p-1.5 rounded bg-[#120e17] border border-[#315B8C]/20">
-                    <span className="text-[#F5EBDD]">{item.name}</span>
-                    <span className="text-[10px] text-[#F5EBDD]/50">{item.note}</span>
-                  </div>
-                ))}
+                {/* Footer */}
+                <div className="px-4 py-2.5 bg-slate-950 border-t border-white/10 text-[10px] font-mono-code text-slate-400 flex justify-between items-center">
+                  <span className="flex items-center gap-1.5 text-slate-300">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" /> SANDBOX: VERIFIED
+                  </span>
+                  <span className="text-slate-400">SYS_ID: IP-7F9B2</span>
+                </div>
               </div>
             </div>
           </div>
-        </FramerWrapper>
 
-        {/* 3. CORE VISUAL STACK */}
-        <FramerWrapper y={30} delay={0.3} className="block w-full pt-4 border-t border-[#315B8C]/30">
-          <h2 className="text-xl font-rubik text-[#F5EBDD] font-bold flex items-center gap-2 mb-4">
-            <Terminal className="w-5 h-5 text-[#F2765E]" />
-            <span>Core Languages &amp; Runtime Ecosystem</span>
-          </h2>
-          <div className="w-full grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
-            <SkillsFooter items={portfolioConfig.skills.programmingLanguages} />
-          </div>
-        </FramerWrapper>
-
-        <FramerWrapper className="block w-full" y={30} delay={0.35}>
-          <h2 className="text-xl font-rubik text-[#F5EBDD] font-bold flex items-center gap-2 mb-4">
-            <Layers className="w-5 h-5 text-[#F2765E]" />
-            <span>Frameworks &amp; Application Platforms</span>
-          </h2>
-          <div className="w-full grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
-            <SkillsFooter items={portfolioConfig.skills.frameworks} />
-          </div>
-        </FramerWrapper>
-
-        <FramerWrapper className="block w-full" y={30} delay={0.4}>
-          <h2 className="text-xl font-rubik text-[#F5EBDD] font-bold flex items-center gap-2 mb-4">
-            <ShieldCheck className="w-5 h-5 text-[#F2765E]" />
-            <span>Cloud, Databases &amp; Production Tooling</span>
-          </h2>
-          <div className="w-full grid grid-cols-2 sm:grid-cols-4 md:grid-cols-4 lg:grid-cols-8 gap-3">
-            <SkillsFooter items={portfolioConfig.skills.tools} />
-          </div>
-        </FramerWrapper>
-      </section>
-
-      {/* =========================================================================
-          SECTION 4: PROFESSIONAL PROJECTS (#projects)
-          ========================================================================= */}
-      <section
-        id="projects"
-        className="w-full flex flex-col items-start gap-8 pt-10 scroll-mt-28"
-      >
-        {/* SECTION HEADER BADGE */}
-        <Badge
-          variant="outline"
-          className="gap-2 py-1.5 px-3 border-[#F2765E]/40 bg-[#315B8C]/20 text-[#F5EBDD] font-mono text-xs"
-        >
-          <Layers className="h-4 w-4 text-[#F2765E]" />
-          <span>ENGINEERING_CASE_STUDIES // 11 PROFESSIONAL DELIVERIES</span>
-        </Badge>
-
-        {/* EDITORIAL HEADING & PHILOSOPHY */}
-        <div className="flex flex-col gap-3 max-w-4xl">
-          <Heading>Engineering &amp; System Architecture</Heading>
-          <FramerWrapper y={20} x={0} delay={0.1}>
-            <p className="font-poppins text-base sm:text-lg text-[#F5EBDD]/80 leading-relaxed">
-              A comprehensive catalog of enterprise platforms, retail media networks, backend integration bridges,
-              and cross-platform desktop systems delivered across Hash Connect and SMBXL Pvt Ltd. Every project
-              represents verified production engineering experience, real deployments, and technical ownership.
-            </p>
-          </FramerWrapper>
-        </div>
-
-        {/* ARCHITECTURE NOTICE STRIP */}
-        <div className="w-full rounded-lg p-3 bg-[#1c1424]/90 border border-[#315B8C]/40 flex flex-wrap items-center justify-between gap-2 text-xs font-mono text-[#F5EBDD]/70 shadow-sm backdrop-blur-md">
-          <div className="flex items-center gap-2">
-            <Terminal className="w-4 h-4 text-[#F2765E]" />
-            <span>FILTER: 11 VERIFIED PROFESSIONAL PROJECTS // STRICTLY CLIENT &amp; ENTERPRISE PRODUCTIONS</span>
-          </div>
-          <div className="flex items-center gap-3 text-[11px]">
-            <span className="text-emerald-400">● 10 PRODUCTION DEPLOYED / RELEASED</span>
-            <span className="text-[#8ec5fc]">● 1 ACTIVE ENTERPRISE ARCHITECTURE (CX9)</span>
-          </div>
-        </div>
-
-        {/* ALL 11 VERIFIED PROJECT CARDS */}
-        <div className="w-full flex flex-col gap-6">
-          {portfolioConfig.projects.map((val, indx) => (
-            <ProjectCards key={val.id} value={val} num={indx} />
-          ))}
-        </div>
-      </section>
-
-      {/* =========================================================================
-          SECTION 5: EDUCATION (#education)
-          ========================================================================= */}
-      <section
-        id="education"
-        className="w-full flex flex-col items-start gap-8 pt-10 scroll-mt-28"
-      >
-        {/* BADGE */}
-        <Badge
-          variant="outline"
-          className="gap-2 py-1.5 px-3 border-[#F2765E]/40 bg-[#315B8C]/20 text-[#F5EBDD] font-mono text-xs"
-        >
-          <GraduationCap className="h-4 w-4 text-[#F2765E]" />
-          <span>ACADEMIC_FOUNDATION // FORMAL EDUCATION</span>
-        </Badge>
-
-        {/* HEADER */}
-        <div className="flex flex-col gap-3 max-w-4xl">
-          <Heading>Academic Qualifications</Heading>
-          <FramerWrapper y={20} x={0} delay={0.1}>
-            <p className="font-poppins text-base sm:text-lg text-[#F5EBDD]/80 leading-relaxed">
-              Formal engineering education emphasizing theoretical foundations of computing, algorithm design,
-              systems architecture, and software engineering principles.
-            </p>
-          </FramerWrapper>
-        </div>
-
-        {/* EDUCATION CARD */}
-        <div className="w-full flex flex-col gap-6">
-          {portfolioConfig.education.map((edu, index) => (
-            <FramerWrapper
-              key={index}
-              y={30}
-              delay={0.15 + index * 0.1}
-              className="w-full"
+          {/* Scroll Descent Prompt */}
+          <div className="flex flex-col items-center justify-center pt-16 sm:pt-20 text-center">
+            <a
+              href="#stack"
+              className="inline-flex flex-col items-center gap-2 text-slate-400 hover:text-red-400 text-xs font-mono-code transition-colors group"
             >
-              <div className="w-full rounded-xl bg-[#201828]/85 border border-[#315B8C]/40 p-6 sm:p-8 flex flex-col gap-5 shadow-lg backdrop-blur-md">
-                <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 border-b border-[#315B8C]/30 pb-4">
-                  <div>
-                    <h3 className="text-2xl sm:text-3xl font-rubik font-bold text-[#F5EBDD]">
-                      {edu.degree}
-                    </h3>
-                    <div className="text-lg text-[#F2765E] font-medium flex items-center gap-2 mt-1">
-                      <Building className="w-5 h-5 text-[#315B8C]" />
-                      <span>{edu.institution}</span>
-                    </div>
-                  </div>
-
-                  <div className="flex flex-wrap md:flex-col items-start md:items-end gap-2">
-                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#315B8C]/30 border border-[#F2765E]/40 font-mono text-xs font-semibold text-[#F2765E]">
-                      <Award className="w-3.5 h-3.5" />
-                      CGPA: {edu.cgpa}
-                    </span>
-                    <div className="flex items-center gap-3 font-mono text-xs text-[#F5EBDD]/70">
-                      <span className="flex items-center gap-1">
-                        <Calendar className="w-3.5 h-3.5 text-[#315B8C]" />
-                        {edu.period}
-                      </span>
-                      <span className="flex items-center gap-1">
-                        <MapPin className="w-3.5 h-3.5 text-[#315B8C]" />
-                        {edu.location}
-                      </span>
-                    </div>
-                  </div>
-                </div>
-
-                <p className="font-poppins text-sm sm:text-base text-[#F5EBDD]/85 leading-relaxed">
-                  {edu.description}
-                </p>
-
-                {/* CORE ACADEMIC FOUNDATIONS */}
-                <div className="pt-2 border-t border-[#315B8C]/20 flex flex-col gap-2">
-                  <div className="font-mono text-xs font-semibold uppercase text-[#F2765E] flex items-center gap-1.5">
-                    <BookOpen className="w-4 h-4" />
-                    <span>Core Academic Specializations</span>
-                  </div>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2 font-mono text-xs text-[#F5EBDD]/80">
-                    <div className="flex items-center gap-2 p-2 rounded bg-[#140f1a] border border-[#315B8C]/25">
-                      <CheckCircle2 className="w-3.5 h-3.5 text-[#315B8C]" />
-                      <span>Data Structures &amp; Algorithms</span>
-                    </div>
-                    <div className="flex items-center gap-2 p-2 rounded bg-[#140f1a] border border-[#315B8C]/25">
-                      <CheckCircle2 className="w-3.5 h-3.5 text-[#315B8C]" />
-                      <span>Object-Oriented Design &amp; LLD</span>
-                    </div>
-                    <div className="flex items-center gap-2 p-2 rounded bg-[#140f1a] border border-[#315B8C]/25">
-                      <CheckCircle2 className="w-3.5 h-3.5 text-[#315B8C]" />
-                      <span>Operating Systems &amp; Concurrency</span>
-                    </div>
-                    <div className="flex items-center gap-2 p-2 rounded bg-[#140f1a] border border-[#315B8C]/25">
-                      <CheckCircle2 className="w-3.5 h-3.5 text-[#315B8C]" />
-                      <span>Database Management Systems (SQL)</span>
-                    </div>
-                    <div className="flex items-center gap-2 p-2 rounded bg-[#140f1a] border border-[#315B8C]/25">
-                      <CheckCircle2 className="w-3.5 h-3.5 text-[#315B8C]" />
-                      <span>Computer Networks &amp; Protocols</span>
-                    </div>
-                    <div className="flex items-center gap-2 p-2 rounded bg-[#140f1a] border border-[#315B8C]/25">
-                      <CheckCircle2 className="w-3.5 h-3.5 text-[#315B8C]" />
-                      <span>Software Engineering Lifecycle</span>
-                    </div>
-                  </div>
-                </div>
+              <span className="tracking-widest uppercase text-[9px] sm:text-[10px] text-slate-400 group-hover:text-red-400 transition-colors">
+                DESCENT INTO RUNTIME MATRIX &amp; CAPABILITIES
+              </span>
+              <div className="w-6 h-10 rounded-full border border-white/20 group-hover:border-red-500/60 flex items-start justify-center p-1 transition-all">
+                <div className="w-1.5 h-2 bg-red-400 rounded-full animate-bounce" />
               </div>
-            </FramerWrapper>
-          ))}
-        </div>
-      </section>
+            </a>
+          </div>
+        </section>
 
-      {/* =========================================================================
-          SECTION 6: CONTACT & INQUIRIES (#contact)
-          ========================================================================= */}
-      <section
-        id="contact"
-        className="w-full flex flex-col items-start gap-8 pt-10 pb-16 scroll-mt-28"
-      >
-        {/* BADGE */}
-        <Badge
-          variant="outline"
-          className="gap-2 py-1.5 px-3 border-[#F2765E]/40 bg-[#315B8C]/20 text-[#F5EBDD] font-mono text-xs"
-        >
-          <Mail className="h-4 w-4 text-[#F2765E]" />
-          <span>CONNECT // RECRUITMENT &amp; COLLABORATION</span>
-        </Badge>
-
-        {/* HEADER */}
-        <div className="flex flex-col gap-3 max-w-4xl">
-          <Heading>Contact &amp; Engineering Inquiries</Heading>
-          <FramerWrapper y={20} x={0} delay={0.1}>
-            <p className="font-poppins text-base sm:text-lg text-[#F5EBDD]/80 leading-relaxed">
-              Interested in discussing backend systems, enterprise cross-platform applications, autonomous AI agents,
-              or software engineering roles? Transmit a message below or connect via direct channels.
+        {/* =========================================================================
+             SECTION 02: STACK / TECH MATRIX (#stack)
+             ========================================================================= */}
+        <section id="stack" className="min-h-[80vh] flex flex-col justify-center scroll-mt-28">
+          <div className="max-w-3xl mb-10">
+            <div className="text-xs font-mono-code text-cyan-400 tracking-widest uppercase mb-2">
+              {"// 01. NAVIGATION SECTOR: CORE COMPETENCIES & RUNTIME MATRIX"}
+            </div>
+            <h2 className="text-2xl sm:text-4xl md:text-5xl font-bold text-white mb-4 font-heading">
+              Engineered for High Reliability &amp; Zero Packet Drop
+            </h2>
+            <p className="text-slate-300 text-sm sm:text-base leading-relaxed bg-black/50 p-4 rounded-xl border border-white/10 backdrop-blur-md">
+              Bridging high-availability cloud microservices, reactive cross-platform client runtimes, and low-latency
+              AI inference pipelines. Built with deterministic state logic and end-to-end telemetry.
             </p>
-          </FramerWrapper>
-        </div>
+          </div>
 
-        <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-          {/* LEFT COLUMN: DIRECT CHANNELS */}
-          <FramerWrapper y={30} x={0} delay={0.15} className="lg:col-span-5 flex flex-col gap-4">
-            <div className="p-6 rounded-xl bg-[#201828]/85 border border-[#315B8C]/40 flex flex-col gap-4 font-mono text-xs text-[#F5EBDD] shadow-md backdrop-blur-md">
-              <h3 className="font-rubik text-lg font-bold text-[#F5EBDD] border-b border-[#315B8C]/30 pb-2">
-                Direct Channels
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {/* Module 1: Backend Systems */}
+            <div className="cyber-panel p-6 sm:p-7 rounded-2xl relative overflow-hidden group hover:border-red-500/50 transition-all duration-300">
+              <div className="w-12 h-12 rounded-xl bg-red-500/10 border border-red-500/30 flex items-center justify-center text-red-400 mb-5 group-hover:scale-110 group-hover:bg-red-500/20 transition-all">
+                <Server className="w-6 h-6" />
+              </div>
+              <h3 className="text-lg sm:text-xl font-bold text-white mb-2 font-heading">
+                Backend &amp; Distributed APIs
               </h3>
+              <p className="text-xs sm:text-sm text-slate-300 leading-relaxed mb-6">
+                Constructing event-driven microservices, high-throughput database topologies, Redis caching layers, and
+                high-security webhook ingestion pipelines.
+              </p>
+              <div className="flex flex-wrap gap-1.5 text-xs font-mono-code text-slate-300 pt-4 border-t border-white/10">
+                <span className="px-2.5 py-1 rounded bg-white/5 border border-white/10">Node.js</span>
+                <span className="px-2.5 py-1 rounded bg-white/5 border border-white/10">Python</span>
+                <span className="px-2.5 py-1 rounded bg-white/5 border border-white/10">SQL</span>
+                <span className="px-2.5 py-1 rounded bg-white/5 border border-white/10">C</span>
+                <span className="px-2.5 py-1 rounded bg-white/5 border border-white/10">PostgreSQL</span>
+                <span className="px-2.5 py-1 rounded bg-white/5 border border-white/10">Docker</span>
+              </div>
+            </div>
 
-              <div className="flex items-start gap-3">
-                <Mail className="w-4 h-4 text-[#F2765E] flex-shrink-0 mt-0.5" />
+            {/* Module 2: Enterprise & Desktop Packaging */}
+            <div className="cyber-panel p-6 sm:p-7 rounded-2xl relative overflow-hidden group hover:border-cyan-500/50 transition-all duration-300">
+              <div className="w-12 h-12 rounded-xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-400 mb-5 group-hover:scale-110 group-hover:bg-cyan-500/20 transition-all">
+                <Boxes className="w-6 h-6" />
+              </div>
+              <h3 className="text-lg sm:text-xl font-bold text-white mb-2 font-heading">
+                Cross-Platform &amp; MSIX
+              </h3>
+              <p className="text-xs sm:text-sm text-slate-300 leading-relaxed mb-6">
+                Microsoft Store WACK certified deployments, offline IoT edge standee applications, and responsive
+                cross-platform architectures with isolated sandboxes.
+              </p>
+              <div className="flex flex-wrap gap-1.5 text-xs font-mono-code text-slate-300 pt-4 border-t border-white/10">
+                <span className="px-2.5 py-1 rounded bg-white/5 border border-white/10">Flutter</span>
+                <span className="px-2.5 py-1 rounded bg-white/5 border border-white/10">Dart</span>
+                <span className="px-2.5 py-1 rounded bg-white/5 border border-white/10">Next.js</span>
+                <span className="px-2.5 py-1 rounded bg-white/5 border border-white/10">React</span>
+                <span className="px-2.5 py-1 rounded bg-white/5 border border-white/10">GraphQL</span>
+                <span className="px-2.5 py-1 rounded bg-white/5 border border-white/10">MSIX / WACK</span>
+              </div>
+            </div>
+
+            {/* Module 3: AI Inference & Automation */}
+            <div className="cyber-panel p-6 sm:p-7 rounded-2xl relative overflow-hidden group hover:border-amber-500/50 transition-all duration-300">
+              <div className="w-12 h-12 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400 mb-5 group-hover:scale-110 group-hover:bg-amber-500/20 transition-all">
+                <Sparkles className="w-6 h-6" />
+              </div>
+              <h3 className="text-lg sm:text-xl font-bold text-white mb-2 font-heading">
+                AI Systems Integration
+              </h3>
+              <p className="text-xs sm:text-sm text-slate-300 leading-relaxed mb-6">
+                Production LLM agent workflows, semantic search pipelines with vector stores, automated NLP lead routing,
+                and deterministic JSON streaming.
+              </p>
+              <div className="flex flex-wrap gap-1.5 text-xs font-mono-code text-slate-300 pt-4 border-t border-white/10">
+                <span className="px-2.5 py-1 rounded bg-white/5 border border-white/10">LangChain</span>
+                <span className="px-2.5 py-1 rounded bg-white/5 border border-white/10">FastAPI</span>
+                <span className="px-2.5 py-1 rounded bg-white/5 border border-white/10">Embeddings</span>
+                <span className="px-2.5 py-1 rounded bg-white/5 border border-white/10">Pinecone</span>
+                <span className="px-2.5 py-1 rounded bg-white/5 border border-white/10">RAG</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* =========================================================================
+             SECTION 03: ENTERPRISE MISSIONS & DEPLOYMENTS (#projects)
+             ========================================================================= */}
+        <section id="projects" className="min-h-[80vh] flex flex-col justify-center scroll-mt-28">
+          <div className="flex flex-col md:flex-row md:items-end justify-between mb-10">
+            <div>
+              <div className="text-xs font-mono-code text-red-400 tracking-widest uppercase mb-2">
+                {"// 02. FLIGHT WAYPOINT: PRODUCTION ARCHIVES"}
+              </div>
+              <h2 className="text-2xl sm:text-4xl md:text-5xl font-bold text-white font-heading">
+                Enterprise Missions &amp; Deployments
+              </h2>
+            </div>
+            <p className="text-xs font-mono-code text-slate-400 mt-2 md:mt-0">
+              11 VERIFIED PRODUCTION RELEASES &amp; ARCHITECTURES
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
+            {portfolioConfig.projects.map((proj, idx) => (
+              <div
+                key={proj.id}
+                className="cyber-panel rounded-2xl p-6 sm:p-8 border border-white/15 hover:border-red-500/50 transition-all duration-300 group flex flex-col justify-between"
+              >
                 <div>
-                  <span className="text-[#315B8C] block text-[10px] uppercase font-bold">Email Address:</span>
-                  <a href={`mailto:${portfolioConfig.email}`} className="text-[#F5EBDD] hover:text-[#F2765E] transition-colors underline">
-                    {portfolioConfig.email}
-                  </a>
+                  <div className="flex items-center justify-between mb-3 text-[11px] font-mono-code">
+                    <span className="text-red-400 bg-red-500/10 px-2.5 py-0.5 rounded border border-red-500/25">
+                      MISSION_0{idx + 1} {"//"} {proj.category.toUpperCase()}
+                    </span>
+                    <span className="text-slate-400">{proj.status.toUpperCase()}</span>
+                  </div>
+
+                  <h3 className="text-xl sm:text-2xl font-bold text-white group-hover:text-red-400 transition-colors mb-3 font-heading">
+                    {proj.title}
+                  </h3>
+
+                  <p className="text-slate-300 text-xs sm:text-sm leading-relaxed mb-5">
+                    {proj.description}
+                  </p>
+
+                  {/* Architecture bullet highlights */}
+                  <div className="space-y-1.5 mb-5 text-[11px] font-mono-code text-slate-300">
+                    {proj.architectureDetails.slice(0, 2).map((detail, dIdx) => (
+                      <div key={dIdx} className="flex items-start gap-1.5">
+                        <span className="text-red-400 font-bold">›</span>
+                        <span className="leading-snug">{detail}</span>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Tech tags */}
+                  <div className="flex flex-wrap gap-1.5 text-[11px] font-mono-code text-slate-200 mb-5">
+                    {proj.tags.map((tag) => (
+                      <span key={tag} className="px-2 py-0.5 bg-white/5 rounded border border-white/10">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="pt-3 border-t border-white/10 flex justify-between items-center text-[11px] font-mono-code text-slate-400">
+                  <span className="truncate max-w-[65%]">
+                    {proj.impactMetrics[0] || "ENTERPRISE GRADE"}
+                  </span>
+                  {proj.link && (
+                    <a
+                      href={proj.link}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="text-red-400 hover:text-white flex items-center gap-1 transition-colors"
+                    >
+                      <span>VIEW STORE</span>
+                      <ExternalLink className="w-3.5 h-3.5" />
+                    </a>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* =========================================================================
+             SECTION 04: INTERACTIVE CYBER CLI TERMINAL (#cli)
+             ========================================================================= */}
+        <section id="cli" className="min-h-[70vh] flex flex-col justify-center scroll-mt-28">
+          <div className="max-w-4xl mx-auto w-full">
+            <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center gap-2">
+                <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse" />
+                <span className="text-xs font-mono-code text-emerald-400 tracking-wider uppercase font-semibold">
+                  KOWLOON_UNDERCITY_TERMINAL {"//"} DIRECT_SHELL_ACCESS
+                </span>
+              </div>
+              <span className="text-[11px] font-mono-code text-slate-400 hidden sm:inline">
+                TYPE &apos;help&apos; FOR COMMANDS
+              </span>
+            </div>
+
+            <div className="cyber-panel rounded-2xl overflow-hidden border border-emerald-500/35 shadow-2xl">
+              {/* Header */}
+              <div className="px-4 py-2.5 bg-black/85 border-b border-white/10 flex items-center justify-between text-xs font-mono-code">
+                <span className="text-slate-300">ishwar@megacity-node:~ $ /bin/sh</span>
+                <div className="flex gap-1.5">
+                  <span className="w-2.5 h-2.5 rounded-full bg-slate-700" />
+                  <span className="w-2.5 h-2.5 rounded-full bg-slate-700" />
+                  <span className="w-2.5 h-2.5 rounded-full bg-emerald-500" />
                 </div>
               </div>
 
-              <div className="flex items-start gap-3">
-                <Linkedin className="w-4 h-4 text-[#F2765E] flex-shrink-0 mt-0.5" />
-                <div>
-                  <span className="text-[#315B8C] block text-[10px] uppercase font-bold">LinkedIn Profile:</span>
-                  <Link
-                    href={portfolioConfig.socialLinks.linkedin}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-[#F5EBDD] hover:text-[#F2765E] transition-colors underline"
+              {/* Output buffer */}
+              <div
+                ref={cliOutputRef}
+                className="p-4 sm:p-5 font-mono-code text-xs space-y-2 text-slate-200 min-h-[240px] max-h-[320px] overflow-y-auto terminal-scroll bg-[#060911]/95 whitespace-pre-wrap leading-relaxed"
+              >
+                {cliHistory.map((item, idx) => (
+                  <div
+                    key={idx}
+                    className={
+                      item.type === "cmd"
+                        ? "text-cyan-400 font-bold"
+                        : item.type === "error"
+                        ? "text-red-400"
+                        : "text-slate-300"
+                    }
                   >
-                    linkedin.com/in/ishwar-patro
-                  </Link>
-                </div>
+                    {item.text}
+                  </div>
+                ))}
               </div>
 
-              <div className="flex items-start gap-3">
-                <Github className="w-4 h-4 text-[#F2765E] flex-shrink-0 mt-0.5" />
-                <div>
-                  <span className="text-[#315B8C] block text-[10px] uppercase font-bold">GitHub Repositories:</span>
-                  <Link
-                    href={portfolioConfig.socialLinks.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-[#F5EBDD] hover:text-[#F2765E] transition-colors underline"
+              {/* Input row */}
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  executeCli(cliInput);
+                }}
+                className="p-3 bg-black/90 border-t border-white/10 flex items-center gap-2 font-mono-code text-xs"
+              >
+                <span className="text-emerald-400 font-bold">&gt;</span>
+                <input
+                  type="text"
+                  value={cliInput}
+                  onChange={(e) => setCliInput(e.target.value)}
+                  placeholder="Type command here (e.g. skills, projects, telemetry)..."
+                  className="w-full bg-transparent text-white focus:outline-none placeholder-slate-500 text-xs"
+                />
+                <button
+                  type="submit"
+                  className="px-3 py-1 rounded bg-emerald-500/20 text-emerald-300 hover:bg-emerald-500/30 text-[11px] transition-colors shrink-0"
+                >
+                  EXEC
+                </button>
+              </form>
+
+              {/* Quick access pills */}
+              <div className="px-4 py-2 bg-slate-950/80 border-t border-white/5 flex flex-wrap gap-2 text-[10px] font-mono-code text-slate-400">
+                <span>QUICK ACCESS:</span>
+                {["skills", "projects", "telemetry", "whoami", "contact", "clear"].map((cmd) => (
+                  <button
+                    key={cmd}
+                    type="button"
+                    onClick={() => executeCli(cmd)}
+                    className="hover:text-emerald-400 underline"
                   >
-                    github.com/IshwarPatro
-                  </Link>
-                </div>
+                    {cmd}
+                  </button>
+                ))}
               </div>
+            </div>
+          </div>
+        </section>
 
-              <div className="flex items-start gap-3">
-                <Briefcase className="w-4 h-4 text-[#F2765E] flex-shrink-0 mt-0.5" />
-                <div>
-                  <span className="text-[#315B8C] block text-[10px] uppercase font-bold">Current Company:</span>
-                  <span className="text-[#F5EBDD] font-medium text-xs">Hash Connect Integrated Services Private Limited</span>
-                </div>
+        {/* =========================================================================
+             SECTION 05: TRANSMISSION FREQUENCY (#contact)
+             ========================================================================= */}
+        <section id="contact" className="min-h-[70vh] flex flex-col justify-center scroll-mt-28">
+          <div className="cyber-panel cyber-panel-accent rounded-3xl p-6 sm:p-12 max-w-4xl mx-auto w-full relative overflow-hidden">
+            <div className="absolute -right-20 -bottom-20 w-80 h-80 rounded-full bg-red-500/10 blur-3xl pointer-events-none" />
+
+            <div className="text-xs font-mono-code text-red-400 tracking-widest uppercase mb-2">
+              {"// 04. TRANSMISSION FREQUENCY: ESTABLISH LINK"}
+            </div>
+            <h2 className="text-2xl sm:text-4xl md:text-5xl font-bold text-white mb-3 font-heading">
+              Establish Orbital Link
+            </h2>
+            <p className="text-slate-300 max-w-xl text-xs sm:text-base mb-6 leading-relaxed">
+              Open for Software Engineering, Backend Architecture, and Distributed AI Systems builder roles. Send a
+              transmission packet or connect directly.
+            </p>
+
+            {/* Status Cards */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
+              <div className="p-3.5 rounded-xl bg-white/5 border border-white/10 font-mono-code text-xs">
+                <div className="text-slate-400 text-[10px] mb-1">CALLSIGN / NAME</div>
+                <div className="text-white font-bold text-sm">Ishwar Patro</div>
               </div>
-
-              <div className="flex items-start gap-3">
-                <MapPin className="w-4 h-4 text-[#F2765E] flex-shrink-0 mt-0.5" />
-                <div>
-                  <span className="text-[#315B8C] block text-[10px] uppercase font-bold">Location &amp; Availability:</span>
-                  <span className="text-[#F5EBDD]/80">Bangalore, India (Open to Remote / Hybrid SDE Opportunities)</span>
+              <div className="p-3.5 rounded-xl bg-white/5 border border-white/10 font-mono-code text-xs">
+                <div className="text-slate-400 text-[10px] mb-1">CURRENT CLEARANCE</div>
+                <div className="text-emerald-400 font-bold text-sm flex items-center gap-1.5">
+                  <span className="w-2 h-2 rounded-full bg-emerald-400 beacon-active" />
+                  <span>READY FOR ENTERPRISE DEPLOYMENT</span>
                 </div>
               </div>
             </div>
-          </FramerWrapper>
 
-          {/* RIGHT COLUMN: CONTACT FORM */}
-          <FramerWrapper y={30} x={0} delay={0.2} className="lg:col-span-7 flex justify-center">
-            <ContactForm />
-          </FramerWrapper>
-        </div>
-      </section>
+            {/* Action Buttons */}
+            <div className="flex flex-wrap items-center gap-3 mb-8">
+              <button
+                type="button"
+                onClick={() => {
+                  copyEmail();
+                  window.location.href = "mailto:ishwarpatro@gmail.com?subject=Portfolio%20Transmission%20Packet";
+                }}
+                className="px-5 py-3 rounded-xl bg-gradient-to-r from-red-500 to-orange-500 hover:from-red-600 hover:to-orange-600 text-white font-medium text-xs sm:text-sm transition-all shadow-[0_0_20px_rgba(255,80,56,0.35)] flex items-center gap-2"
+              >
+                <Send className="w-4 h-4" />
+                <span>Transmit Packet (Email)</span>
+              </button>
 
-      {/* FIXED GITHUB CORNER BADGE */}
-      <GithubBtn />
-    </div>
+              <button
+                type="button"
+                onClick={copyEmail}
+                className="px-4 py-3 rounded-xl bg-white/5 hover:bg-white/10 border border-white/15 text-slate-200 text-xs sm:text-sm font-mono-code transition-all flex items-center gap-2"
+              >
+                <Copy className="w-4 h-4 text-cyan-400" />
+                <span>Copy Frequency Address</span>
+              </button>
+            </div>
+
+            {/* Direct Form */}
+            <div className="pt-6 border-t border-white/10">
+              <ContactForm />
+            </div>
+
+            {/* Coordinates Footer */}
+            <div className="mt-8 pt-4 border-t border-white/10 flex flex-wrap items-center justify-between text-[11px] font-mono-code text-slate-500 gap-2">
+              <span>COORDINATES: LAT 12.9716° N / LON 77.5946° E</span>
+              <span className="text-slate-400">© 2026 ISHWAR PATRO {"//"} KOWLOON CELESTIAL NODE</span>
+            </div>
+          </div>
+        </section>
+      </main>
+    </>
   );
 }
