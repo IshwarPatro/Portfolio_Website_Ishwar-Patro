@@ -133,10 +133,10 @@ export default function Navbar() {
   };
 
   return (
-    <header className="fixed top-3 sm:top-5 left-1/2 -translate-x-1/2 z-50 w-[95%] max-w-5xl">
-      <div className="cyber-panel px-3 sm:px-4 py-2 sm:py-2.5 rounded-full flex items-center justify-between shadow-2xl border border-white/15 backdrop-blur-xl">
+    <header className="fixed top-2.5 sm:top-5 left-1/2 -translate-x-1/2 z-50 w-[96%] sm:w-[95%] max-w-5xl">
+      <div className="cyber-panel px-2.5 sm:px-4 py-1.5 sm:py-2.5 rounded-full flex items-center justify-between shadow-2xl border border-white/15 backdrop-blur-xl">
         {/* Left: Callsign & Sector Altitude */}
-        <div className="flex items-center gap-2 sm:gap-3">
+        <div className="flex items-center gap-1.5 sm:gap-3 shrink-0">
           <a
             href="#hero"
             onClick={(e) => handleNavClick(e, "hero")}
@@ -146,7 +146,7 @@ export default function Navbar() {
               <span className="w-1.5 h-1.5 rounded-full bg-white animate-ping" />
             </div>
             <span className="hidden md:inline text-slate-400">NODE://</span>
-            <span className="text-white group-hover:text-red-400 transition-colors text-[11px] sm:text-xs">
+            <span className="text-white group-hover:text-red-400 transition-colors text-[10px] xs:text-[11px] sm:text-xs truncate max-w-[85px] xs:max-w-none">
               ISHWAR_PATRO
             </span>
           </a>
@@ -157,7 +157,7 @@ export default function Navbar() {
         </div>
 
         {/* Center: Nav Anchors */}
-        <nav className="flex items-center gap-1 sm:gap-1.5">
+        <nav className="flex items-center gap-0.5 sm:gap-1.5">
           {navLinks.map((item) => {
             const isActive = activeSection === item.id;
             return (
@@ -165,7 +165,7 @@ export default function Navbar() {
                 key={item.id}
                 href={`#${item.id}`}
                 onClick={(e) => handleNavClick(e, item.id)}
-                className={`px-2.5 sm:px-3 py-1.5 rounded-full text-xs font-mono-code transition-all flex items-center gap-1.5 ${
+                className={`p-1.5 xs:p-2 sm:px-3 sm:py-1.5 rounded-full text-xs font-mono-code transition-all flex items-center gap-1.5 ${
                   isActive
                     ? "text-red-400 bg-red-500/15 border border-red-500/30 font-semibold shadow-[0_0_12px_rgba(255,80,56,0.25)]"
                     : "text-slate-300 hover:text-white hover:bg-white/10"
@@ -180,11 +180,11 @@ export default function Navbar() {
         </nav>
 
         {/* Right: Ambient Synth Audio Generator */}
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
           <button
             onClick={toggleCyberAudio}
             type="button"
-            className="px-2.5 sm:px-3 py-1.5 rounded-full text-[11px] font-mono-code bg-white/5 hover:bg-white/15 text-slate-300 hover:text-white border border-white/10 transition-all flex items-center gap-1.5 sm:gap-2 shadow-sm"
+            className="p-1.5 xs:px-2.5 sm:px-3 py-1.5 rounded-full text-[11px] font-mono-code bg-white/5 hover:bg-white/15 text-slate-300 hover:text-white border border-white/10 transition-all flex items-center gap-1.5 sm:gap-2 shadow-sm"
             title="Toggle Atmospheric Ambient Drone Synth"
           >
             {isSynthPlaying ? (

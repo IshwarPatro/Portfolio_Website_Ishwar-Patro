@@ -49,6 +49,23 @@ export default function Home() {
     }, 3500);
   };
 
+  // Dynamic role rotator
+  const [currentRoleIdx, setCurrentRoleIdx] = useState(0);
+  const roles = [
+    "Full-Stack Developer",
+    "Flutter & Mobile Specialist",
+    "Backend & Distributed Systems",
+    "System Design & Architecture",
+    "AI Systems Builder",
+  ];
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentRoleIdx((prev) => (prev + 1) % roles.length);
+    }, 2500);
+    return () => clearInterval(interval);
+  }, [roles.length]);
+
   // Telemetry Console tab state
   const [telemetryTab, setTelemetryTab] = useState<"logs" | "stack" | "arch">("logs");
   const [telemetryLatency, setTelemetryLatency] = useState("0.14");
@@ -225,46 +242,53 @@ export default function Home() {
                 <div className="text-xs font-mono-code text-red-400 flex items-center gap-2">
                   <span>&gt;_</span> SOFTWARE_ENGINEER {"//"} ORBITAL_NODE
                 </div>
-                <h1 className="text-5xl sm:text-7xl md:text-8xl font-extrabold tracking-tight text-white leading-none font-heading drop-shadow-[0_4px_30px_rgba(0,0,0,0.95)]">
+                <h1 className="text-4xl xs:text-5xl sm:text-7xl md:text-8xl font-extrabold tracking-tight text-white leading-none font-heading drop-shadow-[0_4px_30px_rgba(0,0,0,0.95)]">
                   .Ishwar<br />
                   <span className="text-slate-100">Patro</span>
-                  <span className="inline-block w-3.5 h-3.5 sm:w-4 sm:h-4 rounded-full bg-red-500 ml-1.5 shadow-[0_0_15px_#ff5038]" />
+                  <span className="inline-block w-3 h-3 sm:w-4 sm:h-4 rounded-full bg-red-500 ml-1.5 shadow-[0_0_15px_#ff5038]" />
                 </h1>
                 <div className="w-24 sm:w-28 h-1.5 bg-gradient-to-r from-red-500 via-orange-500 to-transparent rounded-full my-3" />
               </div>
 
-              {/* Headline */}
-              <p className="text-xl sm:text-2xl md:text-3xl font-medium text-slate-100 drop-shadow-md">
-                Engineering <span className="text-red-400 font-bold glow-coral">AI Systems Builder</span>
-              </p>
+              {/* Headline with Dynamic Role Rotator */}
+              <div className="text-lg xs:text-xl sm:text-2xl md:text-3xl font-medium text-slate-100 flex flex-wrap items-center gap-2 drop-shadow-md min-h-[36px]">
+                <span>Engineering</span>
+                <span className="text-red-400 font-bold glow-coral transition-all duration-300">
+                  {roles[currentRoleIdx]}
+                </span>
+              </div>
 
               {/* Biography Description inside Dark Glass Panel (Guarantees Mobile Readability) */}
-              <p className="text-slate-200 text-sm sm:text-base leading-relaxed bg-black/60 p-4 sm:p-5 rounded-xl border border-white/10 backdrop-blur-md shadow-lg max-w-xl">
+              <p className="text-slate-200 text-xs sm:text-sm md:text-base leading-relaxed bg-black/60 p-4 sm:p-5 rounded-xl border border-white/10 backdrop-blur-md shadow-lg max-w-xl">
                 Software Engineer with 3+ years of experience engineering production-ready applications,
-                cross-platform enterprise systems, and high-scale backend integrations.
+                cross-platform Flutter systems, scalable Node.js backend services, and high-scale enterprise integrations.
               </p>
 
-              {/* Core Specializations Pills */}
+              {/* Core Specializations Pills (Balanced Full-Stack, Mobile, Backend & AI) */}
               <div className="flex flex-wrap gap-2 pt-1">
-                <div className="cyber-badge px-3 py-1.5 rounded-xl text-xs font-mono-code text-slate-200 flex items-center gap-2">
-                  <Layers className="w-3.5 h-3.5 text-red-400" />
-                  <span>Backend Architecture &amp; APIs</span>
+                <div className="cyber-badge px-2.5 sm:px-3 py-1.5 rounded-xl text-[11px] sm:text-xs font-mono-code text-slate-200 flex items-center gap-2">
+                  <Layers className="w-3.5 h-3.5 text-red-400 shrink-0" />
+                  <span>Full-Stack &amp; Flutter Mobile</span>
                 </div>
-                <div className="cyber-badge px-3 py-1.5 rounded-xl text-xs font-mono-code text-slate-200 flex items-center gap-2">
-                  <Network className="w-3.5 h-3.5 text-cyan-400" />
+                <div className="cyber-badge px-2.5 sm:px-3 py-1.5 rounded-xl text-[11px] sm:text-xs font-mono-code text-slate-200 flex items-center gap-2">
+                  <Server className="w-3.5 h-3.5 text-cyan-400 shrink-0" />
+                  <span>Backend &amp; System Design</span>
+                </div>
+                <div className="cyber-badge px-2.5 sm:px-3 py-1.5 rounded-xl text-[11px] sm:text-xs font-mono-code text-slate-200 flex items-center gap-2">
+                  <Network className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
                   <span>Distributed Systems &amp; Reliability</span>
                 </div>
-                <div className="cyber-badge px-3 py-1.5 rounded-xl text-xs font-mono-code text-slate-200 flex items-center gap-2">
-                  <Terminal className="w-3.5 h-3.5 text-amber-400" />
-                  <span>Cross-Platform Systems</span>
+                <div className="cyber-badge px-2.5 sm:px-3 py-1.5 rounded-xl text-[11px] sm:text-xs font-mono-code text-slate-200 flex items-center gap-2">
+                  <Sparkles className="w-3.5 h-3.5 text-amber-400 shrink-0" />
+                  <span>AI &amp; Agentic Workflows</span>
                 </div>
               </div>
 
               {/* CTA Buttons */}
-              <div className="flex flex-wrap items-center gap-3 pt-2">
+              <div className="flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center gap-3 pt-2">
                 <a
                   href="#projects"
-                  className="px-5 sm:px-6 py-3 rounded-xl bg-gradient-to-r from-red-500 to-orange-500 hover:from-red-600 hover:to-orange-600 text-white font-medium text-xs sm:text-sm shadow-[0_0_25px_rgba(255,80,56,0.4)] transition-all flex items-center gap-2"
+                  className="w-full sm:w-auto justify-center px-5 sm:px-6 py-3 rounded-xl bg-gradient-to-r from-red-500 to-orange-500 hover:from-red-600 hover:to-orange-600 text-white font-medium text-xs sm:text-sm shadow-[0_0_25px_rgba(255,80,56,0.4)] transition-all flex items-center gap-2"
                 >
                   <span>Explore 11 Professional Projects</span>
                   <ArrowRight className="w-4 h-4" />
@@ -272,29 +296,31 @@ export default function Home() {
                 <button
                   onClick={handleResumeDownload}
                   type="button"
-                  className="px-4 sm:px-5 py-3 rounded-xl border border-white/15 hover:border-white/35 bg-white/5 hover:bg-white/10 text-slate-200 font-mono-code text-xs sm:text-sm transition-all flex items-center gap-2"
+                  className="w-full sm:w-auto justify-center px-4 sm:px-5 py-3 rounded-xl border border-white/15 hover:border-white/35 bg-white/5 hover:bg-white/10 text-slate-200 font-mono-code text-xs sm:text-sm transition-all flex items-center gap-2"
                 >
                   <Download className="w-4 h-4 text-cyan-400" />
                   <span>Download Resume</span>
                 </button>
-                <a
-                  href="https://github.com/IshwarPatro"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="p-3 rounded-xl border border-white/10 hover:border-white/30 bg-white/5 hover:bg-white/10 text-slate-300 hover:text-white transition-all"
-                  title="GitHub Profile"
-                >
-                  <Github className="w-4 h-4" />
-                </a>
-                <a
-                  href="https://www.linkedin.com/in/ishwar-patro-0b3a8b210/"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="p-3 rounded-xl border border-white/10 hover:border-white/30 bg-white/5 hover:bg-white/10 text-slate-300 hover:text-white transition-all"
-                  title="LinkedIn Profile"
-                >
-                  <Linkedin className="w-4 h-4 text-sky-400" />
-                </a>
+                <div className="flex items-center gap-2 justify-center sm:justify-start">
+                  <a
+                    href="https://github.com/IshwarPatro"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="p-3 rounded-xl border border-white/10 hover:border-white/30 bg-white/5 hover:bg-white/10 text-slate-300 hover:text-white transition-all flex-1 sm:flex-none flex justify-center"
+                    title="GitHub Profile"
+                  >
+                    <Github className="w-4 h-4" />
+                  </a>
+                  <a
+                    href="https://www.linkedin.com/in/ishwar-patro-0b3a8b210/"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="p-3 rounded-xl border border-white/10 hover:border-white/30 bg-white/5 hover:bg-white/10 text-slate-300 hover:text-white transition-all flex-1 sm:flex-none flex justify-center"
+                    title="LinkedIn Profile"
+                  >
+                    <Linkedin className="w-4 h-4 text-sky-400" />
+                  </a>
+                </div>
               </div>
             </div>
 
@@ -302,27 +328,27 @@ export default function Home() {
             <div className="lg:col-span-5 w-full">
               <div className="cyber-panel cyber-panel-accent rounded-2xl overflow-hidden shadow-2xl">
                 {/* Titlebar */}
-                <div className="flex items-center justify-between px-4 py-3 bg-slate-900/95 border-b border-white/10 font-mono-code text-xs">
-                  <div className="flex items-center gap-2">
-                    <span className="w-3 h-3 rounded-full bg-red-500/80 inline-block shadow-[0_0_8px_#ff5038]" />
-                    <span className="w-3 h-3 rounded-full bg-amber-500/80 inline-block" />
-                    <span className="w-3 h-3 rounded-full bg-emerald-500/80 inline-block" />
-                    <span className="text-slate-200 ml-2 font-semibold text-[11px] tracking-wide truncate">
+                <div className="flex items-center justify-between px-3 sm:px-4 py-2.5 sm:py-3 bg-slate-900/95 border-b border-white/10 font-mono-code text-xs">
+                  <div className="flex items-center gap-1.5 sm:gap-2">
+                    <span className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-red-500/80 inline-block shadow-[0_0_8px_#ff5038]" />
+                    <span className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-amber-500/80 inline-block" />
+                    <span className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-emerald-500/80 inline-block" />
+                    <span className="text-slate-200 ml-1.5 sm:ml-2 font-semibold text-[10px] sm:text-[11px] tracking-wide truncate max-w-[170px] sm:max-w-none">
                       TELEMETRY_NODE :: ISHWAR_PATRO.sys
                     </span>
                   </div>
-                  <div className="flex items-center gap-1.5 text-red-400 text-[10px] font-bold">
+                  <div className="flex items-center gap-1.5 text-red-400 text-[10px] font-bold shrink-0">
                     <Activity className="w-3.5 h-3.5 animate-pulse" />
                     <span>ONLINE</span>
                   </div>
                 </div>
 
                 {/* Tabs Selection */}
-                <div className="flex border-b border-white/10 bg-black/75 text-[11px] font-mono-code">
+                <div className="flex border-b border-white/10 bg-black/75 text-[10px] sm:text-[11px] font-mono-code">
                   <button
                     type="button"
                     onClick={() => setTelemetryTab("logs")}
-                    className={`px-4 py-2.5 transition-all font-semibold ${
+                    className={`flex-1 text-center px-2 sm:px-4 py-2.5 transition-all font-semibold ${
                       telemetryTab === "logs"
                         ? "border-b-2 border-red-500 text-red-400 bg-red-500/15"
                         : "text-slate-400 hover:text-slate-200"
@@ -333,7 +359,7 @@ export default function Home() {
                   <button
                     type="button"
                     onClick={() => setTelemetryTab("stack")}
-                    className={`px-4 py-2.5 transition-all font-semibold ${
+                    className={`flex-1 text-center px-2 sm:px-4 py-2.5 transition-all font-semibold ${
                       telemetryTab === "stack"
                         ? "border-b-2 border-red-500 text-red-400 bg-red-500/15"
                         : "text-slate-400 hover:text-slate-200"
@@ -344,13 +370,13 @@ export default function Home() {
                   <button
                     type="button"
                     onClick={() => setTelemetryTab("arch")}
-                    className={`px-4 py-2.5 transition-all font-semibold ${
+                    className={`flex-1 text-center px-2 sm:px-4 py-2.5 transition-all font-semibold ${
                       telemetryTab === "arch"
                         ? "border-b-2 border-red-500 text-red-400 bg-red-500/15"
                         : "text-slate-400 hover:text-slate-200"
                     }`}
                   >
-                    [3] SYSTEM ARCH
+                    [3] ARCH
                   </button>
                 </div>
 
@@ -455,48 +481,26 @@ export default function Home() {
               {"// 01. NAVIGATION SECTOR: CORE COMPETENCIES & RUNTIME MATRIX"}
             </div>
             <h2 className="text-2xl sm:text-4xl md:text-5xl font-bold text-white mb-4 font-heading">
-              Engineered for High Reliability &amp; Zero Packet Drop
+              Full-Stack, Mobile (Flutter), Backend &amp; System Design
             </h2>
             <p className="text-slate-300 text-sm sm:text-base leading-relaxed bg-black/50 p-4 rounded-xl border border-white/10 backdrop-blur-md">
-              Bridging high-availability cloud microservices, reactive cross-platform client runtimes, and low-latency
-              AI inference pipelines. Built with deterministic state logic and end-to-end telemetry.
+              Bridging high-availability cloud microservices, reactive cross-platform Flutter runtimes,
+              high-throughput API bridges, and deterministic AI systems. Built with architectural rigor and end-to-end telemetry.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {/* Module 1: Backend Systems */}
-            <div className="cyber-panel p-6 sm:p-7 rounded-2xl relative overflow-hidden group hover:border-red-500/50 transition-all duration-300">
-              <div className="w-12 h-12 rounded-xl bg-red-500/10 border border-red-500/30 flex items-center justify-center text-red-400 mb-5 group-hover:scale-110 group-hover:bg-red-500/20 transition-all">
-                <Server className="w-6 h-6" />
-              </div>
-              <h3 className="text-lg sm:text-xl font-bold text-white mb-2 font-heading">
-                Backend &amp; Distributed APIs
-              </h3>
-              <p className="text-xs sm:text-sm text-slate-300 leading-relaxed mb-6">
-                Constructing event-driven microservices, high-throughput database topologies, Redis caching layers, and
-                high-security webhook ingestion pipelines.
-              </p>
-              <div className="flex flex-wrap gap-1.5 text-xs font-mono-code text-slate-300 pt-4 border-t border-white/10">
-                <span className="px-2.5 py-1 rounded bg-white/5 border border-white/10">Node.js</span>
-                <span className="px-2.5 py-1 rounded bg-white/5 border border-white/10">Python</span>
-                <span className="px-2.5 py-1 rounded bg-white/5 border border-white/10">SQL</span>
-                <span className="px-2.5 py-1 rounded bg-white/5 border border-white/10">C</span>
-                <span className="px-2.5 py-1 rounded bg-white/5 border border-white/10">PostgreSQL</span>
-                <span className="px-2.5 py-1 rounded bg-white/5 border border-white/10">Docker</span>
-              </div>
-            </div>
-
-            {/* Module 2: Enterprise & Desktop Packaging */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+            {/* Module 1: Full-Stack & Mobile (Flutter Specialist) */}
             <div className="cyber-panel p-6 sm:p-7 rounded-2xl relative overflow-hidden group hover:border-cyan-500/50 transition-all duration-300">
               <div className="w-12 h-12 rounded-xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-400 mb-5 group-hover:scale-110 group-hover:bg-cyan-500/20 transition-all">
                 <Boxes className="w-6 h-6" />
               </div>
               <h3 className="text-lg sm:text-xl font-bold text-white mb-2 font-heading">
-                Cross-Platform &amp; MSIX
+                Mobile &amp; Full-Stack (Flutter)
               </h3>
               <p className="text-xs sm:text-sm text-slate-300 leading-relaxed mb-6">
-                Microsoft Store WACK certified deployments, offline IoT edge standee applications, and responsive
-                cross-platform architectures with isolated sandboxes.
+                Production Flutter mobile apps, Next.js / React web frontends, GraphQL integrations, state management,
+                and Microsoft Store WACK-certified desktop packaging (MSIX).
               </p>
               <div className="flex flex-wrap gap-1.5 text-xs font-mono-code text-slate-300 pt-4 border-t border-white/10">
                 <span className="px-2.5 py-1 rounded bg-white/5 border border-white/10">Flutter</span>
@@ -508,24 +512,106 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Module 3: AI Inference & Automation */}
+            {/* Module 2: Backend & System Design */}
+            <div className="cyber-panel p-6 sm:p-7 rounded-2xl relative overflow-hidden group hover:border-red-500/50 transition-all duration-300">
+              <div className="w-12 h-12 rounded-xl bg-red-500/10 border border-red-500/30 flex items-center justify-center text-red-400 mb-5 group-hover:scale-110 group-hover:bg-red-500/20 transition-all">
+                <Server className="w-6 h-6" />
+              </div>
+              <h3 className="text-lg sm:text-xl font-bold text-white mb-2 font-heading">
+                Backend Architecture &amp; System Design
+              </h3>
+              <p className="text-xs sm:text-sm text-slate-300 leading-relaxed mb-6">
+                Constructing event-driven microservices, high-throughput database topologies (PostgreSQL, Redis, MySQL),
+                idempotency layers, and zero-packet-drop Shopify HMAC webhook pipelines.
+              </p>
+              <div className="flex flex-wrap gap-1.5 text-xs font-mono-code text-slate-300 pt-4 border-t border-white/10">
+                <span className="px-2.5 py-1 rounded bg-white/5 border border-white/10">Node.js</span>
+                <span className="px-2.5 py-1 rounded bg-white/5 border border-white/10">Python</span>
+                <span className="px-2.5 py-1 rounded bg-white/5 border border-white/10">SQL</span>
+                <span className="px-2.5 py-1 rounded bg-white/5 border border-white/10">C</span>
+                <span className="px-2.5 py-1 rounded bg-white/5 border border-white/10">PostgreSQL</span>
+                <span className="px-2.5 py-1 rounded bg-white/5 border border-white/10">Redis</span>
+                <span className="px-2.5 py-1 rounded bg-white/5 border border-white/10">Docker</span>
+              </div>
+            </div>
+
+            {/* Module 3: Distributed Systems, Cloud & AI */}
             <div className="cyber-panel p-6 sm:p-7 rounded-2xl relative overflow-hidden group hover:border-amber-500/50 transition-all duration-300">
               <div className="w-12 h-12 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400 mb-5 group-hover:scale-110 group-hover:bg-amber-500/20 transition-all">
                 <Sparkles className="w-6 h-6" />
               </div>
               <h3 className="text-lg sm:text-xl font-bold text-white mb-2 font-heading">
-                AI Systems Integration
+                Distributed Systems &amp; AI
               </h3>
               <p className="text-xs sm:text-sm text-slate-300 leading-relaxed mb-6">
-                Production LLM agent workflows, semantic search pipelines with vector stores, automated NLP lead routing,
-                and deterministic JSON streaming.
+                Fault-tolerant cloud topologies (GCP, Firebase), autonomous AI developer agents, NLP conversational routing,
+                vector search retrieval (RAG), and OpenCV computer vision prototypes.
               </p>
               <div className="flex flex-wrap gap-1.5 text-xs font-mono-code text-slate-300 pt-4 border-t border-white/10">
+                <span className="px-2.5 py-1 rounded bg-white/5 border border-white/10">Distributed Systems</span>
+                <span className="px-2.5 py-1 rounded bg-white/5 border border-white/10">GCP / Firebase</span>
                 <span className="px-2.5 py-1 rounded bg-white/5 border border-white/10">LangChain</span>
                 <span className="px-2.5 py-1 rounded bg-white/5 border border-white/10">FastAPI</span>
-                <span className="px-2.5 py-1 rounded bg-white/5 border border-white/10">Embeddings</span>
-                <span className="px-2.5 py-1 rounded bg-white/5 border border-white/10">Pinecone</span>
+                <span className="px-2.5 py-1 rounded bg-white/5 border border-white/10">OpenCV</span>
                 <span className="px-2.5 py-1 rounded bg-white/5 border border-white/10">RAG</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Visual Verified Skills Table */}
+          <div className="cyber-panel p-6 sm:p-8 rounded-2xl border border-white/15">
+            <h3 className="text-base sm:text-lg font-bold text-white font-mono-code mb-4 flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-red-400" />
+              <span>CORE COMPILED PROFICIENCIES (INTERVIEW-READY)</span>
+            </h3>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 font-mono-code text-xs">
+              {/* Category 1 */}
+              <div className="p-4 rounded-xl bg-black/40 border border-white/10">
+                <div className="text-amber-400 font-bold mb-2.5 flex items-center gap-1.5">
+                  <Terminal className="w-3.5 h-3.5" />
+                  <span>CORE LANGUAGES</span>
+                </div>
+                <div className="space-y-1.5 text-slate-300 text-[11px]">
+                  {["JavaScript", "Python", "Dart", "SQL", "C"].map((lang) => (
+                    <div key={lang} className="flex justify-between items-center py-1 border-b border-white/5">
+                      <span>{lang}</span>
+                      <span className="text-emerald-400 text-[10px]">VERIFIED</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Category 2 */}
+              <div className="p-4 rounded-xl bg-black/40 border border-white/10">
+                <div className="text-sky-400 font-bold mb-2.5 flex items-center gap-1.5">
+                  <Boxes className="w-3.5 h-3.5" />
+                  <span>FRAMEWORKS &amp; APPS</span>
+                </div>
+                <div className="space-y-1.5 text-slate-300 text-[11px]">
+                  {["Flutter", "Node.js", "Next.js", "React", "GraphQL"].map((fw) => (
+                    <div key={fw} className="flex justify-between items-center py-1 border-b border-white/5">
+                      <span>{fw}</span>
+                      <span className="text-cyan-400 text-[10px]">PRODUCTION</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Category 3 */}
+              <div className="p-4 rounded-xl bg-black/40 border border-white/10">
+                <div className="text-emerald-400 font-bold mb-2.5 flex items-center gap-1.5">
+                  <Server className="w-3.5 h-3.5" />
+                  <span>CLOUD, DB &amp; TOOLING</span>
+                </div>
+                <div className="space-y-1.5 text-slate-300 text-[11px]">
+                  {["PostgreSQL", "Redis", "MySQL", "Docker", "GCP", "Firebase", "Postman", "Nginx"].map((tool) => (
+                    <div key={tool} className="flex justify-between items-center py-1 border-b border-white/5">
+                      <span>{tool}</span>
+                      <span className="text-purple-400 text-[10px]">DEPLOYED</span>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
@@ -737,14 +823,14 @@ export default function Home() {
             </div>
 
             {/* Action Buttons */}
-            <div className="flex flex-wrap items-center gap-3 mb-8">
+            <div className="flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center gap-3 mb-8">
               <button
                 type="button"
                 onClick={() => {
                   copyEmail();
                   window.location.href = "mailto:ishwarpatro000@gmail.com?subject=Portfolio%20Transmission%20Packet";
                 }}
-                className="px-5 py-3 rounded-xl bg-gradient-to-r from-red-500 to-orange-500 hover:from-red-600 hover:to-orange-600 text-white font-medium text-xs sm:text-sm transition-all shadow-[0_0_20px_rgba(255,80,56,0.35)] flex items-center gap-2"
+                className="w-full sm:w-auto justify-center px-5 py-3 rounded-xl bg-gradient-to-r from-red-500 to-orange-500 hover:from-red-600 hover:to-orange-600 text-white font-medium text-xs sm:text-sm transition-all shadow-[0_0_20px_rgba(255,80,56,0.35)] flex items-center gap-2"
               >
                 <Send className="w-4 h-4" />
                 <span>Transmit Packet (Email)</span>
@@ -753,7 +839,7 @@ export default function Home() {
               <button
                 type="button"
                 onClick={copyEmail}
-                className="px-4 py-3 rounded-xl bg-white/5 hover:bg-white/10 border border-white/15 text-slate-200 text-xs sm:text-sm font-mono-code transition-all flex items-center gap-2"
+                className="w-full sm:w-auto justify-center px-4 py-3 rounded-xl bg-white/5 hover:bg-white/10 border border-white/15 text-slate-200 text-xs sm:text-sm font-mono-code transition-all flex items-center gap-2"
               >
                 <Copy className="w-4 h-4 text-cyan-400" />
                 <span>Copy Frequency Address</span>

@@ -345,22 +345,22 @@ export default function MegacityBackground() {
       const isMobile = width < 768;
 
       // Layer 1: Sky Leviathans (scaled down and pushed back on mobile)
-      const whaleScale = isMobile ? Math.min(width / 1600, 0.55) : Math.min(width / 1300, 0.95);
-      const whaleY = isMobile ? height * 0.22 : height * 0.36;
+      const whaleScale = isMobile ? Math.min(width / 1500, 0.45) : Math.min(width / 1300, 0.95);
+      const whaleY = isMobile ? height * 0.18 : height * 0.36;
       drawSkyWhale(width * 0.54 + mouseX * 20, whaleY + mouseY * 12, whaleScale, animationTime, scrollProgress * height);
 
       if (scrollProgress > 0.15 && scrollProgress < 0.85) {
-        const turtleScale = isMobile ? Math.min(width / 1500, 0.5) : Math.min(width / 1200, 0.82);
+        const turtleScale = isMobile ? Math.min(width / 1600, 0.42) : Math.min(width / 1200, 0.82);
         drawSteampunkTurtle(width * 0.48 + mouseX * 25, height * 0.52 + mouseY * 15, turtleScale, animationTime, scrollProgress);
       }
 
       // Layer 2: Distant Skyscraper Silhouettes
       const distOffset = scrollProgress * 200;
       ctx.fillStyle = "#090f1c";
-      const colCount = isMobile ? 5 : 8;
+      const colCount = isMobile ? 4 : 8;
       for (let i = 0; i < colCount; i++) {
-        const bx = width * 0.1 + i * (width * 0.12);
-        const bw = width * 0.08;
+        const bx = width * 0.08 + i * (width * 0.14);
+        const bw = width * 0.09;
         const bh = height * 0.95;
         const by = height * 0.25 - distOffset * 0.4;
         ctx.fillRect(bx, by, bw, bh);
@@ -372,34 +372,37 @@ export default function MegacityBackground() {
         ctx.fillStyle = "#090f1c";
       }
 
-      // Layer 3: Flanking Canyon Walls (Narrower on mobile so they frame without covering)
+      // Layer 3: Flanking Canyon Walls (Disabled on mobile to give 100% full screen width for content)
       const wallPanY = scrollProgress * 700;
-      const leftWallWidth = isMobile ? Math.max(width * 0.14, 60) : Math.max(width * 0.28, 240);
-      const leftGrad = ctx.createLinearGradient(0, 0, leftWallWidth, 0);
-      leftGrad.addColorStop(0, "#03060a");
-      leftGrad.addColorStop(0.7, "#080d17");
-      leftGrad.addColorStop(1, "#121b2b");
-      ctx.fillStyle = leftGrad;
-      ctx.fillRect(0, 0, leftWallWidth, height);
-
-      // Left Wall Platforms & ACs
-      for (let y = -200; y < height + 400; y += 140) {
-        const curY = y - (wallPanY % 140);
-        ctx.fillStyle = "#1e293b";
-        ctx.fillRect(leftWallWidth - (isMobile ? 30 : 60), curY, isMobile ? 30 : 60, 6);
-        ctx.strokeStyle = "#475569";
-        ctx.lineWidth = 1.5;
-        ctx.strokeRect(leftWallWidth - (isMobile ? 30 : 60), curY - 20, isMobile ? 30 : 60, 20);
-      }
-
-      const rightWallWidth = isMobile ? Math.max(width * 0.14, 60) : Math.max(width * 0.26, 220);
+      const leftWallWidth = isMobile ? 0 : Math.max(width * 0.28, 240);
+      const rightWallWidth = isMobile ? 0 : Math.max(width * 0.26, 220);
       const rightWallX = width - rightWallWidth;
-      const rightGrad = ctx.createLinearGradient(rightWallX, 0, width, 0);
-      rightGrad.addColorStop(0, "#121b2b");
-      rightGrad.addColorStop(0.3, "#080d17");
-      rightGrad.addColorStop(1, "#03060a");
-      ctx.fillStyle = rightGrad;
-      ctx.fillRect(rightWallX, 0, rightWallWidth, height);
+
+      if (!isMobile) {
+        const leftGrad = ctx.createLinearGradient(0, 0, leftWallWidth, 0);
+        leftGrad.addColorStop(0, "#03060a");
+        leftGrad.addColorStop(0.7, "#080d17");
+        leftGrad.addColorStop(1, "#121b2b");
+        ctx.fillStyle = leftGrad;
+        ctx.fillRect(0, 0, leftWallWidth, height);
+
+        // Left Wall Platforms & ACs
+        for (let y = -200; y < height + 400; y += 140) {
+          const curY = y - (wallPanY % 140);
+          ctx.fillStyle = "#1e293b";
+          ctx.fillRect(leftWallWidth - 60, curY, 60, 6);
+          ctx.strokeStyle = "#475569";
+          ctx.lineWidth = 1.5;
+          ctx.strokeRect(leftWallWidth - 60, curY - 20, 60, 20);
+        }
+
+        const rightGrad = ctx.createLinearGradient(rightWallX, 0, width, 0);
+        rightGrad.addColorStop(0, "#121b2b");
+        rightGrad.addColorStop(0.3, "#080d17");
+        rightGrad.addColorStop(1, "#03060a");
+        ctx.fillStyle = rightGrad;
+        ctx.fillRect(rightWallX, 0, rightWallWidth, height);
+      }
 
       // Layer 4: Cable Car Gondolas & Suspended Cables
       const cableSpans = [
@@ -408,18 +411,21 @@ export default function MegacityBackground() {
         { y1: height * 0.78, y2: height * 0.84, sag: 38 },
       ];
 
+      const cableStartX = isMobile ? -20 : leftWallWidth - 10;
+      const cableEndX = isMobile ? width + 20 : rightWallX + 10;
+
       cableSpans.forEach((span, idx) => {
         const spanPanY = (span.y1 - (scrollProgress * 380) % (height * 0.9) + height * 0.9) % (height * 0.9);
-        ctx.strokeStyle = "#02050f";
+        ctx.strokeStyle = isMobile ? "rgba(2, 5, 15, 0.4)" : "#02050f";
         ctx.lineWidth = 1.8;
         ctx.beginPath();
-        ctx.moveTo(leftWallWidth - 10, spanPanY);
-        ctx.quadraticCurveTo(width * 0.5, spanPanY + span.sag, rightWallX + 10, spanPanY + (span.y2 - span.y1));
+        ctx.moveTo(cableStartX, spanPanY);
+        ctx.quadraticCurveTo(width * 0.5, spanPanY + span.sag, cableEndX, spanPanY + (span.y2 - span.y1));
         ctx.stroke();
 
         const gondola = gondolas[idx];
         gondola.t = (gondola.t + gondola.speed * gondola.dir + 1) % 1;
-        const gx = (leftWallWidth - 10) + gondola.t * ((rightWallX + 10) - (leftWallWidth - 10));
+        const gx = cableStartX + gondola.t * (cableEndX - cableStartX);
         const gy = spanPanY + span.sag * 4 * gondola.t * (1 - gondola.t) + gondola.t * (span.y2 - span.y1);
 
         ctx.save();
