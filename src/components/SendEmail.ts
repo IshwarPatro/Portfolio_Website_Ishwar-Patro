@@ -1,7 +1,3 @@
-"use server";
-
-import { Resend } from "resend";
-import { redirect } from "next/navigation";
 import { portfolioConfig } from "@/config/portfolio.config";
 
 export const SendEmail = async (formdata: FormData) => {
@@ -15,20 +11,14 @@ export const SendEmail = async (formdata: FormData) => {
     };
   }
 
-  const apiKey = process.env.RESEND_API_KEY;
-  if (!apiKey) {
-    console.warn("RESEND_API_KEY is not configured. Email submission skipped in dev.");
-    return redirect("/");
+  const recipient = portfolioConfig.email || "ishwarpatro000@gmail.com";
+  const subject = encodeURIComponent(`Portfolio Inquiry from ${name || "Visitor"}`);
+  const body = encodeURIComponent(
+    `Hello Ishwar,\n\n${message}\n\n---\nSender: ${name}\nEmail: ${SenderEmail}`
+  );
+
+  if (typeof window !== "undefined") {
+    window.location.href = `mailto:${recipient}?subject=${subject}&body=${body}`;
   }
-
-  const resend = new Resend(apiKey);
-  await resend.emails.send({
-    from: "Portfolio Contact <onboarding@resend.dev>",
-    to: portfolioConfig.email || "ishwarpatro@gmail.com",
-    subject: `${name || "Visitor"} sent a message from your Portfolio`,
-    reply_to: `${SenderEmail}`,
-    text: `Sender: ${name} (${SenderEmail})\n\nMessage:\n${message}`,
-  });
-
-  return redirect("/");
+  return { success: true };
 };
