@@ -156,7 +156,7 @@ export default function Home() {
         newHistory.push({
           type: "output",
           text:
-            "TRANSMISSION FREQUENCY: ishwarpatro@gmail.com\nLinkedIn: https://www.linkedin.com/in/ishwar-patro-0b3a8b210/\nGitHub: https://github.com/IshwarPatro",
+            "TRANSMISSION FREQUENCY: ishwarpatro000@gmail.com\nLinkedIn: https://www.linkedin.com/in/ishwar-patro-0b3a8b210/\nGitHub: https://github.com/IshwarPatro",
         });
         break;
       case "clear":
@@ -176,8 +176,8 @@ export default function Home() {
   };
 
   const copyEmail = () => {
-    navigator.clipboard.writeText("ishwarpatro@gmail.com");
-    showToast("TRANSMISSION ADDRESS COPIED: ishwarpatro@gmail.com");
+    navigator.clipboard.writeText("ishwarpatro000@gmail.com");
+    showToast("TRANSMISSION ADDRESS COPIED: ishwarpatro000@gmail.com");
   };
 
   const handleResumeDownload = () => {
@@ -742,7 +742,7 @@ export default function Home() {
                 type="button"
                 onClick={() => {
                   copyEmail();
-                  window.location.href = "mailto:ishwarpatro@gmail.com?subject=Portfolio%20Transmission%20Packet";
+                  window.location.href = "mailto:ishwarpatro000@gmail.com?subject=Portfolio%20Transmission%20Packet";
                 }}
                 className="px-5 py-3 rounded-xl bg-gradient-to-r from-red-500 to-orange-500 hover:from-red-600 hover:to-orange-600 text-white font-medium text-xs sm:text-sm transition-all shadow-[0_0_20px_rgba(255,80,56,0.35)] flex items-center gap-2"
               >

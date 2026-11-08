@@ -24,7 +24,7 @@ export const portfolioConfig = {
   location: "Bangalore, India · Open to SDE & Backend Opportunities",
 
   // Contact Information
-  email: "ishwarpatro@gmail.com",
+  email: "ishwarpatro000@gmail.com",
 
   // Social Media Links
   socialLinks: {
