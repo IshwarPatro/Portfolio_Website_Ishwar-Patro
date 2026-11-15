@@ -34,8 +34,18 @@
 
 ---
 
-## 🚀 Key Production Deployments
+## 🚀 Key Production & Personal Research Deployments
 
+### 🛡️ Flagship Personal Project
+- **★ IP FORGE — Autonomous Self-Healing AI Software Engineering Agency**
+  - **Architecture**: Federated 6-persona multi-agent engine (Planner, Architect, Coder, Tester, Debugger, Reviewer) operating across the entire SDLC.
+  - **AST Structural Code RAG**: Syntax-tree parser (classes, methods, functions) with ChromaDB (384-dim dense vectors) eliminating text-splitting hallucinations.
+  - **Sandboxed MCP Tooling**: Canonical path traversal guards (`os.path.realpath`), isolated Git branch workspaces (`forge/task-...`), and 30s timeout execution.
+  - **Self-Healing Loop**: Subprocess `pytest` execution with traceback capture and bounded delta patch repair capped at $\le 3$ diagnostic cycles.
+  - **Dual-Tier Compute**: Apple Silicon M4 Edge + AMD Instinct MI300X (192GB HBM3) / ROCm 6.2 Cloud acceleration.
+  - **HitL Governance Cockpit**: Next.js 16 + FastAPI Async SSE streams, unified color-coded Git diff viewer, and cryptographic approval gate.
+
+### 🏢 Enterprise & Client Deployments
 1. **Achivr LMS Mobile & Web** — Enterprise Learning Management System built with Flutter, GraphQL, and Node.js.
 2. **Dell RMN Tabletop Standee** — Interactive enterprise retail kiosk deployed across national retail locations.
 3. **her.store Shopify HMAC Pipeline** — Zero-packet-drop webhook ingestion engine handling thousands of automated transactions with cryptographically verified payloads.

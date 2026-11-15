@@ -139,7 +139,7 @@ export default function Home() {
         newHistory.push({
           type: "output",
           text:
-            "AVAILABLE COMMANDS:\n  skills     - Print compiled engineering capabilities (Languages & Frameworks)\n  projects   - List production enterprise highlights (11 verified systems)\n  telemetry  - Query active system status & runtime metrics\n  whoami     - Inspect engineer identity & clearance level\n  contact    - Display transmission frequency link\n  clear      - Clear terminal scrollback buffer",
+            "AVAILABLE COMMANDS:\n  skills     - Print compiled engineering capabilities (Languages & Frameworks)\n  projects   - List 12 verified engineering systems (1 Personal Flagship + 11 Enterprise)\n  telemetry  - Query active system status & runtime metrics\n  whoami     - Inspect engineer identity & clearance level\n  contact    - Display transmission frequency link\n  clear      - Clear terminal scrollback buffer",
         });
         break;
       case "skills":
@@ -153,7 +153,7 @@ export default function Home() {
         newHistory.push({
           type: "output",
           text:
-            "// 11 FEATURED PRODUCTION SYSTEMS:\n1. Achivr LMS & Social Engine (Full-stack Flutter + Node.js + MongoDB)\n2. Dell Retail Media Network (Edge Tabletop Standee IoT Platform)\n3. her.store (Zero-loss Shopify HMAC Cryptographic Pipeline)\n4. Lenovo Partner Lead NLP Router (Automated Sentiment & Contract Routing)\n5. Numaish Exhibition App (Commercial Fair Commerce & Payment Gateway)\n6. FamilyCentral (Family Office Encrypted Vault Storage)\n7. CX9 Architecture (Unified Modular Multi-Product Engine)\n8. Acer RMN & HC Retail (Microsoft Store Certified MSIX Packaging)\n9. Dell LMS (Lead Management System, Flutter 3.47)\n10. Autodev-Codex AI Engine (Autonomous Coding Agent Loop)\n11. Computer Vision Verification (Python / OpenCV)",
+            "// 12 VERIFIED PRODUCTION & RESEARCH SYSTEMS:\n★ [PERSONAL FLAGSHIP] IP FORGE — Autonomous Self-Healing Multi-Agent SDLC Agency (AST RAG, ChromaDB, AMD Instinct MI300X & Apple M4)\n1. Achivr LMS & Social Engine (Full-stack Flutter + Node.js + MongoDB)\n2. Dell Retail Media Network (Edge Tabletop Standee IoT Platform)\n3. her.store (Zero-loss Shopify HMAC Cryptographic Pipeline)\n4. Lenovo Partner Lead NLP Router (Automated Sentiment & Contract Routing)\n5. Numaish Exhibition App (Commercial Fair Commerce & Payment Gateway)\n6. FamilyCentral (Family Office Encrypted Vault Storage)\n7. CX9 Architecture (Unified Modular Multi-Product Engine)\n8. Acer RMN & HC Retail (Microsoft Store Certified MSIX Packaging)\n9. Dell LMS (Lead Management System, Flutter 3.47)\n10. Autodev-Codex AI Engine (Autonomous Coding Agent Loop)\n11. Computer Vision Verification (Python / OpenCV)",
         });
         break;
       case "telemetry":
@@ -290,7 +290,7 @@ export default function Home() {
                   href="#projects"
                   className="w-full sm:w-auto justify-center px-5 sm:px-6 py-3 rounded-xl bg-gradient-to-r from-red-500 to-orange-500 hover:from-red-600 hover:to-orange-600 text-white font-medium text-xs sm:text-sm shadow-[0_0_25px_rgba(255,80,56,0.4)] transition-all flex items-center gap-2"
                 >
-                  <span>Explore 11 Professional Projects</span>
+                  <span>Explore 12 Engineering Projects</span>
                   <ArrowRight className="w-4 h-4" />
                 </a>
                 <button
@@ -627,74 +627,120 @@ export default function Home() {
                 {"// 02. FLIGHT WAYPOINT: PRODUCTION ARCHIVES"}
               </div>
               <h2 className="text-2xl sm:text-4xl md:text-5xl font-bold text-white font-heading">
-                Enterprise Missions &amp; Deployments
+                Engineering Projects &amp; Deployments
               </h2>
             </div>
             <p className="text-xs font-mono-code text-slate-400 mt-2 md:mt-0">
-              11 VERIFIED PRODUCTION RELEASES &amp; ARCHITECTURES
+              12 VERIFIED RELEASES {"//"} 1 PERSONAL FLAGSHIP + 11 ENTERPRISE MISSIONS
             </p>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
-            {portfolioConfig.projects.map((proj, idx) => (
-              <div
-                key={proj.id}
-                className="cyber-panel rounded-2xl p-6 sm:p-8 border border-white/15 hover:border-red-500/50 transition-all duration-300 group flex flex-col justify-between"
-              >
-                <div>
-                  <div className="flex items-center justify-between mb-3 text-[11px] font-mono-code">
-                    <span className="text-red-400 bg-red-500/10 px-2.5 py-0.5 rounded border border-red-500/25">
-                      MISSION_0{idx + 1} {"//"} {proj.category.toUpperCase()}
-                    </span>
-                    <span className="text-slate-400">{proj.status.toUpperCase()}</span>
-                  </div>
-
-                  <h3 className="text-xl sm:text-2xl font-bold text-white group-hover:text-red-400 transition-colors mb-3 font-heading">
-                    {proj.title}
-                  </h3>
-
-                  <p className="text-slate-300 text-xs sm:text-sm leading-relaxed mb-5">
-                    {proj.description}
-                  </p>
-
-                  {/* Architecture bullet highlights */}
-                  <div className="space-y-1.5 mb-5 text-[11px] font-mono-code text-slate-300">
-                    {proj.architectureDetails.slice(0, 2).map((detail, dIdx) => (
-                      <div key={dIdx} className="flex items-start gap-1.5">
-                        <span className="text-red-400 font-bold">›</span>
-                        <span className="leading-snug">{detail}</span>
-                      </div>
-                    ))}
-                  </div>
-
-                  {/* Tech tags */}
-                  <div className="flex flex-wrap gap-1.5 text-[11px] font-mono-code text-slate-200 mb-5">
-                    {proj.tags.map((tag) => (
-                      <span key={tag} className="px-2 py-0.5 bg-white/5 rounded border border-white/10">
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-
-                <div className="pt-3 border-t border-white/10 flex justify-between items-center text-[11px] font-mono-code text-slate-400">
-                  <span className="truncate max-w-[65%]">
-                    {proj.impactMetrics[0] || "ENTERPRISE GRADE"}
-                  </span>
-                  {proj.link && (
-                    <a
-                      href={proj.link}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="text-red-400 hover:text-white flex items-center gap-1 transition-colors"
-                    >
-                      <span>VIEW STORE</span>
-                      <ExternalLink className="w-3.5 h-3.5" />
-                    </a>
+            {portfolioConfig.projects.map((proj, idx) => {
+              const isPersonal = (proj as { isPersonal?: boolean }).isPersonal;
+              return (
+                <div
+                  key={proj.id}
+                  className={`cyber-panel rounded-2xl transition-all duration-300 group flex flex-col justify-between relative overflow-hidden ${
+                    isPersonal
+                      ? "lg:col-span-2 p-6 sm:p-8 md:p-10 border-2 border-amber-500/70 hover:border-amber-400/90 shadow-[0_0_50px_rgba(245,158,11,0.22)] bg-gradient-to-br from-[#12101c] via-[#090b14] to-[#0c1422]"
+                      : "p-6 sm:p-8 border border-white/15 hover:border-red-500/50"
+                  }`}
+                >
+                  {/* Personal Project Corner Ribbon / Watermark */}
+                  {isPersonal && (
+                    <div className="absolute top-0 right-0 px-4 py-1.5 bg-gradient-to-l from-amber-500/35 via-amber-500/20 to-transparent border-b border-l border-amber-500/40 text-[10px] sm:text-xs font-mono-code text-amber-300 font-bold flex items-center gap-2 rounded-bl-xl shadow-lg">
+                      <Sparkles className="w-3.5 h-3.5 text-amber-400 animate-pulse" />
+                      <span>★ PERSONAL PROJECT // FLAGSHIP AI AGENCY</span>
+                    </div>
                   )}
+
+                  <div>
+                    <div className="flex flex-wrap items-center justify-between gap-2 mb-3 text-[11px] font-mono-code">
+                      <span
+                        className={`px-2.5 py-0.5 rounded border font-semibold ${
+                          isPersonal
+                            ? "text-amber-300 bg-amber-500/20 border-amber-500/40 shadow-[0_0_14px_rgba(245,158,11,0.3)]"
+                            : "text-red-400 bg-red-500/10 border-red-500/25"
+                        }`}
+                      >
+                        {isPersonal
+                          ? "★ INDEPENDENT R&D // AUTONOMOUS MULTI-AGENT SDLC"
+                          : `MISSION_0${idx} // ${proj.category.toUpperCase()}`}
+                      </span>
+                      <span className={isPersonal ? "text-amber-400 font-bold tracking-wider" : "text-slate-400"}>
+                        {proj.status.toUpperCase()}
+                      </span>
+                    </div>
+
+                    <h3
+                      className={`text-xl sm:text-2xl md:text-3xl font-bold transition-colors mb-3 font-heading ${
+                        isPersonal ? "text-white group-hover:text-amber-300" : "text-white group-hover:text-red-400"
+                      }`}
+                    >
+                      {proj.title}
+                    </h3>
+
+                    <p className="text-slate-300 text-xs sm:text-sm md:text-base leading-relaxed mb-6 max-w-4xl">
+                      {proj.description}
+                    </p>
+
+                    {/* Architecture bullet highlights */}
+                    <div
+                      className={`space-y-2 mb-6 text-[11px] sm:text-xs font-mono-code text-slate-300 ${
+                        isPersonal
+                          ? "grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-3 p-4 sm:p-5 rounded-xl bg-black/60 border border-amber-500/25 shadow-inner"
+                          : ""
+                      }`}
+                    >
+                      {proj.architectureDetails.slice(0, isPersonal ? 6 : 2).map((detail, dIdx) => (
+                        <div key={dIdx} className="flex items-start gap-2">
+                          <span className={`font-bold ${isPersonal ? "text-amber-400" : "text-red-400"}`}>›</span>
+                          <span className="leading-snug">{detail}</span>
+                        </div>
+                      ))}
+                    </div>
+
+                    {/* Tech tags */}
+                    <div className="flex flex-wrap gap-1.5 text-[11px] font-mono-code text-slate-200 mb-6">
+                      {proj.tags.map((tag) => (
+                        <span
+                          key={tag}
+                          className={`px-2.5 py-1 rounded border transition-colors ${
+                            isPersonal
+                              ? "bg-amber-500/10 text-amber-200 border-amber-500/30 hover:border-amber-400/60"
+                              : "bg-white/5 border-white/10"
+                          }`}
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="pt-4 border-t border-white/10 flex flex-wrap justify-between items-center text-[11px] font-mono-code text-slate-400 gap-2">
+                    <span className={`truncate max-w-[70%] ${isPersonal ? "text-amber-300 font-semibold" : ""}`}>
+                      {proj.impactMetrics[0] || "ENTERPRISE GRADE"}
+                    </span>
+                    {proj.link && (
+                      <a
+                        href={proj.link}
+                        target="_blank"
+                        rel="noreferrer"
+                        className={`flex items-center gap-1.5 transition-colors font-semibold ${
+                          isPersonal
+                            ? "text-amber-400 hover:text-white"
+                            : "text-red-400 hover:text-white"
+                        }`}
+                      >
+                        <span>{isPersonal ? "VIEW PROJECT REPO" : "VIEW STORE"}</span>
+                        <ExternalLink className="w-3.5 h-3.5" />
+                      </a>
+                    )}
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </section>
 

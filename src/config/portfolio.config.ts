@@ -245,8 +245,46 @@ export const portfolioConfig = {
     },
   ],
 
-  // 11 Complete Professional Engineering Projects (Hash Connect & SMBXL Pvt Ltd)
+  // 12 Complete Engineering Projects (1 Personal Flagship + 11 Enterprise Systems)
   projects: [
+    {
+      id: "ip-forge-autonomous-agent",
+      title: "IP FORGE — Autonomous Self-Healing AI Software Engineering Agency",
+      category: "Personal Project · Autonomous Multi-Agent SDLC · AMD ROCm & Apple M4",
+      status: "Personal Flagship Project",
+      isFlagship: true,
+      isPersonal: true,
+      badgeHighlight: "★ PERSONAL PROJECT // AUTONOMOUS AI AGENCY",
+      description:
+        "An autonomous, self-healing AI software engineering agency operating across the entire Software Development Life Cycle (SDLC). Ingests natural language prompts, indexes codebases via AST structural code embeddings, decomposes tasks across 6 specialized federated personas (Planner, Architect, Coder, Tester, Debugger, Reviewer), executes sandboxed MCP mutations in isolated Git branches, and auto-repairs failing test suites in a bounded diagnostic loop (≤ 3 cycles) with Human-in-the-Loop governance.",
+      architectureDetails: [
+        "Federated Multi-Agent Engine: Divides SDLC execution across 6 discrete personas (Planner, Architect, Coder, Tester, Debugger, Reviewer) rather than relying on a single monolithic prompt.",
+        "AST-Aware Structural Code Vector RAG: Syntax tree parser (classes, methods, functions) coupled with ChromaDB (384-dim dense vectors) eliminating text-splitting hallucinations.",
+        "Sandboxed MCP Tooling: Canonical path traversal guards (os.path.realpath), 30s timeout terminal execution with command blacklists, and isolated Git branch workspaces (forge/task-...).",
+        "Self-Healing Closed Loop: Subprocess pytest execution with automated traceback capture, culprit symbol isolation, and delta patch self-healing capped at ≤ 3 diagnostic cycles.",
+        "Dual-Tier Hardware Topology: Asymmetric compute splitting between Edge workstation (Apple Silicon M4) and AMD Developer Cloud (Instinct MI300X 192GB / ROCm 6.2).",
+        "Next.js 16 + FastAPI HitL Cockpit: Real-time asynchronous SSE streaming, color-coded unified Git diff inspection (+ green / - red), PR review summaries, and cryptographic approval gate.",
+      ],
+      impactMetrics: [
+        "Autonomous SDLC execution with bounded convergence (≤ 3 self-healing diagnostic cycles)",
+        "AST structural code vector indexing eliminating text-splitting hallucination",
+        "Dual-tier hardware orchestration: Apple Silicon M4 Edge + AMD Instinct MI300X (ROCm 6.2)",
+      ],
+      tags: [
+        "Personal Project",
+        "Autonomous Multi-Agent",
+        "AST Code RAG",
+        "Self-Healing Loop",
+        "FastAPI Async SSE",
+        "Next.js 16 HitL",
+        "ChromaDB",
+        "AMD Instinct MI300X",
+        "ROCm 6.2",
+        "Apple Silicon M4",
+        "MCP Sandboxing",
+      ],
+      link: "https://github.com/IshwarPatro",
+    },
     {
       id: "achivr-social",
       title: "Achivr — Full-Stack Social Media Platform",
