@@ -283,7 +283,7 @@ export const portfolioConfig = {
         "Apple Silicon M4",
         "MCP Sandboxing",
       ],
-      link: "https://github.com/IshwarPatro",
+      link: "https://github.com/IshwarPatro/IP-FORGE",
     },
     {
       id: "achivr-social",

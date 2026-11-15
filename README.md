@@ -37,7 +37,7 @@
 ## 🚀 Key Production & Personal Research Deployments
 
 ### 🛡️ Flagship Personal Project
-- **★ IP FORGE — Autonomous Self-Healing AI Software Engineering Agency**
+- **★ [IP FORGE](https://github.com/IshwarPatro/IP-FORGE) — Autonomous Self-Healing AI Software Engineering Agency** ([GitHub Repository](https://github.com/IshwarPatro/IP-FORGE))
   - **Architecture**: Federated 6-persona multi-agent engine (Planner, Architect, Coder, Tester, Debugger, Reviewer) operating across the entire SDLC.
   - **AST Structural Code RAG**: Syntax-tree parser (classes, methods, functions) with ChromaDB (384-dim dense vectors) eliminating text-splitting hallucinations.
   - **Sandboxed MCP Tooling**: Canonical path traversal guards (`os.path.realpath`), isolated Git branch workspaces (`forge/task-...`), and 30s timeout execution.
