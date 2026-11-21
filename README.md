@@ -65,6 +65,12 @@
   - **Power-Ups & Persistence**: 4 in-game drop types (Rapid Fire, Spread Shot, Energy Shield, Hull Repair) and persistent high-score tracking via `shared_preferences`.
   - **IP-FORGE Governed**: Enforced by autonomous code quality checks, static analysis, and regression tests via IP-FORGE review workflows (`.ip-forge.yaml`).
 
+- **[TTOD (That Time of Day)](https://github.com/IshwarPatro/TTOD) — Privacy-First Wellness & Cycle Tracker** ([GitHub Repository](https://github.com/IshwarPatro/TTOD))
+  - **Flutter & BLoC Architecture**: Multi-platform mobile app built with Flutter SDK (Null-Safety) and `flutter_bloc` with clean unidirectional data flow.
+  - **Functional Error Handling**: Type-safe failure handling powered by `fpdart` (`Either` monads) eliminating unexpected runtime exceptions.
+  - **Encrypted Local Persistence**: Offline-first cycle logging, symptom tracking, and fertile-window predictions persisted via encrypted `hive` key-value boxes.
+  - **Private Group Circles & Peer Networks**: Invite-only group chat, friend lists with link/QR code verification, `Admin`/`User` role hierarchy, and anti-abuse join rate limiting.
+
 ---
 
 ## 🎨 Design Philosophy: Neo-Noir Atmospheric Engine

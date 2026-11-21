@@ -247,7 +247,7 @@ export const portfolioConfig = {
     },
   ],
 
-  // 13 Complete Engineering Projects (11 Company Projects on top + 2 Personal Projects after)
+  // 14 Complete Engineering Projects (11 Company Projects on top + 3 Personal Projects after)
   projects: [
     {
       id: "achivr-social",
@@ -563,6 +563,40 @@ export const portfolioConfig = {
         "IP-FORGE Governed",
       ],
       link: "https://github.com/IshwarPatro/space_arcade",
+    },
+    {
+      id: "ttod-wellness",
+      title: "TTOD (That Time of Day) — Privacy-First Wellness & Cycle Tracker",
+      category: "Personal Project · Mobile Health & Wellness · Flutter & BLoC",
+      status: "Personal Project · Open Source",
+      isFlagship: false,
+      isPersonal: true,
+      isFeaturedPersonal: false,
+      badgeHighlight: "PERSONAL PROJECT // FLUTTER & BLOC",
+      description:
+        "A private, offline-first menstrual cycle and wellness tracking mobile application engineered with Flutter, flutter_bloc, and Hive key-value persistence. Features encrypted on-device health logging (cycle intervals, flow intensity, symptom tracking, fertile-window predictions), invite-only group communities with QR/link verification, role-based admin controls, anti-abuse rate limits, and functional error handling powered by fpdart.",
+      architectureDetails: [
+        "BLoC State Machine & Functional Architecture: Reactive unidirectional data flow using flutter_bloc coupled with fpdart Either monads for type-safe error handling.",
+        "Encrypted Offline-First Storage: Zero-cloud dependency cycle persistence using Hive key-value boxes with local AES encryption and secure key storage.",
+        "Private Peer Networks & Group Chat: Invite-only group circles, QR-code friend pairing, Admin/User membership governance, and anti-abuse join limits.",
+      ],
+      impactMetrics: [
+        "Built with Flutter & flutter_bloc for offline-first privacy",
+        "Local AES encrypted health tracking via Hive key-value persistence",
+        "Invite-only peer circles with QR code pairing and anti-abuse safeguards",
+      ],
+      tags: [
+        "Personal Project",
+        "Flutter",
+        "Dart",
+        "BLoC Pattern",
+        "Hive DB",
+        "fpdart",
+        "HealthTech",
+        "Offline-First",
+        "Mobile App",
+      ],
+      link: "https://github.com/IshwarPatro/TTOD",
     },
   ] as ProjectItem[],
 

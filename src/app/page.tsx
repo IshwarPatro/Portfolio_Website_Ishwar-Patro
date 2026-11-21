@@ -139,7 +139,7 @@ export default function Home() {
         newHistory.push({
           type: "output",
           text:
-            "AVAILABLE COMMANDS:\n  skills     - Print compiled engineering capabilities (Languages & Frameworks)\n  projects   - List 13 verified engineering systems (2 Personal + 11 Enterprise)\n  telemetry  - Query active system status & runtime metrics\n  whoami     - Inspect engineer identity & clearance level\n  contact    - Display transmission frequency link\n  clear      - Clear terminal scrollback buffer",
+            "AVAILABLE COMMANDS:\n  skills     - Print compiled engineering capabilities (Languages & Frameworks)\n  projects   - List 14 verified engineering systems (11 Enterprise + 3 Personal)\n  telemetry  - Query active system status & runtime metrics\n  whoami     - Inspect engineer identity & clearance level\n  contact    - Display transmission frequency link\n  clear      - Clear terminal scrollback buffer",
         });
         break;
       case "skills":
@@ -153,7 +153,7 @@ export default function Home() {
         newHistory.push({
           type: "output",
           text:
-            "// 11 VERIFIED ENTERPRISE & COMPANY DEPLOYMENTS:\n1. Achivr LMS & Social Engine (Full-stack Flutter + Node.js + MongoDB)\n2. her.store (Zero-loss Shopify HMAC Cryptographic Pipeline)\n3. Lenovo Partner Lead NLP Router (Automated Sentiment & Contract Routing)\n4. Dell LMS (Field Lead Management Enterprise App, Flutter 3.47)\n5. Lenovo LMS (Enterprise Partner Management Platform)\n6. Acer RMN (Dual-Screen Microsoft Store Certified MSIX Packaging)\n7. HC Retail (In-Store Experience & Retail Workflow Engine)\n8. CX9 Architecture (Unified Modular Multi-Product Engine)\n9. Dell RMN Standee (Edge Tabletop Interactive IoT Media System)\n10. Numaish Exhibition App (Commercial Fair Commerce & Payment Gateway)\n11. FamilyCentral (Family Office Encrypted Private Vault Storage)\n\n// PERSONAL PROJECTS & AUTONOMOUS R&D:\n★ [PERSONAL FLAGSHIP] IP FORGE — Autonomous Self-Healing Multi-Agent SDLC Agency (AST RAG, ChromaDB, AMD Instinct MI300X & Apple M4)\n   Repository: https://github.com/IshwarPatro/IP-FORGE\n★ [PERSONAL PROJECT] Space Arcade — Vertical Retro-Pixel Spacecraft Shooter (Flame 2D Engine & Flutter)\n   Repository: https://github.com/IshwarPatro/space_arcade",
+            "// 11 VERIFIED ENTERPRISE & COMPANY DEPLOYMENTS:\n1. Achivr LMS & Social Engine (Full-stack Flutter + Node.js + MongoDB)\n2. her.store (Zero-loss Shopify HMAC Cryptographic Pipeline)\n3. Lenovo Partner Lead NLP Router (Automated Sentiment & Contract Routing)\n4. Dell LMS (Field Lead Management Enterprise App, Flutter 3.47)\n5. Lenovo LMS (Enterprise Partner Management Platform)\n6. Acer RMN (Dual-Screen Microsoft Store Certified MSIX Packaging)\n7. HC Retail (In-Store Experience & Retail Workflow Engine)\n8. CX9 Architecture (Unified Modular Multi-Product Engine)\n9. Dell RMN Standee (Edge Tabletop Interactive IoT Media System)\n10. Numaish Exhibition App (Commercial Fair Commerce & Payment Gateway)\n11. FamilyCentral (Family Office Encrypted Private Vault Storage)\n\n// PERSONAL PROJECTS & AUTONOMOUS R&D:\n★ [PERSONAL FLAGSHIP] IP FORGE — Autonomous Self-Healing Multi-Agent SDLC Agency (AST RAG, ChromaDB, AMD Instinct MI300X & Apple M4)\n   Repository: https://github.com/IshwarPatro/IP-FORGE\n★ [PERSONAL PROJECT] Space Arcade — Vertical Retro-Pixel Spacecraft Shooter (Flame 2D Engine & Flutter)\n   Repository: https://github.com/IshwarPatro/space_arcade\n★ [PERSONAL PROJECT] TTOD (That Time of Day) — Privacy-First Wellness & Cycle Tracker (Flutter, BLoC & Hive)\n   Repository: https://github.com/IshwarPatro/TTOD",
         });
         break;
       case "telemetry":
@@ -290,7 +290,7 @@ export default function Home() {
                   href="#projects"
                   className="w-full sm:w-auto justify-center px-5 sm:px-6 py-3 rounded-xl bg-gradient-to-r from-red-500 to-orange-500 hover:from-red-600 hover:to-orange-600 text-white font-medium text-xs sm:text-sm shadow-[0_0_25px_rgba(255,80,56,0.4)] transition-all flex items-center gap-2"
                 >
-                  <span>Explore 13 Engineering Projects</span>
+                  <span>Explore 14 Engineering Projects</span>
                   <ArrowRight className="w-4 h-4" />
                 </a>
                 <button
@@ -632,7 +632,7 @@ export default function Home() {
               </h2>
             </div>
             <p className="text-xs font-mono-code text-slate-400 mt-2 md:mt-0">
-              13 VERIFIED RELEASES {"//"} 11 COMPANY DEPLOYMENTS + 2 PERSONAL PROJECTS
+              14 VERIFIED RELEASES {"//"} 11 COMPANY DEPLOYMENTS + 3 PERSONAL PROJECTS
             </p>
           </div>
 
@@ -732,7 +732,7 @@ export default function Home() {
                   Personal Projects &amp; Autonomous R&amp;D
                 </h3>
                 <span className="text-xs font-mono-code text-amber-300 font-semibold px-2.5 py-0.5 rounded bg-amber-500/15 border border-amber-500/35">
-                  Autonomous Systems &amp; Game Labs
+                  3 Systems Live // Autonomous SDLC, Game Labs &amp; Health
                 </span>
               </div>
               <span className="text-xs font-mono-code text-amber-400/80">
