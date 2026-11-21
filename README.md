@@ -36,34 +36,34 @@
 
 ## 🚀 Key Production & Personal Research Deployments
 
-### 🛡️ Personal Projects
+### 🏢 Enterprise & Company Deployments (On Top)
+1. **Achivr LMS Mobile & Web** — Enterprise Learning Management System built with Flutter, GraphQL, and Node.js.
+2. **her.store Shopify HMAC Pipeline** — Zero-packet-drop webhook ingestion engine handling thousands of automated transactions with cryptographically verified payloads.
+3. **Lenovo Partner Lead NLP Router** — Intelligent partner routing pipeline using Python NLP embeddings for deterministic lead assignment.
+4. **Dell LMS Microservices & Mobile App** — High-throughput learning modules and assessment pipelines (Flutter 3.47).
+5. **Lenovo LMS Platform** — Enterprise partner learning and certification portal.
+6. **Acer RMN Dual-Screen Desktop App** — WACK-compliant Windows application published on the Microsoft Store (MSIX).
+7. **HC Retail Experience Engine** — Interactive retail workflow engine and kiosk synchronization.
+8. **CX9 Modular Architecture** — Decoupled UI and microservice modularization for rapid component composition.
+9. **Dell RMN Tabletop Standee** — Interactive enterprise retail kiosk deployed across national retail locations.
+10. **Numaish Exhibition App** — High-concurrency commercial exhibition fair commerce and payment gateway.
+11. **FamilyCentral Document Vault** — Secure, client-side encrypted document and record vault for family office assets.
+
+### 🛡️ Personal Projects & Autonomous R&D (After Company Deployments)
 - **★ [IP FORGE](https://github.com/IshwarPatro/IP-FORGE) — Autonomous Self-Healing AI Software Engineering Agency** ([GitHub Repository](https://github.com/IshwarPatro/IP-FORGE))
-  - **Architecture**: Federated 6-persona multi-agent engine (Planner, Architect, Coder, Tester, Debugger, Reviewer) operating across the entire SDLC.
+  - **Flagship AI Agency**: Federated 6-persona multi-agent engine (Planner, Architect, Coder, Tester, Debugger, Reviewer) operating across the entire SDLC.
   - **AST Structural Code RAG**: Syntax-tree parser (classes, methods, functions) with ChromaDB (384-dim dense vectors) eliminating text-splitting hallucinations.
   - **Sandboxed MCP Tooling**: Canonical path traversal guards (`os.path.realpath`), isolated Git branch workspaces (`forge/task-...`), and 30s timeout execution.
   - **Self-Healing Loop**: Subprocess `pytest` execution with traceback capture and bounded delta patch repair capped at $\le 3$ diagnostic cycles.
   - **Dual-Tier Compute**: Apple Silicon M4 Edge + AMD Instinct MI300X (192GB HBM3) / ROCm 6.2 Cloud acceleration.
   - **HitL Governance Cockpit**: Next.js 16 + FastAPI Async SSE streams, unified color-coded Git diff viewer, and cryptographic approval gate.
 
-- **★ [Space Arcade](https://github.com/IshwarPatro/space_arcade) — Vertical Retro-Pixel Spacecraft Shooter** ([GitHub Repository](https://github.com/IshwarPatro/space_arcade))
-  - **Engine & Architecture**: Built with Flutter and the Flame 2D game engine (`flame: ^1.35.1`) with component-entity game loops and parallax starfield rendering.
+- **[Space Arcade](https://github.com/IshwarPatro/space_arcade) — Vertical Retro-Pixel Spacecraft Shooter** ([GitHub Repository](https://github.com/IshwarPatro/space_arcade))
+  - **Flame 2D & Flutter**: Built with Flutter and the Flame 2D game engine (`flame: ^1.35.1`) with component-entity game loops and parallax starfield rendering.
   - **Controls & Gameplay**: Mobile-first touch/drag piloting with auto-fire cannons and haptics, plus `WASD`/Arrow keyboard mappings for desktop & web.
   - **Wave Scaling & Boss Battles**: Multi-wave enemy archetypes (Scout, Striker, Heavy), rotating asteroids, and multi-phase Dreadnought Boss encounters with segmented health bars.
   - **Power-Ups & Persistence**: 4 in-game drop types (Rapid Fire, Spread Shot, Energy Shield, Hull Repair) and persistent high-score tracking via `shared_preferences`.
   - **IP-FORGE Governed**: Enforced by autonomous code quality checks, static analysis, and regression tests via IP-FORGE review workflows (`.ip-forge.yaml`).
-
-### 🏢 Enterprise & Client Deployments
-1. **Achivr LMS Mobile & Web** — Enterprise Learning Management System built with Flutter, GraphQL, and Node.js.
-2. **Dell RMN Tabletop Standee** — Interactive enterprise retail kiosk deployed across national retail locations.
-3. **her.store Shopify HMAC Pipeline** — Zero-packet-drop webhook ingestion engine handling thousands of automated transactions with cryptographically verified payloads.
-4. **Lenovo Partner Lead NLP Router** — Intelligent partner routing pipeline using Python NLP embeddings for deterministic lead assignment.
-5. **Numaish Exhibition App** — High-concurrency event exhibition directory and schedule engine.
-6. **FamilyCentral Document Vault** — Secure, client-side encrypted document and record vault for cross-platform devices.
-7. **CX9 Modular Architecture** — Decoupled UI and microservice modularization for rapid component composition.
-8. **Acer RMN & HC Retail Standee** — WACK-compliant Windows application published on the Microsoft Store.
-9. **Dell LMS Microservices** — High-throughput learning modules and assessment pipelines.
-10. **Autodev-Codex AI Agent** — Automated code generation and architectural synthesis tooling.
-11. **Computer Vision Hardware Verification** — OpenCV edge detection and inspection pipeline.
 
 ---
 

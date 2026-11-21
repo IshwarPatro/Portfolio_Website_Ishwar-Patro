@@ -2,7 +2,7 @@ export interface ProjectItem {
   id: string;
   title: string;
   category: string;
-  status: "Production Deployed" | "Released" | "Active Engineering" | "Full-Stack Engineering";
+  status: string;
   badgeHighlight?: string;
   description: string;
   architectureDetails: string[];
@@ -11,6 +11,8 @@ export interface ProjectItem {
   link?: string;
   githubUrl?: string;
   isFlagship?: boolean;
+  isPersonal?: boolean;
+  isFeaturedPersonal?: boolean;
 }
 
 export const portfolioConfig = {
@@ -245,82 +247,8 @@ export const portfolioConfig = {
     },
   ],
 
-  // 13 Complete Engineering Projects (2 Personal Projects + 11 Enterprise Systems)
+  // 13 Complete Engineering Projects (11 Company Projects on top + 2 Personal Projects after)
   projects: [
-    {
-      id: "ip-forge-autonomous-agent",
-      title: "IP FORGE — Autonomous Self-Healing AI Software Engineering Agency",
-      category: "Personal Project · Autonomous Multi-Agent SDLC · AMD ROCm & Apple M4",
-      status: "Personal Flagship Project",
-      isFlagship: true,
-      isPersonal: true,
-      badgeHighlight: "★ PERSONAL PROJECT // FLAGSHIP AI AGENCY",
-      description:
-        "An autonomous, self-healing AI software engineering agency operating across the entire Software Development Life Cycle (SDLC). Ingests natural language prompts, indexes codebases via AST structural code embeddings, decomposes tasks across 6 specialized federated personas (Planner, Architect, Coder, Tester, Debugger, Reviewer), executes sandboxed MCP mutations in isolated Git branches, and auto-repairs failing test suites in a bounded diagnostic loop (≤ 3 cycles) with Human-in-the-Loop governance.",
-      architectureDetails: [
-        "Federated Multi-Agent Engine: Divides SDLC execution across 6 discrete personas (Planner, Architect, Coder, Tester, Debugger, Reviewer) rather than relying on a single monolithic prompt.",
-        "AST-Aware Structural Code Vector RAG: Syntax tree parser (classes, methods, functions) coupled with ChromaDB (384-dim dense vectors) eliminating text-splitting hallucinations.",
-        "Sandboxed MCP Tooling: Canonical path traversal guards (os.path.realpath), 30s timeout terminal execution with command blacklists, and isolated Git branch workspaces (forge/task-...).",
-        "Self-Healing Closed Loop: Subprocess pytest execution with automated traceback capture, culprit symbol isolation, and delta patch self-healing capped at ≤ 3 diagnostic cycles.",
-        "Dual-Tier Hardware Topology: Asymmetric compute splitting between Edge workstation (Apple Silicon M4) and AMD Developer Cloud (Instinct MI300X 192GB / ROCm 6.2).",
-        "Next.js 16 + FastAPI HitL Cockpit: Real-time asynchronous SSE streaming, color-coded unified Git diff inspection (+ green / - red), PR review summaries, and cryptographic approval gate.",
-      ],
-      impactMetrics: [
-        "Autonomous SDLC execution with bounded convergence (≤ 3 self-healing diagnostic cycles)",
-        "AST structural code vector indexing eliminating text-splitting hallucination",
-        "Dual-tier hardware orchestration: Apple Silicon M4 Edge + AMD Instinct MI300X (ROCm 6.2)",
-      ],
-      tags: [
-        "Personal Project",
-        "Autonomous Multi-Agent",
-        "AST Code RAG",
-        "Self-Healing Loop",
-        "FastAPI Async SSE",
-        "Next.js 16 HitL",
-        "ChromaDB",
-        "AMD Instinct MI300X",
-        "ROCm 6.2",
-        "Apple Silicon M4",
-        "MCP Sandboxing",
-      ],
-      link: "https://github.com/IshwarPatro/IP-FORGE",
-    },
-    {
-      id: "space-arcade",
-      title: "Space Arcade — Vertical Retro-Pixel Spacecraft Shooter",
-      category: "Personal Project · Mobile Game Engineering · Flame 2D & Flutter",
-      status: "Personal Project · Open Source",
-      isFlagship: true,
-      isPersonal: true,
-      badgeHighlight: "★ PERSONAL PROJECT // FLAME 2D GAME ENGINE",
-      description:
-        "A classic vertical retro-pixel spacecraft arcade shooter engineered with Flutter and the Flame 2D game engine (flame: ^1.35.1). Features smooth mobile touch/drag piloting with haptics and desktop keyboard controls, multi-wave enemy archetypes (Scout, Striker, Heavy), rotating asteroids, progressive wave speed scaling, multi-phase Dreadnought Boss battles every 3rd wave, in-game power-up drops (Rapid Fire, Spread Shot, Energy Shield, Hull Repair), and local high-score persistence via shared_preferences. Governed and verified via the IP-FORGE autonomous review policy.",
-      architectureDetails: [
-        "Component-Entity Game Architecture: Powered by Flutter & Flame 2D Engine with game-loop delta timing and layered parallax starfields.",
-        "Mobile-First & Desktop Controls: Smooth drag-to-pilot mechanics with auto-fire cannons, screen boundary clamping, and WASD / Arrow keyboard mappings.",
-        "Dynamic Wave Engine & Boss Encounters: Procedural wave spawner with speed multipliers and multi-phase Dreadnought Boss encounters with segmented health bars.",
-        "Combat Mechanics & Power-Up Drops: Collision detection algorithms for laser projectiles, rotating asteroids, and 4 modular power-up types (Rapid, Spread, Shield, Repair).",
-        "State & High-Score Persistence: Persistent local tracking of high scores, best wave, and game stats using shared_preferences.",
-        "IP-FORGE Policy CI/CD: Automated code quality, static analysis, and regression tests enforced by IP-FORGE review workflows (.ip-forge.yaml).",
-      ],
-      impactMetrics: [
-        "Built with Flutter & Flame 2D Game Engine (flame: ^1.35.1)",
-        "Mobile-first touch controls with haptic feedback & keyboard support",
-        "Autonomous code verification via IP-FORGE review policy",
-      ],
-      tags: [
-        "Personal Project",
-        "Flutter",
-        "Dart",
-        "Flame 2D Engine",
-        "Game Development",
-        "Component-Entity System",
-        "Pixel Art & Canvas",
-        "SharedPreferences",
-        "IP-FORGE Governed",
-      ],
-      link: "https://github.com/IshwarPatro/space_arcade",
-    },
     {
       id: "achivr-social",
       title: "Achivr — Full-Stack Social Media Platform",
@@ -562,6 +490,79 @@ export const portfolioConfig = {
         "Engineered and delivered during professional tenure at SMBXL Pvt Ltd",
       ],
       tags: ["Flutter", "Dart", "Document Vault", "Family Office", "Mobile Security", "SMBXL"],
+    },
+    {
+      id: "ip-forge-autonomous-agent",
+      title: "IP FORGE — Autonomous Self-Healing AI Software Engineering Agency",
+      category: "Personal Project · Autonomous Multi-Agent SDLC · AMD ROCm & Apple M4",
+      status: "Personal Flagship Project",
+      isFlagship: true,
+      isPersonal: true,
+      isFeaturedPersonal: true,
+      badgeHighlight: "★ PERSONAL PROJECT // FLAGSHIP AI AGENCY",
+      description:
+        "An autonomous, self-healing AI software engineering agency operating across the entire Software Development Life Cycle (SDLC). Ingests natural language prompts, indexes codebases via AST structural code embeddings, decomposes tasks across 6 specialized federated personas (Planner, Architect, Coder, Tester, Debugger, Reviewer), executes sandboxed MCP mutations in isolated Git branches, and auto-repairs failing test suites in a bounded diagnostic loop (≤ 3 cycles) with Human-in-the-Loop governance.",
+      architectureDetails: [
+        "Federated Multi-Agent Engine: Divides SDLC execution across 6 discrete personas (Planner, Architect, Coder, Tester, Debugger, Reviewer) rather than relying on a single monolithic prompt.",
+        "AST-Aware Structural Code Vector RAG: Syntax tree parser (classes, methods, functions) coupled with ChromaDB (384-dim dense vectors) eliminating text-splitting hallucinations.",
+        "Sandboxed MCP Tooling: Canonical path traversal guards (os.path.realpath), 30s timeout terminal execution with command blacklists, and isolated Git branch workspaces (forge/task-...).",
+        "Self-Healing Closed Loop: Subprocess pytest execution with automated traceback capture, culprit symbol isolation, and delta patch self-healing capped at ≤ 3 diagnostic cycles.",
+        "Dual-Tier Hardware Topology: Asymmetric compute splitting between Edge workstation (Apple Silicon M4) and AMD Developer Cloud (Instinct MI300X 192GB / ROCm 6.2).",
+        "Next.js 16 + FastAPI HitL Cockpit: Real-time asynchronous SSE streaming, color-coded unified Git diff inspection (+ green / - red), PR review summaries, and cryptographic approval gate.",
+      ],
+      impactMetrics: [
+        "Autonomous SDLC execution with bounded convergence (≤ 3 self-healing diagnostic cycles)",
+        "AST structural code vector indexing eliminating text-splitting hallucination",
+        "Dual-tier hardware orchestration: Apple Silicon M4 Edge + AMD Instinct MI300X (ROCm 6.2)",
+      ],
+      tags: [
+        "Personal Project",
+        "Autonomous Multi-Agent",
+        "AST Code RAG",
+        "Self-Healing Loop",
+        "FastAPI Async SSE",
+        "Next.js 16 HitL",
+        "ChromaDB",
+        "AMD Instinct MI300X",
+        "ROCm 6.2",
+        "Apple Silicon M4",
+        "MCP Sandboxing",
+      ],
+      link: "https://github.com/IshwarPatro/IP-FORGE",
+    },
+    {
+      id: "space-arcade",
+      title: "Space Arcade — Vertical Retro-Pixel Spacecraft Shooter",
+      category: "Personal Project · Mobile Game Engineering · Flame 2D & Flutter",
+      status: "Personal Project · Open Source",
+      isFlagship: false,
+      isPersonal: true,
+      isFeaturedPersonal: false,
+      badgeHighlight: "PERSONAL PROJECT // FLAME 2D",
+      description:
+        "A classic vertical retro-pixel spacecraft arcade shooter engineered with Flutter and the Flame 2D game engine (flame: ^1.35.1). Features smooth mobile touch/drag piloting with haptics, multi-wave enemy archetypes (Scout, Striker, Heavy), rotating asteroids, progressive wave speed scaling, multi-phase Dreadnought Boss battles every 3rd wave, in-game power-up drops (Rapid Fire, Spread Shot, Energy Shield, Hull Repair), and local high-score persistence via shared_preferences. Governed via the IP-FORGE autonomous review policy.",
+      architectureDetails: [
+        "Component-Entity Game Architecture: Powered by Flutter & Flame 2D Engine with game-loop delta timing and layered parallax starfields.",
+        "Mobile-First & Desktop Controls: Smooth drag-to-pilot mechanics with auto-fire cannons, screen boundary clamping, and WASD / Arrow keyboard mappings.",
+        "Dynamic Wave Engine & Boss Encounters: Procedural wave spawner with speed multipliers, multi-phase Dreadnought Boss encounters, modular power-up drops, and shared_preferences high-score persistence.",
+      ],
+      impactMetrics: [
+        "Built with Flutter & Flame 2D Game Engine (flame: ^1.35.1)",
+        "Smooth mobile touch controls with haptic feedback & local persistence",
+        "Open source personal repository governed via IP-FORGE review policy",
+      ],
+      tags: [
+        "Personal Project",
+        "Flutter",
+        "Dart",
+        "Flame 2D Engine",
+        "Game Development",
+        "Component-Entity System",
+        "Pixel Art & Canvas",
+        "SharedPreferences",
+        "IP-FORGE Governed",
+      ],
+      link: "https://github.com/IshwarPatro/space_arcade",
     },
   ] as ProjectItem[],
 

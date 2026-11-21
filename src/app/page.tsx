@@ -153,7 +153,7 @@ export default function Home() {
         newHistory.push({
           type: "output",
           text:
-            "// 13 VERIFIED PRODUCTION & RESEARCH SYSTEMS:\n★ [PERSONAL PROJECT] IP FORGE — Autonomous Self-Healing Multi-Agent SDLC Agency (AST RAG, ChromaDB, AMD Instinct MI300X & Apple M4)\n   Repository: https://github.com/IshwarPatro/IP-FORGE\n★ [PERSONAL PROJECT] Space Arcade — Vertical Retro-Pixel Spacecraft Shooter (Flame 2D Engine & Flutter)\n   Repository: https://github.com/IshwarPatro/space_arcade\n1. Achivr LMS & Social Engine (Full-stack Flutter + Node.js + MongoDB)\n2. Dell Retail Media Network (Edge Tabletop Standee IoT Platform)\n3. her.store (Zero-loss Shopify HMAC Cryptographic Pipeline)\n4. Lenovo Partner Lead NLP Router (Automated Sentiment & Contract Routing)\n5. Numaish Exhibition App (Commercial Fair Commerce & Payment Gateway)\n6. FamilyCentral (Family Office Encrypted Vault Storage)\n7. CX9 Architecture (Unified Modular Multi-Product Engine)\n8. Acer RMN & HC Retail (Microsoft Store Certified MSIX Packaging)\n9. Dell LMS (Lead Management System, Flutter 3.47)\n10. Autodev-Codex AI Engine (Autonomous Coding Agent Loop)\n11. Computer Vision Verification (Python / OpenCV)",
+            "// 11 VERIFIED ENTERPRISE & COMPANY DEPLOYMENTS:\n1. Achivr LMS & Social Engine (Full-stack Flutter + Node.js + MongoDB)\n2. her.store (Zero-loss Shopify HMAC Cryptographic Pipeline)\n3. Lenovo Partner Lead NLP Router (Automated Sentiment & Contract Routing)\n4. Dell LMS (Field Lead Management Enterprise App, Flutter 3.47)\n5. Lenovo LMS (Enterprise Partner Management Platform)\n6. Acer RMN (Dual-Screen Microsoft Store Certified MSIX Packaging)\n7. HC Retail (In-Store Experience & Retail Workflow Engine)\n8. CX9 Architecture (Unified Modular Multi-Product Engine)\n9. Dell RMN Standee (Edge Tabletop Interactive IoT Media System)\n10. Numaish Exhibition App (Commercial Fair Commerce & Payment Gateway)\n11. FamilyCentral (Family Office Encrypted Private Vault Storage)\n\n// PERSONAL PROJECTS & AUTONOMOUS R&D:\n★ [PERSONAL FLAGSHIP] IP FORGE — Autonomous Self-Healing Multi-Agent SDLC Agency (AST RAG, ChromaDB, AMD Instinct MI300X & Apple M4)\n   Repository: https://github.com/IshwarPatro/IP-FORGE\n★ [PERSONAL PROJECT] Space Arcade — Vertical Retro-Pixel Spacecraft Shooter (Flame 2D Engine & Flutter)\n   Repository: https://github.com/IshwarPatro/space_arcade",
         });
         break;
       case "telemetry":
@@ -618,10 +618,11 @@ export default function Home() {
         </section>
 
         {/* =========================================================================
-             SECTION 03: ENTERPRISE MISSIONS & DEPLOYMENTS (#projects)
+             SECTION 03: ENGINEERING PROJECTS & DEPLOYMENTS (#projects)
              ========================================================================= */}
-        <section id="projects" className="min-h-[80vh] flex flex-col justify-center scroll-mt-28">
-          <div className="flex flex-col md:flex-row md:items-end justify-between mb-10">
+        <section id="projects" className="min-h-[80vh] flex flex-col justify-center scroll-mt-28 space-y-16">
+          {/* Header */}
+          <div className="flex flex-col md:flex-row md:items-end justify-between">
             <div>
               <div className="text-xs font-mono-code text-red-400 tracking-widest uppercase mb-2">
                 {"// 02. FLIGHT WAYPOINT: PRODUCTION ARCHIVES"}
@@ -631,116 +632,209 @@ export default function Home() {
               </h2>
             </div>
             <p className="text-xs font-mono-code text-slate-400 mt-2 md:mt-0">
-              13 VERIFIED RELEASES {"//"} 2 PERSONAL PROJECTS + 11 ENTERPRISE MISSIONS
+              13 VERIFIED RELEASES {"//"} 11 COMPANY DEPLOYMENTS + 2 PERSONAL PROJECTS
             </p>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
-            {portfolioConfig.projects.map((proj, idx) => {
-              const isPersonal = (proj as { isPersonal?: boolean }).isPersonal;
-              return (
-                <div
-                  key={proj.id}
-                  className={`cyber-panel rounded-2xl transition-all duration-300 group flex flex-col justify-between relative overflow-hidden ${
-                    isPersonal
-                      ? "lg:col-span-2 p-6 sm:p-8 md:p-10 border-2 border-amber-500/70 hover:border-amber-400/90 shadow-[0_0_50px_rgba(245,158,11,0.22)] bg-gradient-to-br from-[#12101c] via-[#090b14] to-[#0c1422]"
-                      : "p-6 sm:p-8 border border-white/15 hover:border-red-500/50"
-                  }`}
-                >
-                  {/* Personal Project Corner Ribbon / Watermark */}
-                  {isPersonal && (
-                    <div className="absolute top-0 right-0 px-4 py-1.5 bg-gradient-to-l from-amber-500/35 via-amber-500/20 to-transparent border-b border-l border-amber-500/40 text-[10px] sm:text-xs font-mono-code text-amber-300 font-bold flex items-center gap-2 rounded-bl-xl shadow-lg">
-                      <Sparkles className="w-3.5 h-3.5 text-amber-400 animate-pulse" />
-                      <span>{proj.badgeHighlight || "★ PERSONAL PROJECT"}</span>
+          {/* ================= SUBSECTION A: COMPANY & ENTERPRISE DEPLOYMENTS (ON TOP) ================= */}
+          <div className="space-y-6">
+            <div className="border-b border-white/10 pb-3 flex flex-wrap items-center justify-between gap-2">
+              <div className="flex items-center gap-2">
+                <span className="w-2.5 h-2.5 rounded-full bg-red-400" />
+                <h3 className="text-lg sm:text-xl font-bold text-white font-heading tracking-wide">
+                  Company &amp; Enterprise Deployments
+                </h3>
+                <span className="text-xs font-mono-code text-red-400 font-semibold px-2.5 py-0.5 rounded bg-red-500/10 border border-red-500/30">
+                  11 Systems Live
+                </span>
+              </div>
+              <span className="text-xs font-mono-code text-slate-400">
+                Hash Connect Integrated Services &amp; SMBXL Pvt Ltd
+              </span>
+            </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
+              {portfolioConfig.projects
+                .filter((p) => !p.isPersonal)
+                .map((proj, idx) => (
+                  <div
+                    key={proj.id}
+                    className="cyber-panel rounded-2xl transition-all duration-300 group flex flex-col justify-between relative overflow-hidden p-6 sm:p-8 border border-white/15 hover:border-red-500/50"
+                  >
+                    <div>
+                      <div className="flex flex-wrap items-center justify-between gap-2 mb-3 text-[11px] font-mono-code">
+                        <span className="px-2.5 py-0.5 rounded border font-semibold text-red-400 bg-red-500/10 border-red-500/25">
+                          {`MISSION_${idx + 1 < 10 ? `0${idx + 1}` : idx + 1} // ${proj.category.toUpperCase()}`}
+                        </span>
+                        <span className="text-slate-400 font-medium">
+                          {proj.status.toUpperCase()}
+                        </span>
+                      </div>
+
+                      <h4 className="text-xl sm:text-2xl font-bold transition-colors mb-3 font-heading text-white group-hover:text-red-400">
+                        {proj.title}
+                      </h4>
+
+                      <p className="text-slate-300 text-xs sm:text-sm leading-relaxed mb-6 max-w-4xl">
+                        {proj.description}
+                      </p>
+
+                      {/* Architecture bullet highlights */}
+                      <div className="space-y-2 mb-6 text-[11px] sm:text-xs font-mono-code text-slate-300">
+                        {proj.architectureDetails.slice(0, 2).map((detail, dIdx) => (
+                          <div key={dIdx} className="flex items-start gap-2">
+                            <span className="font-bold text-red-400">›</span>
+                            <span className="leading-snug">{detail}</span>
+                          </div>
+                        ))}
+                      </div>
+
+                      {/* Tech tags */}
+                      <div className="flex flex-wrap gap-1.5 text-[11px] font-mono-code text-slate-200 mb-6">
+                        {proj.tags.map((tag) => (
+                          <span
+                            key={tag}
+                            className="px-2.5 py-1 rounded border transition-colors bg-white/5 border-white/10"
+                          >
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
                     </div>
-                  )}
 
-                  <div>
-                    <div className="flex flex-wrap items-center justify-between gap-2 mb-3 text-[11px] font-mono-code">
-                      <span
-                        className={`px-2.5 py-0.5 rounded border font-semibold ${
-                          isPersonal
-                            ? "text-amber-300 bg-amber-500/20 border-amber-500/40 shadow-[0_0_14px_rgba(245,158,11,0.3)]"
-                            : "text-red-400 bg-red-500/10 border-red-500/25"
-                        }`}
-                      >
-                        {isPersonal
-                          ? `★ ${proj.category.toUpperCase()}`
-                          : `MISSION_0${idx - 1} // ${proj.category.toUpperCase()}`}
+                    <div className="pt-4 border-t border-white/10 flex flex-wrap justify-between items-center text-[11px] font-mono-code text-slate-400 gap-2">
+                      <span className="truncate max-w-[70%]">
+                        {proj.impactMetrics[0] || "ENTERPRISE GRADE"}
                       </span>
-                      <span className={isPersonal ? "text-amber-400 font-bold tracking-wider" : "text-slate-400"}>
-                        {proj.status.toUpperCase()}
-                      </span>
+                      {proj.link && (
+                        <a
+                          href={proj.link}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="flex items-center gap-1.5 transition-colors font-semibold text-red-400 hover:text-white"
+                        >
+                          <span>VIEW STORE</span>
+                          <ExternalLink className="w-3.5 h-3.5" />
+                        </a>
+                      )}
                     </div>
+                  </div>
+                ))}
+            </div>
+          </div>
 
-                    <h3
-                      className={`text-xl sm:text-2xl md:text-3xl font-bold transition-colors mb-3 font-heading ${
-                        isPersonal ? "text-white group-hover:text-amber-300" : "text-white group-hover:text-red-400"
-                      }`}
-                    >
-                      {proj.title}
-                    </h3>
+          {/* ================= SUBSECTION B: PERSONAL PROJECTS & AUTONOMOUS R&D (AFTER THAT) ================= */}
+          <div className="space-y-6 pt-6">
+            <div className="border-b border-amber-500/20 pb-3 flex flex-wrap items-center justify-between gap-2">
+              <div className="flex items-center gap-2">
+                <Sparkles className="w-4 h-4 text-amber-400 animate-pulse" />
+                <h3 className="text-lg sm:text-xl font-bold text-white font-heading tracking-wide">
+                  Personal Projects &amp; Autonomous R&amp;D
+                </h3>
+                <span className="text-xs font-mono-code text-amber-300 font-semibold px-2.5 py-0.5 rounded bg-amber-500/15 border border-amber-500/35">
+                  Autonomous Systems &amp; Game Labs
+                </span>
+              </div>
+              <span className="text-xs font-mono-code text-amber-400/80">
+                Independent R&amp;D &amp; Open Source
+              </span>
+            </div>
 
-                    <p className="text-slate-300 text-xs sm:text-sm md:text-base leading-relaxed mb-6 max-w-4xl">
-                      {proj.description}
-                    </p>
-
-                    {/* Architecture bullet highlights */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
+              {portfolioConfig.projects
+                .filter((p) => p.isPersonal)
+                .map((proj) => {
+                  const isFeatured = proj.isFeaturedPersonal;
+                  return (
                     <div
-                      className={`space-y-2 mb-6 text-[11px] sm:text-xs font-mono-code text-slate-300 ${
-                        isPersonal
-                          ? "grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-3 p-4 sm:p-5 rounded-xl bg-black/60 border border-amber-500/25 shadow-inner"
-                          : ""
+                      key={proj.id}
+                      className={`cyber-panel rounded-2xl transition-all duration-300 group flex flex-col justify-between relative overflow-hidden ${
+                        isFeatured
+                          ? "lg:col-span-2 p-6 sm:p-8 md:p-10 border-2 border-amber-500/70 hover:border-amber-400/90 shadow-[0_0_50px_rgba(245,158,11,0.22)] bg-gradient-to-br from-[#12101c] via-[#090b14] to-[#0c1422]"
+                          : "p-6 sm:p-8 border border-amber-500/35 hover:border-amber-400/70 bg-[#090c16]/90"
                       }`}
                     >
-                      {proj.architectureDetails.slice(0, isPersonal ? 6 : 2).map((detail, dIdx) => (
-                        <div key={dIdx} className="flex items-start gap-2">
-                          <span className={`font-bold ${isPersonal ? "text-amber-400" : "text-red-400"}`}>›</span>
-                          <span className="leading-snug">{detail}</span>
+                      {/* Featured Personal Project Corner Ribbon / Watermark */}
+                      {isFeatured && (
+                        <div className="absolute top-0 right-0 px-4 py-1.5 bg-gradient-to-l from-amber-500/35 via-amber-500/20 to-transparent border-b border-l border-amber-500/40 text-[10px] sm:text-xs font-mono-code text-amber-300 font-bold flex items-center gap-2 rounded-bl-xl shadow-lg">
+                          <Sparkles className="w-3.5 h-3.5 text-amber-400 animate-pulse" />
+                          <span>{proj.badgeHighlight || "★ PERSONAL PROJECT // FLAGSHIP AI AGENCY"}</span>
                         </div>
-                      ))}
-                    </div>
+                      )}
 
-                    {/* Tech tags */}
-                    <div className="flex flex-wrap gap-1.5 text-[11px] font-mono-code text-slate-200 mb-6">
-                      {proj.tags.map((tag) => (
-                        <span
-                          key={tag}
-                          className={`px-2.5 py-1 rounded border transition-colors ${
-                            isPersonal
-                              ? "bg-amber-500/10 text-amber-200 border-amber-500/30 hover:border-amber-400/60"
-                              : "bg-white/5 border-white/10"
+                      <div>
+                        <div className="flex flex-wrap items-center justify-between gap-2 mb-3 text-[11px] font-mono-code">
+                          <span className="px-2.5 py-0.5 rounded border font-semibold text-amber-300 bg-amber-500/20 border-amber-500/40 shadow-[0_0_14px_rgba(245,158,11,0.3)]">
+                            {isFeatured
+                              ? `★ ${proj.category.toUpperCase()}`
+                              : `PERSONAL // ${proj.category.toUpperCase()}`}
+                          </span>
+                          <span className="text-amber-400 font-bold tracking-wider">
+                            {proj.status.toUpperCase()}
+                          </span>
+                        </div>
+
+                        <h4
+                          className={`font-bold transition-colors mb-3 font-heading text-white group-hover:text-amber-300 ${
+                            isFeatured ? "text-xl sm:text-2xl md:text-3xl" : "text-xl sm:text-2xl"
                           }`}
                         >
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
+                          {proj.title}
+                        </h4>
 
-                  <div className="pt-4 border-t border-white/10 flex flex-wrap justify-between items-center text-[11px] font-mono-code text-slate-400 gap-2">
-                    <span className={`truncate max-w-[70%] ${isPersonal ? "text-amber-300 font-semibold" : ""}`}>
-                      {proj.impactMetrics[0] || "ENTERPRISE GRADE"}
-                    </span>
-                    {proj.link && (
-                      <a
-                        href={proj.link}
-                        target="_blank"
-                        rel="noreferrer"
-                        className={`flex items-center gap-1.5 transition-colors font-semibold ${
-                          isPersonal
-                            ? "text-amber-400 hover:text-white"
-                            : "text-red-400 hover:text-white"
-                        }`}
-                      >
-                        <span>{isPersonal ? "VIEW PROJECT REPO" : "VIEW STORE"}</span>
-                        <ExternalLink className="w-3.5 h-3.5" />
-                      </a>
-                    )}
-                  </div>
-                </div>
-              );
-            })}
+                        <p className="text-slate-300 text-xs sm:text-sm leading-relaxed mb-6 max-w-4xl">
+                          {proj.description}
+                        </p>
+
+                        {/* Architecture bullet highlights */}
+                        <div
+                          className={`space-y-2 mb-6 text-[11px] sm:text-xs font-mono-code text-slate-300 ${
+                            isFeatured
+                              ? "grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-3 p-4 sm:p-5 rounded-xl bg-black/60 border border-amber-500/25 shadow-inner"
+                              : ""
+                          }`}
+                        >
+                          {proj.architectureDetails.slice(0, isFeatured ? 6 : 3).map((detail, dIdx) => (
+                            <div key={dIdx} className="flex items-start gap-2">
+                              <span className="font-bold text-amber-400">›</span>
+                              <span className="leading-snug">{detail}</span>
+                            </div>
+                          ))}
+                        </div>
+
+                        {/* Tech tags */}
+                        <div className="flex flex-wrap gap-1.5 text-[11px] font-mono-code text-slate-200 mb-6">
+                          {proj.tags.map((tag) => (
+                            <span
+                              key={tag}
+                              className="px-2.5 py-1 rounded border transition-colors bg-amber-500/10 text-amber-200 border-amber-500/30 hover:border-amber-400/60"
+                            >
+                              {tag}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+
+                      <div className="pt-4 border-t border-white/10 flex flex-wrap justify-between items-center text-[11px] font-mono-code text-slate-400 gap-2">
+                        <span className="truncate max-w-[70%] text-amber-300 font-semibold">
+                          {proj.impactMetrics[0] || "PERSONAL R&D"}
+                        </span>
+                        {proj.link && (
+                          <a
+                            href={proj.link}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="flex items-center gap-1.5 transition-colors font-semibold text-amber-400 hover:text-white"
+                          >
+                            <span>VIEW PROJECT REPO</span>
+                            <ExternalLink className="w-3.5 h-3.5" />
+                          </a>
+                        )}
+                      </div>
+                    </div>
+                  );
+                })}
+            </div>
           </div>
         </section>
 
