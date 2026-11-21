@@ -139,7 +139,7 @@ export default function Home() {
         newHistory.push({
           type: "output",
           text:
-            "AVAILABLE COMMANDS:\n  skills     - Print compiled engineering capabilities (Languages & Frameworks)\n  projects   - List 12 verified engineering systems (1 Personal Flagship + 11 Enterprise)\n  telemetry  - Query active system status & runtime metrics\n  whoami     - Inspect engineer identity & clearance level\n  contact    - Display transmission frequency link\n  clear      - Clear terminal scrollback buffer",
+            "AVAILABLE COMMANDS:\n  skills     - Print compiled engineering capabilities (Languages & Frameworks)\n  projects   - List 13 verified engineering systems (2 Personal + 11 Enterprise)\n  telemetry  - Query active system status & runtime metrics\n  whoami     - Inspect engineer identity & clearance level\n  contact    - Display transmission frequency link\n  clear      - Clear terminal scrollback buffer",
         });
         break;
       case "skills":
@@ -153,7 +153,7 @@ export default function Home() {
         newHistory.push({
           type: "output",
           text:
-            "// 12 VERIFIED PRODUCTION & RESEARCH SYSTEMS:\n★ [PERSONAL FLAGSHIP] IP FORGE — Autonomous Self-Healing Multi-Agent SDLC Agency (AST RAG, ChromaDB, AMD Instinct MI300X & Apple M4)\n   Repository: https://github.com/IshwarPatro/IP-FORGE\n1. Achivr LMS & Social Engine (Full-stack Flutter + Node.js + MongoDB)\n2. Dell Retail Media Network (Edge Tabletop Standee IoT Platform)\n3. her.store (Zero-loss Shopify HMAC Cryptographic Pipeline)\n4. Lenovo Partner Lead NLP Router (Automated Sentiment & Contract Routing)\n5. Numaish Exhibition App (Commercial Fair Commerce & Payment Gateway)\n6. FamilyCentral (Family Office Encrypted Vault Storage)\n7. CX9 Architecture (Unified Modular Multi-Product Engine)\n8. Acer RMN & HC Retail (Microsoft Store Certified MSIX Packaging)\n9. Dell LMS (Lead Management System, Flutter 3.47)\n10. Autodev-Codex AI Engine (Autonomous Coding Agent Loop)\n11. Computer Vision Verification (Python / OpenCV)",
+            "// 13 VERIFIED PRODUCTION & RESEARCH SYSTEMS:\n★ [PERSONAL PROJECT] IP FORGE — Autonomous Self-Healing Multi-Agent SDLC Agency (AST RAG, ChromaDB, AMD Instinct MI300X & Apple M4)\n   Repository: https://github.com/IshwarPatro/IP-FORGE\n★ [PERSONAL PROJECT] Space Arcade — Vertical Retro-Pixel Spacecraft Shooter (Flame 2D Engine & Flutter)\n   Repository: https://github.com/IshwarPatro/space_arcade\n1. Achivr LMS & Social Engine (Full-stack Flutter + Node.js + MongoDB)\n2. Dell Retail Media Network (Edge Tabletop Standee IoT Platform)\n3. her.store (Zero-loss Shopify HMAC Cryptographic Pipeline)\n4. Lenovo Partner Lead NLP Router (Automated Sentiment & Contract Routing)\n5. Numaish Exhibition App (Commercial Fair Commerce & Payment Gateway)\n6. FamilyCentral (Family Office Encrypted Vault Storage)\n7. CX9 Architecture (Unified Modular Multi-Product Engine)\n8. Acer RMN & HC Retail (Microsoft Store Certified MSIX Packaging)\n9. Dell LMS (Lead Management System, Flutter 3.47)\n10. Autodev-Codex AI Engine (Autonomous Coding Agent Loop)\n11. Computer Vision Verification (Python / OpenCV)",
         });
         break;
       case "telemetry":
@@ -290,7 +290,7 @@ export default function Home() {
                   href="#projects"
                   className="w-full sm:w-auto justify-center px-5 sm:px-6 py-3 rounded-xl bg-gradient-to-r from-red-500 to-orange-500 hover:from-red-600 hover:to-orange-600 text-white font-medium text-xs sm:text-sm shadow-[0_0_25px_rgba(255,80,56,0.4)] transition-all flex items-center gap-2"
                 >
-                  <span>Explore 12 Engineering Projects</span>
+                  <span>Explore 13 Engineering Projects</span>
                   <ArrowRight className="w-4 h-4" />
                 </a>
                 <button
@@ -631,7 +631,7 @@ export default function Home() {
               </h2>
             </div>
             <p className="text-xs font-mono-code text-slate-400 mt-2 md:mt-0">
-              12 VERIFIED RELEASES {"//"} 1 PERSONAL FLAGSHIP + 11 ENTERPRISE MISSIONS
+              13 VERIFIED RELEASES {"//"} 2 PERSONAL PROJECTS + 11 ENTERPRISE MISSIONS
             </p>
           </div>
 
@@ -651,7 +651,7 @@ export default function Home() {
                   {isPersonal && (
                     <div className="absolute top-0 right-0 px-4 py-1.5 bg-gradient-to-l from-amber-500/35 via-amber-500/20 to-transparent border-b border-l border-amber-500/40 text-[10px] sm:text-xs font-mono-code text-amber-300 font-bold flex items-center gap-2 rounded-bl-xl shadow-lg">
                       <Sparkles className="w-3.5 h-3.5 text-amber-400 animate-pulse" />
-                      <span>★ PERSONAL PROJECT // FLAGSHIP AI AGENCY</span>
+                      <span>{proj.badgeHighlight || "★ PERSONAL PROJECT"}</span>
                     </div>
                   )}
 
@@ -665,8 +665,8 @@ export default function Home() {
                         }`}
                       >
                         {isPersonal
-                          ? "★ INDEPENDENT R&D // AUTONOMOUS MULTI-AGENT SDLC"
-                          : `MISSION_0${idx} // ${proj.category.toUpperCase()}`}
+                          ? `★ ${proj.category.toUpperCase()}`
+                          : `MISSION_0${idx - 1} // ${proj.category.toUpperCase()}`}
                       </span>
                       <span className={isPersonal ? "text-amber-400 font-bold tracking-wider" : "text-slate-400"}>
                         {proj.status.toUpperCase()}

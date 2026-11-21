@@ -36,7 +36,7 @@
 
 ## 🚀 Key Production & Personal Research Deployments
 
-### 🛡️ Flagship Personal Project
+### 🛡️ Personal Projects
 - **★ [IP FORGE](https://github.com/IshwarPatro/IP-FORGE) — Autonomous Self-Healing AI Software Engineering Agency** ([GitHub Repository](https://github.com/IshwarPatro/IP-FORGE))
   - **Architecture**: Federated 6-persona multi-agent engine (Planner, Architect, Coder, Tester, Debugger, Reviewer) operating across the entire SDLC.
   - **AST Structural Code RAG**: Syntax-tree parser (classes, methods, functions) with ChromaDB (384-dim dense vectors) eliminating text-splitting hallucinations.
@@ -44,6 +44,13 @@
   - **Self-Healing Loop**: Subprocess `pytest` execution with traceback capture and bounded delta patch repair capped at $\le 3$ diagnostic cycles.
   - **Dual-Tier Compute**: Apple Silicon M4 Edge + AMD Instinct MI300X (192GB HBM3) / ROCm 6.2 Cloud acceleration.
   - **HitL Governance Cockpit**: Next.js 16 + FastAPI Async SSE streams, unified color-coded Git diff viewer, and cryptographic approval gate.
+
+- **★ [Space Arcade](https://github.com/IshwarPatro/space_arcade) — Vertical Retro-Pixel Spacecraft Shooter** ([GitHub Repository](https://github.com/IshwarPatro/space_arcade))
+  - **Engine & Architecture**: Built with Flutter and the Flame 2D game engine (`flame: ^1.35.1`) with component-entity game loops and parallax starfield rendering.
+  - **Controls & Gameplay**: Mobile-first touch/drag piloting with auto-fire cannons and haptics, plus `WASD`/Arrow keyboard mappings for desktop & web.
+  - **Wave Scaling & Boss Battles**: Multi-wave enemy archetypes (Scout, Striker, Heavy), rotating asteroids, and multi-phase Dreadnought Boss encounters with segmented health bars.
+  - **Power-Ups & Persistence**: 4 in-game drop types (Rapid Fire, Spread Shot, Energy Shield, Hull Repair) and persistent high-score tracking via `shared_preferences`.
+  - **IP-FORGE Governed**: Enforced by autonomous code quality checks, static analysis, and regression tests via IP-FORGE review workflows (`.ip-forge.yaml`).
 
 ### 🏢 Enterprise & Client Deployments
 1. **Achivr LMS Mobile & Web** — Enterprise Learning Management System built with Flutter, GraphQL, and Node.js.

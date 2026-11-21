@@ -245,7 +245,7 @@ export const portfolioConfig = {
     },
   ],
 
-  // 12 Complete Engineering Projects (1 Personal Flagship + 11 Enterprise Systems)
+  // 13 Complete Engineering Projects (2 Personal Projects + 11 Enterprise Systems)
   projects: [
     {
       id: "ip-forge-autonomous-agent",
@@ -254,7 +254,7 @@ export const portfolioConfig = {
       status: "Personal Flagship Project",
       isFlagship: true,
       isPersonal: true,
-      badgeHighlight: "★ PERSONAL PROJECT // AUTONOMOUS AI AGENCY",
+      badgeHighlight: "★ PERSONAL PROJECT // FLAGSHIP AI AGENCY",
       description:
         "An autonomous, self-healing AI software engineering agency operating across the entire Software Development Life Cycle (SDLC). Ingests natural language prompts, indexes codebases via AST structural code embeddings, decomposes tasks across 6 specialized federated personas (Planner, Architect, Coder, Tester, Debugger, Reviewer), executes sandboxed MCP mutations in isolated Git branches, and auto-repairs failing test suites in a bounded diagnostic loop (≤ 3 cycles) with Human-in-the-Loop governance.",
       architectureDetails: [
@@ -284,6 +284,42 @@ export const portfolioConfig = {
         "MCP Sandboxing",
       ],
       link: "https://github.com/IshwarPatro/IP-FORGE",
+    },
+    {
+      id: "space-arcade",
+      title: "Space Arcade — Vertical Retro-Pixel Spacecraft Shooter",
+      category: "Personal Project · Mobile Game Engineering · Flame 2D & Flutter",
+      status: "Personal Project · Open Source",
+      isFlagship: true,
+      isPersonal: true,
+      badgeHighlight: "★ PERSONAL PROJECT // FLAME 2D GAME ENGINE",
+      description:
+        "A classic vertical retro-pixel spacecraft arcade shooter engineered with Flutter and the Flame 2D game engine (flame: ^1.35.1). Features smooth mobile touch/drag piloting with haptics and desktop keyboard controls, multi-wave enemy archetypes (Scout, Striker, Heavy), rotating asteroids, progressive wave speed scaling, multi-phase Dreadnought Boss battles every 3rd wave, in-game power-up drops (Rapid Fire, Spread Shot, Energy Shield, Hull Repair), and local high-score persistence via shared_preferences. Governed and verified via the IP-FORGE autonomous review policy.",
+      architectureDetails: [
+        "Component-Entity Game Architecture: Powered by Flutter & Flame 2D Engine with game-loop delta timing and layered parallax starfields.",
+        "Mobile-First & Desktop Controls: Smooth drag-to-pilot mechanics with auto-fire cannons, screen boundary clamping, and WASD / Arrow keyboard mappings.",
+        "Dynamic Wave Engine & Boss Encounters: Procedural wave spawner with speed multipliers and multi-phase Dreadnought Boss encounters with segmented health bars.",
+        "Combat Mechanics & Power-Up Drops: Collision detection algorithms for laser projectiles, rotating asteroids, and 4 modular power-up types (Rapid, Spread, Shield, Repair).",
+        "State & High-Score Persistence: Persistent local tracking of high scores, best wave, and game stats using shared_preferences.",
+        "IP-FORGE Policy CI/CD: Automated code quality, static analysis, and regression tests enforced by IP-FORGE review workflows (.ip-forge.yaml).",
+      ],
+      impactMetrics: [
+        "Built with Flutter & Flame 2D Game Engine (flame: ^1.35.1)",
+        "Mobile-first touch controls with haptic feedback & keyboard support",
+        "Autonomous code verification via IP-FORGE review policy",
+      ],
+      tags: [
+        "Personal Project",
+        "Flutter",
+        "Dart",
+        "Flame 2D Engine",
+        "Game Development",
+        "Component-Entity System",
+        "Pixel Art & Canvas",
+        "SharedPreferences",
+        "IP-FORGE Governed",
+      ],
+      link: "https://github.com/IshwarPatro/space_arcade",
     },
     {
       id: "achivr-social",
