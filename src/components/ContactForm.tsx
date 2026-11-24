@@ -64,7 +64,7 @@ const ContactForm = () => {
               name="name"
               required
               placeholder="e.g. Hiring Manager / Engineering Lead"
-              className="bg-[#16121b] border-[#315B8C]/40 text-[#F5EBDD] placeholder:text-[#F5EBDD]/40 text-xs font-mono focus:border-[#F2765E]"
+              className="bg-[#16121b] border-[#315B8C]/40 text-[#F5EBDD] placeholder:text-slate-400 text-xs font-mono focus:border-[#F2765E]"
             />
           </div>
           <div className="flex flex-col gap-1.5">
@@ -77,7 +77,7 @@ const ContactForm = () => {
               name="SenderEmail"
               required
               placeholder="name@company.com"
-              className="bg-[#16121b] border-[#315B8C]/40 text-[#F5EBDD] placeholder:text-[#F5EBDD]/40 text-xs font-mono focus:border-[#F2765E]"
+              className="bg-[#16121b] border-[#315B8C]/40 text-[#F5EBDD] placeholder:text-slate-400 text-xs font-mono focus:border-[#F2765E]"
             />
           </div>
           <div className="flex flex-col gap-1.5">
@@ -90,7 +90,7 @@ const ContactForm = () => {
               name="message"
               required
               rows={4}
-              className="resize-none flex min-h-[90px] w-full rounded-md border border-[#315B8C]/40 bg-[#16121b] px-3 py-2 text-xs font-mono text-[#F5EBDD] placeholder:text-[#F5EBDD]/40 focus:border-[#F2765E] focus-visible:outline-none focus:ring-1 focus:ring-[#F2765E]"
+              className="resize-none flex min-h-[90px] w-full rounded-md border border-[#315B8C]/40 bg-[#16121b] px-3 py-2 text-xs font-mono text-[#F5EBDD] placeholder:text-slate-400 focus:border-[#F2765E] focus-visible:outline-none focus:ring-1 focus:ring-[#F2765E]"
             />
           </div>
         </CardContent>

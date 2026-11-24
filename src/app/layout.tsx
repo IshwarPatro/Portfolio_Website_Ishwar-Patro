@@ -29,12 +29,21 @@ export const metadata: Metadata = {
     title: `${portfolioConfig.name} — ${portfolioConfig.headline}`,
     description: portfolioConfig.description,
     siteName: `${portfolioConfig.name} Portfolio`,
+    images: [
+      {
+        url: portfolioConfig.seo.ogImage,
+        width: 1200,
+        height: 630,
+        alt: `${portfolioConfig.name} Portfolio`,
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: portfolioConfig.name,
     description: portfolioConfig.description,
     creator: portfolioConfig.seo.twitterHandle,
+    images: [portfolioConfig.seo.ogImage],
   },
   icons: {
     icon: [

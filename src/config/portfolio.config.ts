@@ -46,7 +46,7 @@ export const portfolioConfig = {
   // SEO Information
   seo: {
     ogImage: "/og-image.png",
-    url: "https://ishwarpatro.dev",
+    url: "https://ishwarpatro.com",
     twitterHandle: "@IshwarPatro",
     keywords: [
       "Ishwar Patro",

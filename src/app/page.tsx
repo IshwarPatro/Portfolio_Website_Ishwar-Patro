@@ -223,7 +223,7 @@ export default function Home() {
       </div>
 
       {/* ================= MAIN CONTENT CONTAINER ================= */}
-      <main className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 md:px-12 pt-28 sm:pt-36 pb-36 space-y-28 sm:space-y-40">
+      <main className="relative z-20 max-w-7xl mx-auto px-5 sm:px-6 md:px-12 pt-28 sm:pt-36 pb-36 space-y-28 sm:space-y-40">
         {/* =========================================================================
              SECTION 01: HERO & IDENTITY (#hero)
              ========================================================================= */}
@@ -259,7 +259,7 @@ export default function Home() {
               </div>
 
               {/* Biography Description inside Dark Glass Panel (Guarantees Mobile Readability) */}
-              <p className="text-slate-200 text-xs sm:text-sm md:text-base leading-relaxed bg-black/60 p-4 sm:p-5 rounded-xl border border-white/10 backdrop-blur-md shadow-lg max-w-xl">
+              <p className="text-slate-200 text-sm sm:text-base leading-relaxed bg-black/60 p-4 sm:p-5 rounded-xl border border-white/10 backdrop-blur-md shadow-lg max-w-xl">
                 Software Engineer with 3+ years of experience engineering production-ready applications,
                 cross-platform Flutter systems, scalable Node.js backend services, and high-scale enterprise integrations.
               </p>
@@ -288,7 +288,7 @@ export default function Home() {
               <div className="flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center gap-3 pt-2">
                 <a
                   href="#projects"
-                  className="w-full sm:w-auto justify-center px-5 sm:px-6 py-3 rounded-xl bg-gradient-to-r from-red-500 to-orange-500 hover:from-red-600 hover:to-orange-600 text-white font-medium text-xs sm:text-sm shadow-[0_0_25px_rgba(255,80,56,0.4)] transition-all flex items-center gap-2"
+                  className="w-full sm:w-auto min-h-[44px] justify-center px-5 sm:px-6 py-3 rounded-xl bg-gradient-to-r from-red-500 to-orange-500 hover:from-red-600 hover:to-orange-600 text-white font-medium text-xs sm:text-sm shadow-[0_0_25px_rgba(255,80,56,0.4)] transition-all flex items-center gap-2"
                 >
                   <span>Explore 14 Engineering Projects</span>
                   <ArrowRight className="w-4 h-4" />
@@ -296,7 +296,7 @@ export default function Home() {
                 <button
                   onClick={handleResumeDownload}
                   type="button"
-                  className="w-full sm:w-auto justify-center px-4 sm:px-5 py-3 rounded-xl border border-white/15 hover:border-white/35 bg-white/5 hover:bg-white/10 text-slate-200 font-mono-code text-xs sm:text-sm transition-all flex items-center gap-2"
+                  className="w-full sm:w-auto min-h-[44px] justify-center px-4 sm:px-5 py-3 rounded-xl border border-white/15 hover:border-white/35 bg-white/5 hover:bg-white/10 text-slate-200 font-mono-code text-xs sm:text-sm transition-all flex items-center gap-2"
                 >
                   <Download className="w-4 h-4 text-cyan-400" />
                   <span>Download Resume</span>
@@ -306,7 +306,7 @@ export default function Home() {
                     href="https://github.com/IshwarPatro"
                     target="_blank"
                     rel="noreferrer"
-                    className="p-3 rounded-xl border border-white/10 hover:border-white/30 bg-white/5 hover:bg-white/10 text-slate-300 hover:text-white transition-all flex-1 sm:flex-none flex justify-center"
+                    className="p-3 min-w-[44px] min-h-[44px] rounded-xl border border-white/10 hover:border-white/30 bg-white/5 hover:bg-white/10 text-slate-300 hover:text-white transition-all flex-1 sm:flex-none flex items-center justify-center"
                     title="GitHub Profile"
                   >
                     <Github className="w-4 h-4" />
@@ -315,7 +315,7 @@ export default function Home() {
                     href="https://www.linkedin.com/in/ishwar-patro-0b3a8b210/"
                     target="_blank"
                     rel="noreferrer"
-                    className="p-3 rounded-xl border border-white/10 hover:border-white/30 bg-white/5 hover:bg-white/10 text-slate-300 hover:text-white transition-all flex-1 sm:flex-none flex justify-center"
+                    className="p-3 min-w-[44px] min-h-[44px] rounded-xl border border-white/10 hover:border-white/30 bg-white/5 hover:bg-white/10 text-slate-300 hover:text-white transition-all flex-1 sm:flex-none flex items-center justify-center"
                     title="LinkedIn Profile"
                   >
                     <Linkedin className="w-4 h-4 text-sky-400" />
@@ -675,12 +675,12 @@ export default function Home() {
                         {proj.title}
                       </h4>
 
-                      <p className="text-slate-300 text-xs sm:text-sm leading-relaxed mb-6 max-w-4xl">
+                      <p className="text-slate-300 text-sm sm:text-base leading-relaxed mb-6 max-w-2xl">
                         {proj.description}
                       </p>
 
                       {/* Architecture bullet highlights */}
-                      <div className="space-y-2 mb-6 text-[11px] sm:text-xs font-mono-code text-slate-300">
+                      <div className="space-y-2 mb-6 text-xs sm:text-sm font-mono-code text-slate-300">
                         {proj.architectureDetails.slice(0, 2).map((detail, dIdx) => (
                           <div key={dIdx} className="flex items-start gap-2">
                             <span className="font-bold text-red-400">›</span>
@@ -702,7 +702,7 @@ export default function Home() {
                       </div>
                     </div>
 
-                    <div className="pt-4 border-t border-white/10 flex flex-wrap justify-between items-center text-[11px] font-mono-code text-slate-400 gap-2">
+                    <div className="pt-4 border-t border-white/10 flex flex-wrap justify-between items-center text-xs font-mono-code text-slate-400 gap-2">
                       <span className="truncate max-w-[70%]">
                         {proj.impactMetrics[0] || "ENTERPRISE GRADE"}
                       </span>
@@ -711,7 +711,7 @@ export default function Home() {
                           href={proj.link}
                           target="_blank"
                           rel="noreferrer"
-                          className="flex items-center gap-1.5 transition-colors font-semibold text-red-400 hover:text-white"
+                          className="min-h-[44px] py-2 px-3.5 rounded-xl inline-flex items-center gap-1.5 transition-colors font-semibold text-red-400 hover:text-white bg-red-500/10 hover:bg-red-500/20 border border-red-500/30"
                         >
                           <span>VIEW STORE</span>
                           <ExternalLink className="w-3.5 h-3.5" />
@@ -782,13 +782,13 @@ export default function Home() {
                           {proj.title}
                         </h4>
 
-                        <p className="text-slate-300 text-xs sm:text-sm leading-relaxed mb-6 max-w-4xl">
+                        <p className="text-slate-300 text-sm sm:text-base leading-relaxed mb-6 max-w-2xl">
                           {proj.description}
                         </p>
 
                         {/* Architecture bullet highlights */}
                         <div
-                          className={`space-y-2 mb-6 text-[11px] sm:text-xs font-mono-code text-slate-300 ${
+                          className={`space-y-2 mb-6 text-xs sm:text-sm font-mono-code text-slate-300 ${
                             isFeatured
                               ? "grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-3 p-4 sm:p-5 rounded-xl bg-black/60 border border-amber-500/25 shadow-inner"
                               : ""
@@ -815,7 +815,7 @@ export default function Home() {
                         </div>
                       </div>
 
-                      <div className="pt-4 border-t border-white/10 flex flex-wrap justify-between items-center text-[11px] font-mono-code text-slate-400 gap-2">
+                      <div className="pt-4 border-t border-white/10 flex flex-wrap justify-between items-center text-xs font-mono-code text-slate-400 gap-2">
                         <span className="truncate max-w-[70%] text-amber-300 font-semibold">
                           {proj.impactMetrics[0] || "PERSONAL R&D"}
                         </span>
@@ -824,7 +824,7 @@ export default function Home() {
                             href={proj.link}
                             target="_blank"
                             rel="noreferrer"
-                            className="flex items-center gap-1.5 transition-colors font-semibold text-amber-400 hover:text-white"
+                            className="min-h-[44px] py-2 px-3.5 rounded-xl inline-flex items-center gap-1.5 transition-colors font-semibold text-amber-400 hover:text-white bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/30"
                           >
                             <span>VIEW PROJECT REPO</span>
                             <ExternalLink className="w-3.5 h-3.5" />
@@ -869,7 +869,7 @@ export default function Home() {
               {/* Output buffer */}
               <div
                 ref={cliOutputRef}
-                className="p-4 sm:p-5 font-mono-code text-xs space-y-2 text-slate-200 min-h-[240px] max-h-[320px] overflow-y-auto terminal-scroll bg-[#060911]/95 whitespace-pre-wrap leading-relaxed"
+                className="p-4 sm:p-5 font-mono-code text-xs space-y-2 text-slate-200 min-h-[240px] max-h-[320px] overflow-y-auto terminal-scroll bg-[#060911]/95 whitespace-pre-wrap break-words [overflow-wrap:anywhere] leading-relaxed"
               >
                 {cliHistory.map((item, idx) => (
                   <div
@@ -893,7 +893,7 @@ export default function Home() {
                   e.preventDefault();
                   executeCli(cliInput);
                 }}
-                className="p-3 bg-black/90 border-t border-white/10 flex items-center gap-2 font-mono-code text-xs"
+                className="p-3 bg-black/90 border-t border-white/10 flex items-center gap-2 font-mono-code text-xs min-h-[44px]"
               >
                 <span className="text-emerald-400 font-bold">&gt;</span>
                 <input
@@ -901,25 +901,25 @@ export default function Home() {
                   value={cliInput}
                   onChange={(e) => setCliInput(e.target.value)}
                   placeholder="Type command here (e.g. skills, projects, telemetry)..."
-                  className="w-full bg-transparent text-white focus:outline-none placeholder-slate-500 text-xs"
+                  className="w-full bg-transparent text-white focus:outline-none placeholder-slate-400 text-xs"
                 />
                 <button
                   type="submit"
-                  className="px-3 py-1 rounded bg-emerald-500/20 text-emerald-300 hover:bg-emerald-500/30 text-[11px] transition-colors shrink-0"
+                  className="min-h-[36px] px-3.5 py-1.5 rounded bg-emerald-500/20 text-emerald-300 hover:bg-emerald-500/30 text-[11px] transition-colors shrink-0"
                 >
                   EXEC
                 </button>
               </form>
 
               {/* Quick access pills */}
-              <div className="px-4 py-2 bg-slate-950/80 border-t border-white/5 flex flex-wrap gap-2 text-[10px] font-mono-code text-slate-400">
-                <span>QUICK ACCESS:</span>
+              <div className="px-4 py-2.5 bg-slate-950/80 border-t border-white/5 flex flex-wrap gap-2 text-[11px] font-mono-code text-slate-400 items-center">
+                <span className="font-semibold text-slate-300">QUICK ACCESS:</span>
                 {["skills", "projects", "telemetry", "whoami", "contact", "clear"].map((cmd) => (
                   <button
                     key={cmd}
                     type="button"
                     onClick={() => executeCli(cmd)}
-                    className="hover:text-emerald-400 underline"
+                    className="min-h-[32px] px-2.5 py-1 rounded-md bg-white/5 hover:bg-emerald-500/20 hover:text-emerald-300 text-slate-300 transition-colors"
                   >
                     {cmd}
                   </button>
@@ -992,9 +992,9 @@ export default function Home() {
             </div>
 
             {/* Coordinates Footer */}
-            <div className="mt-8 pt-4 border-t border-white/10 flex flex-wrap items-center justify-between text-[11px] font-mono-code text-slate-500 gap-2">
+            <div className="mt-8 pt-4 border-t border-white/10 flex flex-wrap items-center justify-between text-[11px] font-mono-code text-slate-400 gap-2">
               <span>COORDINATES: LAT 12.9716° N / LON 77.5946° E</span>
-              <span className="text-slate-400">© 2026 ISHWAR PATRO {"//"} NEO-NOIR ARCHITECTURE NODE</span>
+              <span className="text-slate-300">© 2026 ISHWAR PATRO {"//"} NEO-NOIR ARCHITECTURE NODE</span>
             </div>
           </div>
         </section>

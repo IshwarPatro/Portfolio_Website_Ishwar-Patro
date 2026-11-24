@@ -134,13 +134,13 @@ export default function Navbar() {
 
   return (
     <header className="fixed top-2.5 sm:top-5 left-1/2 -translate-x-1/2 z-50 w-[96%] sm:w-[95%] max-w-5xl">
-      <div className="cyber-panel px-2.5 sm:px-4 py-1.5 sm:py-2.5 rounded-full flex items-center justify-between shadow-2xl border border-white/15 backdrop-blur-xl">
+      <div className="cyber-panel px-2 sm:px-4 py-1 sm:py-2 rounded-full flex items-center justify-between shadow-2xl border border-white/15 backdrop-blur-xl">
         {/* Left: Callsign & Sector Altitude */}
         <div className="flex items-center gap-1.5 sm:gap-3 shrink-0">
           <a
             href="#hero"
             onClick={(e) => handleNavClick(e, "hero")}
-            className="flex items-center gap-1.5 sm:gap-2 text-white font-mono-code text-xs font-semibold tracking-wider group"
+            className="min-h-[44px] flex items-center gap-1.5 sm:gap-2 text-white font-mono-code text-xs font-semibold tracking-wider group px-1"
           >
             <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-red-500/80 group-hover:bg-red-400 flex items-center justify-center transition-colors">
               <span className="w-1.5 h-1.5 rounded-full bg-white animate-ping" />
@@ -165,7 +165,7 @@ export default function Navbar() {
                 key={item.id}
                 href={`#${item.id}`}
                 onClick={(e) => handleNavClick(e, item.id)}
-                className={`p-1.5 xs:p-2 sm:px-3 sm:py-1.5 rounded-full text-xs font-mono-code transition-all flex items-center gap-1.5 ${
+                className={`min-h-[44px] min-w-[44px] justify-center p-1.5 xs:p-2 sm:px-3 sm:py-2 rounded-full text-xs font-mono-code transition-all flex items-center gap-1.5 ${
                   isActive
                     ? "text-red-400 bg-red-500/15 border border-red-500/30 font-semibold shadow-[0_0_12px_rgba(255,80,56,0.25)]"
                     : "text-slate-300 hover:text-white hover:bg-white/10"
@@ -184,7 +184,7 @@ export default function Navbar() {
           <button
             onClick={toggleCyberAudio}
             type="button"
-            className="p-1.5 xs:px-2.5 sm:px-3 py-1.5 rounded-full text-[11px] font-mono-code bg-white/5 hover:bg-white/15 text-slate-300 hover:text-white border border-white/10 transition-all flex items-center gap-1.5 sm:gap-2 shadow-sm"
+            className="min-h-[44px] min-w-[44px] justify-center p-1.5 xs:px-2.5 sm:px-3 py-2 rounded-full text-[11px] font-mono-code bg-white/5 hover:bg-white/15 text-slate-300 hover:text-white border border-white/10 transition-all flex items-center gap-1.5 sm:gap-2 shadow-sm"
             title="Toggle Atmospheric Ambient Drone Synth"
           >
             {isSynthPlaying ? (
