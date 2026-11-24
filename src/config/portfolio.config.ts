@@ -13,6 +13,8 @@ export interface ProjectItem {
   isFlagship?: boolean;
   isPersonal?: boolean;
   isFeaturedPersonal?: boolean;
+  year?: string;
+  clientOrOrg?: string;
 }
 
 export const portfolioConfig = {
@@ -252,6 +254,8 @@ export const portfolioConfig = {
     {
       id: "achivr-social",
       title: "Achivr — Full-Stack Social Media Platform",
+      year: "2026",
+      clientOrOrg: "Hash Connect",
       category: "Full-Stack Engineering · Hash Connect · Google Play Store",
       status: "Full-Stack Engineering",
       isFlagship: true,
@@ -275,6 +279,8 @@ export const portfolioConfig = {
     {
       id: "her-store-shopify",
       title: "her.store – Shopify Integration Bridge",
+      year: "2026",
+      clientOrOrg: "Hash Connect · Britannia",
       category: "Backend Engineering · E-Commerce Data Pipeline · API Integration",
       status: "Production Deployed",
       isFlagship: true,
@@ -298,6 +304,8 @@ export const portfolioConfig = {
     {
       id: "lenovo-partner-app",
       title: "Lenovo Partner Application – buyalenovo / partner-app-hoa",
+      year: "2026",
+      clientOrOrg: "Lenovo · Hash Connect",
       category: "Partner Ecosystem · AI Integrations · CI/CD Pipelines",
       status: "Production Deployed",
       isFlagship: true,
@@ -322,6 +330,8 @@ export const portfolioConfig = {
     {
       id: "dell-lms",
       title: "Dell Lead Management System (LMS)",
+      year: "2026",
+      clientOrOrg: "Dell · Hash Connect",
       category: "Enterprise Lead Management · Google Play Store",
       status: "Released",
       badgeHighlight: "Google Play Store",
@@ -344,6 +354,8 @@ export const portfolioConfig = {
     {
       id: "lenovo-lms",
       title: "Lenovo Lead Management System (LMS) & Partner Microsite",
+      year: "2026",
+      clientOrOrg: "Lenovo · Hash Connect",
       category: "Enterprise Lead Management · Mobile & Web Delivery",
       status: "Released",
       badgeHighlight: "Google Play Store",
@@ -366,6 +378,8 @@ export const portfolioConfig = {
     {
       id: "acer-rmn",
       title: "Acer Retail Media Network (RMN)",
+      year: "2025–2026",
+      clientOrOrg: "Acer · Hash Connect",
       category: "Retail Media Network · Microsoft Store Release",
       status: "Released",
       badgeHighlight: "Microsoft Store Released",
@@ -388,6 +402,8 @@ export const portfolioConfig = {
     {
       id: "hc-retail",
       title: "HC Retail Experience",
+      year: "2025–2026",
+      clientOrOrg: "Hash Connect",
       category: "Commercial Desktop Apps · Microsoft Store Release",
       status: "Released",
       badgeHighlight: "Microsoft Store Released",
@@ -410,6 +426,8 @@ export const portfolioConfig = {
     {
       id: "cx9-architecture",
       title: "CX9 – Multi-Product Enterprise Architecture",
+      year: "2026",
+      clientOrOrg: "Hash Connect Enterprise",
       category: "Enterprise Architecture · Unified Product Ecosystem",
       status: "Active Engineering",
       badgeHighlight: "Modular Architecture",
@@ -431,6 +449,8 @@ export const portfolioConfig = {
     {
       id: "dell-rmn-standee",
       title: "Dell RMN – Tabletop Standee (Local & Cloud Distributed)",
+      year: "2026",
+      clientOrOrg: "Dell · Hash Connect",
       category: "Retail Media Network · Tabletop Display Systems · Hash Connect",
       status: "Released",
       badgeHighlight: "DigitalOcean Distributed",
@@ -452,6 +472,8 @@ export const portfolioConfig = {
     {
       id: "numaish-exhibition",
       title: "Numaish Exhibition Application",
+      year: "2024–2025",
+      clientOrOrg: "SMBXL Pvt Ltd",
       category: "Commercial Mobile App · SMBXL Pvt Ltd · Digital Commerce",
       status: "Production Deployed",
       badgeHighlight: "Payments & Nav",
@@ -473,6 +495,8 @@ export const portfolioConfig = {
     {
       id: "family-central",
       title: "FamilyCentral — Family Office Document Vault",
+      year: "2024–2025",
+      clientOrOrg: "SMBXL Pvt Ltd",
       category: "Mobile Security · SMBXL Pvt Ltd · Document Vault",
       status: "Production Deployed",
       badgeHighlight: "Family Vault App",
@@ -494,6 +518,8 @@ export const portfolioConfig = {
     {
       id: "ip-forge-autonomous-agent",
       title: "IP FORGE — Autonomous Self-Healing AI Software Engineering Agency",
+      year: "2026",
+      clientOrOrg: "Personal Lab · AMD & Apple",
       category: "Personal Project · Autonomous Multi-Agent SDLC · AMD ROCm & Apple M4",
       status: "Personal Flagship Project",
       isFlagship: true,
@@ -533,6 +559,8 @@ export const portfolioConfig = {
     {
       id: "space-arcade",
       title: "Space Arcade — Vertical Retro-Pixel Spacecraft Shooter",
+      year: "2026",
+      clientOrOrg: "Personal Lab · Indie Game Engine",
       category: "Personal Project · Mobile Game Engineering · Flame 2D & Flutter",
       status: "Personal Project · Open Source",
       isFlagship: false,
@@ -567,6 +595,8 @@ export const portfolioConfig = {
     {
       id: "ttod-wellness",
       title: "TTOD (That Time of Day) — Privacy-First Wellness & Cycle Tracker",
+      year: "2026",
+      clientOrOrg: "Personal Lab · Mobile HealthTech",
       category: "Personal Project · Mobile Health & Wellness · Flutter & BLoC",
       status: "Personal Project · Open Source",
       isFlagship: false,

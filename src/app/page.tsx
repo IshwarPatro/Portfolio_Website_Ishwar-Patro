@@ -20,11 +20,13 @@ import {
   Radio,
   Send,
   Server,
+  ShieldCheck,
   Sparkles,
   Terminal,
+  Workflow,
 } from "lucide-react";
 import ContactForm from "@/components/ContactForm";
-import { portfolioConfig } from "@/config/portfolio.config";
+import { portfolioConfig, ProjectItem } from "@/config/portfolio.config";
 
 interface ToastItem {
   id: number;
@@ -36,7 +38,267 @@ interface CliHistoryItem {
   text: string;
 }
 
+
+interface ProjectSchematicProps {
+  proj: ProjectItem;
+}
+
+function ProjectSchematicFrame({ proj }: ProjectSchematicProps) {
+  const isPersonal = proj.isPersonal;
+
+  if (proj.id === "ip-forge-autonomous-agent") {
+    return (
+      <div className="relative w-full rounded-xl overflow-hidden mb-6 border border-amber-500/40 bg-gradient-to-br from-[#120e1f] via-[#090b16] to-[#0b1424] p-4 sm:p-5 flex flex-col justify-between group-hover:scale-[1.01] transform-gpu transition-all duration-500 shadow-inner">
+        {/* Top Spec Bar */}
+        <div className="flex flex-wrap items-center justify-between text-[11px] font-mono-code text-amber-300/90 mb-4 pb-2.5 border-b border-amber-500/20 gap-2">
+          <div className="flex items-center gap-2">
+            <span className="w-2.5 h-2.5 rounded-full bg-amber-400 animate-pulse" />
+            <span className="font-bold tracking-widest text-amber-200 uppercase">
+              AUTONOMOUS ARCHITECTURE // 6-AGENT CLOSED SDLC
+            </span>
+          </div>
+          <span className="text-[10px] tracking-wider font-semibold px-2.5 py-0.5 rounded bg-amber-500/20 border border-amber-500/40 text-amber-300">
+            ≤ 3 SELF-HEALING DIAGNOSTIC CYCLES
+          </span>
+        </div>
+
+        {/* Center: 6 Federated Agent Personas Flow */}
+        <div className="py-2">
+          <div className="text-[10px] font-mono-code text-slate-400 uppercase tracking-widest mb-2 flex items-center gap-2">
+            <Workflow className="w-3.5 h-3.5 text-amber-400" />
+            <span>FEDERATED MULTI-AGENT EXECUTION PIPELINE:</span>
+          </div>
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-2">
+            {[
+              { role: "1. PLANNER", desc: "Decomposes PRD", color: "border-sky-500/40 text-sky-300 bg-sky-950/40" },
+              { role: "2. ARCHITECT", desc: "AST Symbols RAG", color: "border-purple-500/40 text-purple-300 bg-purple-950/40" },
+              { role: "3. CODER", desc: "MCP Sandboxing", color: "border-emerald-500/40 text-emerald-300 bg-emerald-950/40" },
+              { role: "4. TESTER", desc: "Pytest Subprocess", color: "border-amber-500/40 text-amber-300 bg-amber-950/40" },
+              { role: "5. DEBUGGER", desc: "Delta Healing", color: "border-rose-500/40 text-rose-300 bg-rose-950/40" },
+              { role: "6. REVIEWER", desc: "HitL Governance", color: "border-cyan-500/40 text-cyan-300 bg-cyan-950/40" },
+            ].map((agent, i) => (
+              <div
+                key={i}
+                className={`p-2 rounded-lg border ${agent.color} flex flex-col justify-between text-left`}
+              >
+                <span className="text-[10px] font-mono-code font-bold tracking-wide">{agent.role}</span>
+                <span className="text-[9px] font-mono-code text-slate-400 truncate">{agent.desc}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Hardware & Diff Telemetry Strip */}
+        <div className="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-amber-500/20 text-[11px] font-mono-code mt-4">
+          <div className="flex items-center gap-2 text-slate-300">
+            <Cpu className="w-3.5 h-3.5 text-amber-400" />
+            <span>COMPUTE: Apple M4 Edge (24GB) ⇄ AMD Instinct™ MI300X (ROCm 6.2)</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+              +348 ADDITIONS
+            </span>
+            <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-rose-500/20 text-rose-300 border border-rose-500/30">
+              -64 REMOVALS
+            </span>
+            <span className="text-[10px] text-amber-300/80 font-bold">100% PYTEST PASS</span>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // Domain-specific schematic pipeline nodes
+  let pipelineNodes: { label: string; sub: string; highlight?: boolean }[] = [];
+  let domainBadge = "SYSTEM INTEGRATION";
+
+  switch (proj.id) {
+    case "achivr-social":
+      domainBadge = "FULL-STACK // MOBILE & AWS";
+      pipelineNodes = [
+        { label: "Flutter Client", sub: "Responsive iOS/Android" },
+        { label: "Node.js REST", sub: "Express Microservices" },
+        { label: "AWS & MongoDB", sub: "S3 Storage + BSON DB", highlight: true },
+      ];
+      break;
+    case "her-store-shopify":
+      domainBadge = "DATA INGESTION // SHOPIFY BRIDGE";
+      pipelineNodes = [
+        { label: "Shopify Stores", sub: "Britannia & Merchants" },
+        { label: "HMAC Webhook", sub: "Cryptographic SHA256", highlight: true },
+        { label: "her.store Core", sub: "GraphQL Catalog Sync" },
+      ];
+      break;
+    case "lenovo-partner-app":
+      domainBadge = "ENTERPRISE ECOSYSTEM // CI/CD";
+      pipelineNodes = [
+        { label: "Docker Web Build", sub: "Containerized Artifacts" },
+        { label: "Jenkins CI/CD", sub: "44 Production Commits", highlight: true },
+        { label: "NLP Call Engine", sub: "AI Conversational Intent" },
+      ];
+      break;
+    case "dell-lms":
+      domainBadge = "LEAD MANAGEMENT // BLOC & AGP";
+      pipelineNodes = [
+        { label: "Walk-in Capture", sub: "Demo & Product Sales" },
+        { label: "BLoC State Cache", sub: "Offline Lead Sync", highlight: true },
+        { label: "Flutter 3.47.7", sub: "Gradle & Kotlin AGP" },
+      ];
+      break;
+    case "lenovo-lms":
+      domainBadge = "MULTI-CHANNEL // MOBILE & WEB";
+      pipelineNodes = [
+        { label: "Flutter Partner", sub: "Field Sales Mobile Client" },
+        { label: "Nginx Gateway", sub: "Reverse Proxy Caching", highlight: true },
+        { label: "Web LMS Portal", sub: "Corporate Lead Dashboard" },
+      ];
+      break;
+    case "acer-rmn":
+      domainBadge = "DESKTOP BRIDGE // WINDOWS MSIX";
+      pipelineNodes = [
+        { label: "Flutter Win32", sub: "Interactive Retail Display" },
+        { label: "MSIX Packaging", sub: "Desktop Bridge Toolchain", highlight: true },
+        { label: "Microsoft Store", sub: "WACK Certified Package" },
+      ];
+      break;
+    case "hc-retail":
+      domainBadge = "COMMERCIAL DESKTOP // WACK VERIFIED";
+      pipelineNodes = [
+        { label: "Touchscreen Kiosk", sub: "Interactive Retail UX" },
+        { label: "Desktop Bridge", sub: "Sandboxed File Routing", highlight: true },
+        { label: "Microsoft Store", sub: "Certified Deployment" },
+      ];
+      break;
+    case "cx9-architecture":
+      domainBadge = "ENTERPRISE // MODULAR ARCHITECTURE";
+      pipelineNodes = [
+        { label: "CX9 Core Layer", sub: "Auth, Routing, API Client", highlight: true },
+        { label: "LMS Subsystem", sub: "Lead Management Engine" },
+        { label: "Store Locator", sub: "Dynamic Tenant Module" },
+      ];
+      break;
+    case "dell-rmn-standee":
+      domainBadge = "HARDWARE RETAIL // CLOUD DISTRIBUTION";
+      pipelineNodes = [
+        { label: "Tabletop Display", sub: "Custom Touch UI Layouts" },
+        { label: "DigitalOcean OTA", sub: "Cloud Asset Pipeline", highlight: true },
+        { label: "Watchdog Engine", sub: "Automated Failure Recovery" },
+      ];
+      break;
+    case "numaish-exhibition":
+      domainBadge = "COMMERCIAL MOBILE // COMMERCE & NAV";
+      pipelineNodes = [
+        { label: "Fair Navigation", sub: "Interactive Stall Map" },
+        { label: "Payment Gateway", sub: "In-App Commerce Flow", highlight: true },
+        { label: "Push Broadcast", sub: "Live Event Engine" },
+      ];
+      break;
+    case "family-central":
+      domainBadge = "MOBILE SECURITY // DOCUMENT VAULT";
+      pipelineNodes = [
+        { label: "Mobile Client", sub: "Intuitive Asset Hierarchy" },
+        { label: "AES-256 Vault", sub: "Encrypted Offline Storage", highlight: true },
+        { label: "Private Records", sub: "Confidential Family Data" },
+      ];
+      break;
+    case "space-arcade":
+      domainBadge = "GAME LAB // FLAME 2D ENGINE";
+      pipelineNodes = [
+        { label: "Flame 2D Engine", sub: "60 FPS Game Loop Timing" },
+        { label: "Entity System", sub: "Multi-Wave Boss Encounters", highlight: true },
+        { label: "Local Persistence", sub: "SharedPreferences High-Scores" },
+      ];
+      break;
+    case "ttod-wellness":
+      domainBadge = "HEALTHTECH // PRIVACY-FIRST";
+      pipelineNodes = [
+        { label: "Reactive BLoC", sub: "Unidirectional State Flow" },
+        { label: "fpdart Either", sub: "Functional Error Monad", highlight: true },
+        { label: "Hive AES Storage", sub: "Zero-Cloud Local DB" },
+      ];
+      break;
+    default:
+      domainBadge = "VERIFIED SYSTEM ARCHITECTURE";
+      pipelineNodes = [
+        { label: "Client Frontend", sub: "Cross-Platform" },
+        { label: "Application Logic", sub: "Deterministic State", highlight: true },
+        { label: "Storage & APIs", sub: "Cloud Persistence" },
+      ];
+  }
+
+  return (
+    <div
+      className={`relative w-full rounded-xl overflow-hidden mb-6 border ${
+        isPersonal ? "border-amber-500/30 bg-[#090c18]" : "border-white/10 bg-[#060814]"
+      } group-hover:border-white/25 transition-all duration-500 p-4 sm:p-5 flex flex-col justify-between group-hover:scale-[1.01] transform-gpu shadow-inner`}
+    >
+      {/* Top Schematic Status Bar */}
+      <div className="flex flex-wrap items-center justify-between text-[11px] font-mono-code text-slate-400 mb-3 border-b border-white/5 pb-2.5 gap-2">
+        <div className="flex items-center gap-2">
+          <span
+            className={`w-2 h-2 rounded-full ${isPersonal ? "bg-amber-400" : "bg-red-400"} animate-pulse`}
+          />
+          <span className="font-semibold tracking-wider text-slate-300">
+            {`SYS_SPEC // ${proj.id.toUpperCase().replace(/-/g, "_")}`}
+          </span>
+        </div>
+        <span
+          className={`text-[10px] tracking-widest uppercase px-2.5 py-0.5 rounded font-semibold ${
+            isPersonal
+              ? "bg-amber-500/15 border border-amber-500/30 text-amber-300"
+              : "bg-red-500/10 border border-red-500/25 text-red-400"
+          }`}
+        >
+          {domainBadge}
+        </span>
+      </div>
+
+      {/* Schematic Pipeline Flow */}
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-2.5 py-2.5">
+        {pipelineNodes.map((node, nIdx) => (
+          <div
+            key={nIdx}
+            className={`p-2.5 rounded-lg border text-left transition-colors ${
+              node.highlight
+                ? isPersonal
+                  ? "bg-amber-500/15 border-amber-500/40 text-amber-200"
+                  : "bg-red-500/15 border-red-500/40 text-red-200"
+                : "bg-white/[0.03] border-white/10 text-slate-300"
+            }`}
+          >
+            <div className="flex items-center justify-between mb-1">
+              <span className="text-[11px] font-mono-code font-bold tracking-tight">
+                {node.label}
+              </span>
+              <span className="text-[10px] font-mono-code text-slate-400">
+                {`0${nIdx + 1}`}
+              </span>
+            </div>
+            <p className="text-[10px] font-mono-code text-slate-400 truncate leading-tight">
+              {node.sub}
+            </p>
+          </div>
+        ))}
+      </div>
+
+      {/* Bottom Telemetry Bar */}
+      <div className="flex flex-wrap items-center justify-between gap-2 pt-2.5 border-t border-white/5 text-[10px] font-mono-code text-slate-400 mt-2">
+        <div className="flex items-center gap-1.5">
+          <Activity className="w-3 h-3 text-emerald-400" />
+          <span className="text-slate-300 font-medium">RUNTIME STATUS: VERIFIED</span>
+        </div>
+        <span className="text-slate-400 truncate max-w-[220px]">
+          {proj.tags.slice(0, 3).join(" · ")}
+        </span>
+      </div>
+    </div>
+  );
+}
+
 export default function Home() {
+  // Project category filter state (Mirelle Cyber-Editorial)
+  const [projectFilter, setProjectFilter] = useState<"all" | "company" | "personal">("all");
+
   // Toast notifications
   const [toasts, setToasts] = useState<ToastItem[]>([]);
   const toastIdRef = useRef(0);
@@ -620,222 +882,332 @@ export default function Home() {
         {/* =========================================================================
              SECTION 03: ENGINEERING PROJECTS & DEPLOYMENTS (#projects)
              ========================================================================= */}
-        <section id="projects" className="min-h-[80vh] flex flex-col justify-center scroll-mt-28 space-y-16">
-          {/* Header */}
-          <div className="flex flex-col md:flex-row md:items-end justify-between">
-            <div>
-              <div className="text-xs font-mono-code text-red-400 tracking-widest uppercase mb-2">
-                {"// 02. FLIGHT WAYPOINT: PRODUCTION ARCHIVES"}
-              </div>
-              <h2 className="text-2xl sm:text-4xl md:text-5xl font-bold text-white font-heading">
-                Engineering Projects &amp; Deployments
-              </h2>
-            </div>
-            <p className="text-xs font-mono-code text-slate-400 mt-2 md:mt-0">
-              14 VERIFIED RELEASES {"//"} 11 COMPANY DEPLOYMENTS + 3 PERSONAL PROJECTS
-            </p>
-          </div>
-
-          {/* ================= SUBSECTION A: COMPANY & ENTERPRISE DEPLOYMENTS (ON TOP) ================= */}
+        <section id="projects" className="min-h-[80vh] flex flex-col justify-center scroll-mt-28 space-y-12">
+          {/* Header & Mirelle-Style Cyber-Editorial Controls */}
           <div className="space-y-6">
-            <div className="border-b border-white/10 pb-3 flex flex-wrap items-center justify-between gap-2">
-              <div className="flex items-center gap-2">
-                <span className="w-2.5 h-2.5 rounded-full bg-red-400" />
-                <h3 className="text-lg sm:text-xl font-bold text-white font-heading tracking-wide">
-                  Company &amp; Enterprise Deployments
-                </h3>
-                <span className="text-xs font-mono-code text-red-400 font-semibold px-2.5 py-0.5 rounded bg-red-500/10 border border-red-500/30">
-                  11 Systems Live
-                </span>
+            <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
+              <div>
+                <div className="text-xs font-mono-code text-red-400 tracking-widest uppercase mb-2">
+                  {"// 02. FLIGHT WAYPOINT: PRODUCTION ARCHIVES & LABS"}
+                </div>
+                <h2 className="text-2xl sm:text-4xl md:text-5xl font-bold text-white font-heading">
+                  Engineering Projects &amp; Deployments
+                </h2>
               </div>
-              <span className="text-xs font-mono-code text-slate-400">
-                Hash Connect Integrated Services &amp; SMBXL Pvt Ltd
-              </span>
+              <p className="text-xs font-mono-code text-slate-400">
+                14 VERIFIED SYSTEMS {"//"} 11 ENTERPRISE DEPLOYMENTS + 3 PERSONAL &amp; AI LABS
+              </p>
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
-              {portfolioConfig.projects
-                .filter((p) => !p.isPersonal)
-                .map((proj, idx) => (
-                  <div
-                    key={proj.id}
-                    className="cyber-panel rounded-2xl transition-all duration-300 group flex flex-col justify-between relative overflow-hidden p-6 sm:p-8 border border-white/15 hover:border-red-500/50"
+            {/* Mirelle-Style Category Filter Tabs */}
+            <div className="flex flex-wrap items-center gap-2.5 sm:gap-3 pt-2">
+              {[
+                { id: "all", label: "All Works", count: portfolioConfig.projects.length },
+                {
+                  id: "company",
+                  label: "Enterprise & Company",
+                  count: portfolioConfig.projects.filter((p) => !p.isPersonal).length,
+                },
+                {
+                  id: "personal",
+                  label: "Personal & AI Labs",
+                  count: portfolioConfig.projects.filter((p) => p.isPersonal).length,
+                },
+              ].map((tab) => {
+                const isActive = projectFilter === tab.id;
+                return (
+                  <button
+                    key={tab.id}
+                    type="button"
+                    onClick={() => setProjectFilter(tab.id as "all" | "company" | "personal")}
+                    className={`min-h-[44px] min-w-[44px] px-5 py-2.5 rounded-full inline-flex items-center gap-2.5 text-xs sm:text-sm font-mono-code transition-all duration-200 border cursor-pointer ${
+                      isActive
+                        ? "bg-white text-slate-950 font-bold border-white shadow-[0_0_20px_rgba(255,255,255,0.2)]"
+                        : "bg-white/5 text-slate-300 border-white/10 hover:border-white/30 hover:text-white hover:bg-white/10"
+                    }`}
                   >
-                    <div>
-                      <div className="flex flex-wrap items-center justify-between gap-2 mb-3 text-[11px] font-mono-code">
-                        <span className="px-2.5 py-0.5 rounded border font-semibold text-red-400 bg-red-500/10 border-red-500/25">
-                          {`MISSION_${idx + 1 < 10 ? `0${idx + 1}` : idx + 1} // ${proj.category.toUpperCase()}`}
-                        </span>
-                        <span className="text-slate-400 font-medium">
-                          {proj.status.toUpperCase()}
-                        </span>
-                      </div>
-
-                      <h4 className="text-xl sm:text-2xl font-bold transition-colors mb-3 font-heading text-white group-hover:text-red-400">
-                        {proj.title}
-                      </h4>
-
-                      <p className="text-slate-300 text-sm sm:text-base leading-relaxed mb-6 max-w-2xl">
-                        {proj.description}
-                      </p>
-
-                      {/* Architecture bullet highlights */}
-                      <div className="space-y-2 mb-6 text-xs sm:text-sm font-mono-code text-slate-300">
-                        {proj.architectureDetails.slice(0, 2).map((detail, dIdx) => (
-                          <div key={dIdx} className="flex items-start gap-2">
-                            <span className="font-bold text-red-400">›</span>
-                            <span className="leading-snug">{detail}</span>
-                          </div>
-                        ))}
-                      </div>
-
-                      {/* Tech tags */}
-                      <div className="flex flex-wrap gap-1.5 text-[11px] font-mono-code text-slate-200 mb-6">
-                        {proj.tags.map((tag) => (
-                          <span
-                            key={tag}
-                            className="px-2.5 py-1 rounded border transition-colors bg-white/5 border-white/10"
-                          >
-                            {tag}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-
-                    <div className="pt-4 border-t border-white/10 flex flex-wrap justify-between items-center text-xs font-mono-code text-slate-400 gap-2">
-                      <span className="truncate max-w-[70%]">
-                        {proj.impactMetrics[0] || "ENTERPRISE GRADE"}
-                      </span>
-                      {proj.link && (
-                        <a
-                          href={proj.link}
-                          target="_blank"
-                          rel="noreferrer"
-                          className="min-h-[44px] py-2 px-3.5 rounded-xl inline-flex items-center gap-1.5 transition-colors font-semibold text-red-400 hover:text-white bg-red-500/10 hover:bg-red-500/20 border border-red-500/30"
-                        >
-                          <span>VIEW STORE</span>
-                          <ExternalLink className="w-3.5 h-3.5" />
-                        </a>
-                      )}
-                    </div>
-                  </div>
-                ))}
-            </div>
-          </div>
-
-          {/* ================= SUBSECTION B: PERSONAL PROJECTS & AUTONOMOUS R&D (AFTER THAT) ================= */}
-          <div className="space-y-6 pt-6">
-            <div className="border-b border-amber-500/20 pb-3 flex flex-wrap items-center justify-between gap-2">
-              <div className="flex items-center gap-2">
-                <Sparkles className="w-4 h-4 text-amber-400 animate-pulse" />
-                <h3 className="text-lg sm:text-xl font-bold text-white font-heading tracking-wide">
-                  Personal Projects &amp; Autonomous R&amp;D
-                </h3>
-                <span className="text-xs font-mono-code text-amber-300 font-semibold px-2.5 py-0.5 rounded bg-amber-500/15 border border-amber-500/35">
-                  3 Systems Live // Autonomous SDLC, Game Labs &amp; Health
-                </span>
-              </div>
-              <span className="text-xs font-mono-code text-amber-400/80">
-                Independent R&amp;D &amp; Open Source
-              </span>
-            </div>
-
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
-              {portfolioConfig.projects
-                .filter((p) => p.isPersonal)
-                .map((proj) => {
-                  const isFeatured = proj.isFeaturedPersonal;
-                  return (
-                    <div
-                      key={proj.id}
-                      className={`cyber-panel rounded-2xl transition-all duration-300 group flex flex-col justify-between relative overflow-hidden ${
-                        isFeatured
-                          ? "lg:col-span-2 p-6 sm:p-8 md:p-10 border-2 border-amber-500/70 hover:border-amber-400/90 shadow-[0_0_50px_rgba(245,158,11,0.22)] bg-gradient-to-br from-[#12101c] via-[#090b14] to-[#0c1422]"
-                          : "p-6 sm:p-8 border border-amber-500/35 hover:border-amber-400/70 bg-[#090c16]/90"
+                    {tab.id === "company" && (
+                      <span className={`w-2 h-2 rounded-full ${isActive ? "bg-red-600" : "bg-red-400"}`} />
+                    )}
+                    {tab.id === "personal" && (
+                      <Sparkles className={`w-3.5 h-3.5 ${isActive ? "text-amber-600" : "text-amber-400"}`} />
+                    )}
+                    <span>{tab.label}</span>
+                    <span
+                      className={`px-2 py-0.5 rounded-full text-[11px] font-bold ${
+                        isActive ? "bg-slate-900 text-white" : "bg-white/10 text-slate-300"
                       }`}
                     >
-                      {/* Featured Personal Project Corner Ribbon / Watermark */}
-                      {isFeatured && (
-                        <div className="absolute top-0 right-0 px-4 py-1.5 bg-gradient-to-l from-amber-500/35 via-amber-500/20 to-transparent border-b border-l border-amber-500/40 text-[10px] sm:text-xs font-mono-code text-amber-300 font-bold flex items-center gap-2 rounded-bl-xl shadow-lg">
-                          <Sparkles className="w-3.5 h-3.5 text-amber-400 animate-pulse" />
-                          <span>{proj.badgeHighlight || "★ PERSONAL PROJECT // FLAGSHIP AI AGENCY"}</span>
-                        </div>
-                      )}
-
-                      <div>
-                        <div className="flex flex-wrap items-center justify-between gap-2 mb-3 text-[11px] font-mono-code">
-                          <span className="px-2.5 py-0.5 rounded border font-semibold text-amber-300 bg-amber-500/20 border-amber-500/40 shadow-[0_0_14px_rgba(245,158,11,0.3)]">
-                            {isFeatured
-                              ? `★ ${proj.category.toUpperCase()}`
-                              : `PERSONAL // ${proj.category.toUpperCase()}`}
-                          </span>
-                          <span className="text-amber-400 font-bold tracking-wider">
-                            {proj.status.toUpperCase()}
-                          </span>
-                        </div>
-
-                        <h4
-                          className={`font-bold transition-colors mb-3 font-heading text-white group-hover:text-amber-300 ${
-                            isFeatured ? "text-xl sm:text-2xl md:text-3xl" : "text-xl sm:text-2xl"
-                          }`}
-                        >
-                          {proj.title}
-                        </h4>
-
-                        <p className="text-slate-300 text-sm sm:text-base leading-relaxed mb-6 max-w-2xl">
-                          {proj.description}
-                        </p>
-
-                        {/* Architecture bullet highlights */}
-                        <div
-                          className={`space-y-2 mb-6 text-xs sm:text-sm font-mono-code text-slate-300 ${
-                            isFeatured
-                              ? "grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-3 p-4 sm:p-5 rounded-xl bg-black/60 border border-amber-500/25 shadow-inner"
-                              : ""
-                          }`}
-                        >
-                          {proj.architectureDetails.slice(0, isFeatured ? 6 : 3).map((detail, dIdx) => (
-                            <div key={dIdx} className="flex items-start gap-2">
-                              <span className="font-bold text-amber-400">›</span>
-                              <span className="leading-snug">{detail}</span>
-                            </div>
-                          ))}
-                        </div>
-
-                        {/* Tech tags */}
-                        <div className="flex flex-wrap gap-1.5 text-[11px] font-mono-code text-slate-200 mb-6">
-                          {proj.tags.map((tag) => (
-                            <span
-                              key={tag}
-                              className="px-2.5 py-1 rounded border transition-colors bg-amber-500/10 text-amber-200 border-amber-500/30 hover:border-amber-400/60"
-                            >
-                              {tag}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-
-                      <div className="pt-4 border-t border-white/10 flex flex-wrap justify-between items-center text-xs font-mono-code text-slate-400 gap-2">
-                        <span className="truncate max-w-[70%] text-amber-300 font-semibold">
-                          {proj.impactMetrics[0] || "PERSONAL R&D"}
-                        </span>
-                        {proj.link && (
-                          <a
-                            href={proj.link}
-                            target="_blank"
-                            rel="noreferrer"
-                            className="min-h-[44px] py-2 px-3.5 rounded-xl inline-flex items-center gap-1.5 transition-colors font-semibold text-amber-400 hover:text-white bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/30"
-                          >
-                            <span>VIEW PROJECT REPO</span>
-                            <ExternalLink className="w-3.5 h-3.5" />
-                          </a>
-                        )}
-                      </div>
-                    </div>
-                  );
-                })}
+                      {tab.count}
+                    </span>
+                  </button>
+                );
+              })}
             </div>
           </div>
+
+          {/* ================= SUBSECTION A: COMPANY & ENTERPRISE DEPLOYMENTS ================= */}
+          {(projectFilter === "all" || projectFilter === "company") && (
+            <div className="space-y-6">
+              {projectFilter === "all" && (
+                <div className="border-b border-white/10 pb-3 flex flex-wrap items-center justify-between gap-2">
+                  <div className="flex items-center gap-2">
+                    <span className="w-2.5 h-2.5 rounded-full bg-red-400" />
+                    <h3 className="text-lg sm:text-xl font-bold text-white font-heading tracking-wide">
+                      Company &amp; Enterprise Deployments
+                    </h3>
+                    <span className="text-xs font-mono-code text-red-400 font-semibold px-2.5 py-0.5 rounded bg-red-500/10 border border-red-500/30">
+                      11 Systems Live
+                    </span>
+                  </div>
+                  <span className="text-xs font-mono-code text-slate-400">
+                    Hash Connect Integrated Services &amp; SMBXL Pvt Ltd
+                  </span>
+                </div>
+              )}
+
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
+                {portfolioConfig.projects
+                  .filter((p) => !p.isPersonal)
+                  .map((proj, idx) => {
+                    const formattedIndex = idx + 1 < 10 ? `0${idx + 1}` : `${idx + 1}`;
+                    return (
+                      <div
+                        key={proj.id}
+                        className="cyber-panel rounded-2xl transition-all duration-300 group flex flex-col justify-between relative overflow-hidden p-6 sm:p-8 border border-white/15 hover:border-red-500/50 hover:shadow-[0_0_30px_rgba(239,68,68,0.15)]"
+                      >
+                        <div>
+                          {/* Mirelle-Style Top Metadata Row */}
+                          <div className="flex flex-wrap items-center justify-between gap-2 mb-4 pb-3 border-b border-white/10 text-xs font-mono-code">
+                            <div className="flex items-center gap-2">
+                              <span className="font-bold tracking-wider text-sm sm:text-base text-red-400">
+                                {formattedIndex}
+                              </span>
+                              <span className="text-white/30">/</span>
+                              <span className="px-2.5 py-0.5 rounded border text-[11px] font-semibold text-red-400 bg-red-500/10 border-red-500/25">
+                                {proj.clientOrOrg || proj.category.split("·")[0].trim()}
+                              </span>
+                            </div>
+                            <div className="flex items-center gap-2 text-slate-400">
+                              <span className="text-[11px] tracking-wider uppercase font-medium">
+                                {proj.badgeHighlight || proj.status}
+                              </span>
+                              <span>•</span>
+                              <span className="text-slate-300 font-semibold">{proj.year || "2026"}</span>
+                            </div>
+                          </div>
+
+                          {/* Visual Architecture Schematic Frame (Mirelle Media Canvas) */}
+                          <ProjectSchematicFrame proj={proj} />
+
+                          {/* Project Title */}
+                          <h4 className="text-xl sm:text-2xl font-bold transition-colors mb-3 font-heading text-white group-hover:text-red-400">
+                            {proj.title}
+                          </h4>
+
+                          {/* Project Description */}
+                          <p className="text-slate-300 text-sm sm:text-base leading-relaxed mb-6 max-w-2xl">
+                            {proj.description}
+                          </p>
+
+                          {/* Architecture bullet highlights */}
+                          <div className="space-y-2 mb-6 text-xs sm:text-sm font-mono-code text-slate-300">
+                            {proj.architectureDetails.slice(0, 3).map((detail, dIdx) => (
+                              <div key={dIdx} className="flex items-start gap-2">
+                                <span className="font-bold text-red-400">›</span>
+                                <span className="leading-snug">{detail}</span>
+                              </div>
+                            ))}
+                          </div>
+
+                          {/* Tech tags */}
+                          <div className="flex flex-wrap gap-1.5 text-[11px] font-mono-code text-slate-200 mb-6">
+                            {proj.tags.map((tag) => (
+                              <span
+                                key={tag}
+                                className="px-2.5 py-1 rounded border transition-colors bg-white/5 border-white/10"
+                              >
+                                {tag}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+
+                        {/* Bottom Action & Verification Row */}
+                        <div className="pt-4 border-t border-white/10 flex flex-wrap justify-between items-center text-xs font-mono-code text-slate-400 gap-2">
+                          <span className="truncate max-w-[65%] text-slate-300 font-medium">
+                            {proj.impactMetrics[0] || "ENTERPRISE GRADE"}
+                          </span>
+                          {proj.link ? (
+                            <a
+                              href={proj.link}
+                              target="_blank"
+                              rel="noreferrer"
+                              className="min-h-[44px] min-w-[44px] py-2 px-4 rounded-xl inline-flex items-center gap-2 transition-all font-semibold text-red-400 hover:text-white bg-red-500/10 hover:bg-red-500/20 border border-red-500/30 hover:shadow-[0_0_20px_rgba(239,68,68,0.2)] cursor-pointer"
+                            >
+                              <span>
+                                {proj.link.includes("play.google.com") ||
+                                proj.link.includes("apps.microsoft.com") ||
+                                proj.link.includes("shop")
+                                  ? "VIEW STORE"
+                                  : "VIEW LIVE"}
+                              </span>
+                              <ExternalLink className="w-3.5 h-3.5" />
+                            </a>
+                          ) : (
+                            <div className="min-h-[44px] py-2 px-3 rounded-xl inline-flex items-center gap-1.5 text-[11px] font-mono-code text-slate-400 bg-white/5 border border-white/10">
+                              <ShieldCheck className="w-3.5 h-3.5 text-slate-400" />
+                              <span>ENTERPRISE CORE</span>
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    );
+                  })}
+              </div>
+            </div>
+          )}
+
+          {/* ================= SUBSECTION B: PERSONAL PROJECTS & AUTONOMOUS R&D ================= */}
+          {(projectFilter === "all" || projectFilter === "personal") && (
+            <div className={`space-y-6 ${projectFilter === "all" ? "pt-6" : ""}`}>
+              {projectFilter === "all" && (
+                <div className="border-b border-amber-500/20 pb-3 flex flex-wrap items-center justify-between gap-2">
+                  <div className="flex items-center gap-2">
+                    <Sparkles className="w-4 h-4 text-amber-400 animate-pulse" />
+                    <h3 className="text-lg sm:text-xl font-bold text-white font-heading tracking-wide">
+                      Personal Projects &amp; Autonomous R&amp;D
+                    </h3>
+                    <span className="text-xs font-mono-code text-amber-300 font-semibold px-2.5 py-0.5 rounded bg-amber-500/15 border border-amber-500/35">
+                      3 Systems Live // Autonomous SDLC, Game Labs &amp; Health
+                    </span>
+                  </div>
+                  <span className="text-xs font-mono-code text-amber-400/80">
+                    Independent R&amp;D &amp; Open Source
+                  </span>
+                </div>
+              )}
+
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
+                {portfolioConfig.projects
+                  .filter((p) => p.isPersonal)
+                  .map((proj, pIdx) => {
+                    const isFeatured = proj.isFeaturedPersonal;
+                    const personalIndex =
+                      projectFilter === "all"
+                        ? 11 + pIdx + 1
+                        : pIdx + 1;
+                    const formattedIndex = personalIndex < 10 ? `0${personalIndex}` : `${personalIndex}`;
+
+                    return (
+                      <div
+                        key={proj.id}
+                        className={`cyber-panel rounded-2xl transition-all duration-300 group flex flex-col justify-between relative overflow-hidden ${
+                          isFeatured
+                            ? "lg:col-span-2 p-6 sm:p-8 md:p-10 border-2 border-amber-500/70 hover:border-amber-400/90 shadow-[0_0_50px_rgba(245,158,11,0.22)] bg-gradient-to-br from-[#12101c] via-[#090b14] to-[#0c1422]"
+                            : "p-6 sm:p-8 border border-amber-500/35 hover:border-amber-400/70 hover:shadow-[0_0_30px_rgba(245,158,11,0.15)] bg-[#090c16]/90"
+                        }`}
+                      >
+                        {/* Featured Personal Project Corner Ribbon / Watermark */}
+                        {isFeatured && (
+                          <div className="absolute top-0 right-0 px-4 py-1.5 bg-gradient-to-l from-amber-500/35 via-amber-500/20 to-transparent border-b border-l border-amber-500/40 text-[10px] sm:text-xs font-mono-code text-amber-300 font-bold flex items-center gap-2 rounded-bl-xl shadow-lg">
+                            <Sparkles className="w-3.5 h-3.5 text-amber-400 animate-pulse" />
+                            <span>{proj.badgeHighlight || "★ PERSONAL PROJECT // FLAGSHIP AI AGENCY"}</span>
+                          </div>
+                        )}
+
+                        <div>
+                          {/* Mirelle-Style Top Metadata Row */}
+                          <div className="flex flex-wrap items-center justify-between gap-2 mb-4 pb-3 border-b border-amber-500/20 text-xs font-mono-code">
+                            <div className="flex items-center gap-2">
+                              <span className="font-bold tracking-wider text-sm sm:text-base text-amber-400">
+                                {formattedIndex}
+                              </span>
+                              <span className="text-white/30">/</span>
+                              <span className="px-2.5 py-0.5 rounded border text-[11px] font-semibold text-amber-300 bg-amber-500/20 border-amber-500/40 shadow-[0_0_14px_rgba(245,158,11,0.25)]">
+                                {isFeatured
+                                  ? `★ ${proj.clientOrOrg || "FLAGSHIP AI AGENCY"}`
+                                  : proj.clientOrOrg || "PERSONAL LAB"}
+                              </span>
+                            </div>
+                            <div className="flex items-center gap-2 text-slate-400">
+                              <span className="text-[11px] tracking-wider uppercase font-medium text-amber-400">
+                                {proj.status}
+                              </span>
+                              <span>•</span>
+                              <span className="text-amber-200 font-semibold">{proj.year || "2026"}</span>
+                            </div>
+                          </div>
+
+                          {/* Visual Architecture Schematic Frame (Mirelle Media Canvas) */}
+                          <ProjectSchematicFrame proj={proj} />
+
+                          {/* Project Title */}
+                          <h4
+                            className={`font-bold transition-colors mb-3 font-heading text-white group-hover:text-amber-300 ${
+                              isFeatured ? "text-xl sm:text-2xl md:text-3xl" : "text-xl sm:text-2xl"
+                            }`}
+                          >
+                            {proj.title}
+                          </h4>
+
+                          {/* Description */}
+                          <p className="text-slate-300 text-sm sm:text-base leading-relaxed mb-6 max-w-2xl">
+                            {proj.description}
+                          </p>
+
+                          {/* Architecture bullet highlights */}
+                          <div
+                            className={`space-y-2 mb-6 text-xs sm:text-sm font-mono-code text-slate-300 ${
+                              isFeatured
+                                ? "grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-3 p-4 sm:p-5 rounded-xl bg-black/60 border border-amber-500/25 shadow-inner"
+                                : ""
+                            }`}
+                          >
+                            {proj.architectureDetails.slice(0, isFeatured ? 6 : 3).map((detail, dIdx) => (
+                              <div key={dIdx} className="flex items-start gap-2">
+                                <span className="font-bold text-amber-400">›</span>
+                                <span className="leading-snug">{detail}</span>
+                              </div>
+                            ))}
+                          </div>
+
+                          {/* Tech tags */}
+                          <div className="flex flex-wrap gap-1.5 text-[11px] font-mono-code text-slate-200 mb-6">
+                            {proj.tags.map((tag) => (
+                              <span
+                                key={tag}
+                                className="px-2.5 py-1 rounded border transition-colors bg-amber-500/10 text-amber-200 border-amber-500/30 hover:border-amber-400/60"
+                              >
+                                {tag}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+
+                        {/* Bottom Action & Verification Row */}
+                        <div className="pt-4 border-t border-white/10 flex flex-wrap justify-between items-center text-xs font-mono-code text-slate-400 gap-2">
+                          <span className="truncate max-w-[65%] text-amber-300 font-semibold">
+                            {proj.impactMetrics[0] || "PERSONAL R&D"}
+                          </span>
+                          {proj.link && (
+                            <a
+                              href={proj.link}
+                              target="_blank"
+                              rel="noreferrer"
+                              className="min-h-[44px] min-w-[44px] py-2 px-4 rounded-xl inline-flex items-center gap-2 transition-all font-semibold text-amber-300 hover:text-white bg-amber-500/15 hover:bg-amber-500/30 border border-amber-500/40 hover:shadow-[0_0_20px_rgba(245,158,11,0.25)] cursor-pointer"
+                            >
+                              <span>VIEW PROJECT REPO</span>
+                              <Github className="w-3.5 h-3.5" />
+                            </a>
+                          )}
+                        </div>
+                      </div>
+                    );
+                  })}
+              </div>
+            </div>
+          )}
         </section>
 
         {/* =========================================================================
