@@ -201,6 +201,14 @@ function ProjectSchematicFrame({ proj }: ProjectSchematicProps) {
         { label: "Private Records", sub: "Confidential Family Data" },
       ];
       break;
+    case "memento-hybrid-ai":
+      domainBadge = "HYBRID AI // GOOGLE HACKATHON 2026";
+      pipelineNodes = [
+        { label: "LiteRT-LM Edge", sub: "flutter_gemma On-Device" },
+        { label: "Hybrid Task Router", sub: "Local vs Cloud Fallback", highlight: true },
+        { label: "Firebase AI Logic", sub: "Gemini 3.8 Flash & Firestore" },
+      ];
+      break;
     case "space-arcade":
       domainBadge = "GAME LAB // FLAME 2D ENGINE";
       pipelineNodes = [
@@ -401,7 +409,7 @@ export default function Home() {
         newHistory.push({
           type: "output",
           text:
-            "AVAILABLE COMMANDS:\n  skills     - Print compiled engineering capabilities (Languages & Frameworks)\n  projects   - List 14 verified engineering systems (11 Enterprise + 3 Personal)\n  telemetry  - Query active system status & runtime metrics\n  whoami     - Inspect engineer identity & clearance level\n  contact    - Display transmission frequency link\n  clear      - Clear terminal scrollback buffer",
+            "AVAILABLE COMMANDS:\n  skills     - Print compiled engineering capabilities (Languages & Frameworks)\n  projects   - List 15 verified engineering systems (11 Enterprise + 4 Personal)\n  telemetry  - Query active system status & runtime metrics\n  whoami     - Inspect engineer identity & clearance level\n  contact    - Display transmission frequency link\n  clear      - Clear terminal scrollback buffer",
         });
         break;
       case "skills":
@@ -415,7 +423,7 @@ export default function Home() {
         newHistory.push({
           type: "output",
           text:
-            "// 11 VERIFIED ENTERPRISE & COMPANY DEPLOYMENTS:\n1. Achivr LMS & Social Engine (Full-stack Flutter + Node.js + MongoDB)\n2. her.store (Zero-loss Shopify HMAC Cryptographic Pipeline)\n3. Lenovo Partner Lead NLP Router (Automated Sentiment & Contract Routing)\n4. Dell LMS (Field Lead Management Enterprise App, Flutter 3.47)\n5. Lenovo LMS (Enterprise Partner Management Platform)\n6. Acer RMN (Dual-Screen Microsoft Store Certified MSIX Packaging)\n7. HC Retail (In-Store Experience & Retail Workflow Engine)\n8. CX9 Architecture (Unified Modular Multi-Product Engine)\n9. Dell RMN Standee (Edge Tabletop Interactive IoT Media System)\n10. Numaish Exhibition App (Commercial Fair Commerce & Payment Gateway)\n11. FamilyCentral (Family Office Encrypted Private Vault Storage)\n\n// PERSONAL PROJECTS & AUTONOMOUS R&D:\n★ [PERSONAL FLAGSHIP] IP FORGE — Autonomous Self-Healing Multi-Agent SDLC Agency (AST RAG, ChromaDB, AMD Instinct MI300X & Apple M4)\n   Repository: https://github.com/IshwarPatro/IP-FORGE\n★ [PERSONAL PROJECT] Space Arcade — Vertical Retro-Pixel Spacecraft Shooter (Flame 2D Engine & Flutter)\n   Repository: https://github.com/IshwarPatro/space_arcade\n★ [PERSONAL PROJECT] TTOD (That Time of Day) — Privacy-First Wellness & Cycle Tracker (Flutter, BLoC & Hive)\n   Repository: https://github.com/IshwarPatro/TTOD",
+            "// 11 VERIFIED ENTERPRISE & COMPANY DEPLOYMENTS:\n1. Achivr LMS & Social Engine (Full-stack Flutter + Node.js + MongoDB)\n2. her.store (Zero-loss Shopify HMAC Cryptographic Pipeline)\n3. Lenovo Partner Lead NLP Router (Automated Sentiment & Contract Routing)\n4. Dell LMS (Field Lead Management Enterprise App, Flutter 3.47)\n5. Lenovo LMS (Enterprise Partner Management Platform)\n6. Acer RMN (Dual-Screen Microsoft Store Certified MSIX Packaging)\n7. HC Retail (In-Store Experience & Retail Workflow Engine)\n8. CX9 Architecture (Unified Modular Multi-Product Engine)\n9. Dell RMN Standee (Edge Tabletop Interactive IoT Media System)\n10. Numaish Exhibition App (Commercial Fair Commerce & Payment Gateway)\n11. FamilyCentral (Family Office Encrypted Private Vault Storage)\n\n// PERSONAL PROJECTS & AUTONOMOUS R&D:\n★ [PERSONAL FLAGSHIP] IP FORGE — Autonomous Self-Healing Multi-Agent SDLC Agency (AST RAG, ChromaDB, AMD Instinct MI300X & Apple M4)\n   Repository: https://github.com/IshwarPatro/IP-FORGE\n★ [PERSONAL PROJECT] Memento — Offline-First Hybrid AI Investigation Canvas (Google #BuildHybridAI 2026, LiteRT-LM, Gemini 3.8 Flash, Firebase)\n   Live Web App: https://memento-hybrid-ai-2026.web.app\n   Repository: https://github.com/IshwarPatro/Memento\n   Android APK: https://github.com/IshwarPatro/Memento/releases/latest\n★ [PERSONAL PROJECT] Space Arcade — Vertical Retro-Pixel Spacecraft Shooter (Flame 2D Engine & Flutter)\n   Repository: https://github.com/IshwarPatro/space_arcade\n★ [PERSONAL PROJECT] TTOD (That Time of Day) — Privacy-First Wellness & Cycle Tracker (Flutter, BLoC & Hive)\n   Repository: https://github.com/IshwarPatro/TTOD",
         });
         break;
       case "telemetry":
@@ -552,7 +560,7 @@ export default function Home() {
                   href="#projects"
                   className="w-full sm:w-auto min-h-[44px] justify-center px-5 sm:px-6 py-3 rounded-xl bg-gradient-to-r from-red-500 to-orange-500 hover:from-red-600 hover:to-orange-600 text-white font-medium text-xs sm:text-sm shadow-[0_0_25px_rgba(255,80,56,0.4)] transition-all flex items-center gap-2"
                 >
-                  <span>Explore 14 Engineering Projects</span>
+                  <span>Explore 15 Engineering Projects</span>
                   <ArrowRight className="w-4 h-4" />
                 </a>
                 <button
@@ -895,7 +903,7 @@ export default function Home() {
                 </h2>
               </div>
               <p className="text-xs font-mono-code text-slate-400">
-                14 VERIFIED SYSTEMS {"//"} 11 ENTERPRISE DEPLOYMENTS + 3 PERSONAL &amp; AI LABS
+                15 VERIFIED SYSTEMS {"//"} 11 ENTERPRISE DEPLOYMENTS + 4 PERSONAL &amp; AI LABS
               </p>
             </div>
 
@@ -1079,7 +1087,7 @@ export default function Home() {
                       Personal Projects &amp; Autonomous R&amp;D
                     </h3>
                     <span className="text-xs font-mono-code text-amber-300 font-semibold px-2.5 py-0.5 rounded bg-amber-500/15 border border-amber-500/35">
-                      3 Systems Live // Autonomous SDLC, Game Labs &amp; Health
+                      4 Systems Live // Autonomous SDLC, Hybrid AI, Game Labs &amp; Health
                     </span>
                   </div>
                   <span className="text-xs font-mono-code text-amber-400/80">
@@ -1187,20 +1195,54 @@ export default function Home() {
 
                         {/* Bottom Action & Verification Row */}
                         <div className="pt-4 border-t border-white/10 flex flex-wrap justify-between items-center text-xs font-mono-code text-slate-400 gap-2">
-                          <span className="truncate max-w-[65%] text-amber-300 font-semibold">
+                          <span className="truncate max-w-[55%] text-amber-300 font-semibold">
                             {proj.impactMetrics[0] || "PERSONAL R&D"}
                           </span>
-                          {proj.link && (
-                            <a
-                              href={proj.link}
-                              target="_blank"
-                              rel="noreferrer"
-                              className="min-h-[44px] min-w-[44px] py-2 px-4 rounded-xl inline-flex items-center gap-2 transition-all font-semibold text-amber-300 hover:text-white bg-amber-500/15 hover:bg-amber-500/30 border border-amber-500/40 hover:shadow-[0_0_20px_rgba(245,158,11,0.25)] cursor-pointer"
-                            >
-                              <span>VIEW PROJECT REPO</span>
-                              <Github className="w-3.5 h-3.5" />
-                            </a>
-                          )}
+                          <div className="flex flex-wrap items-center gap-2">
+                            {proj.githubUrl && (
+                              <a
+                                href={proj.githubUrl}
+                                target="_blank"
+                                rel="noreferrer"
+                                className="min-h-[44px] min-w-[44px] py-2 px-3 rounded-xl inline-flex items-center gap-1.5 transition-all font-semibold text-slate-300 hover:text-white bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/30 cursor-pointer"
+                                title="View Source Code"
+                              >
+                                <Github className="w-3.5 h-3.5" />
+                                <span>REPO</span>
+                              </a>
+                            )}
+                            {proj.apkUrl && (
+                              <a
+                                href={proj.apkUrl}
+                                target="_blank"
+                                rel="noreferrer"
+                                className="min-h-[44px] min-w-[44px] py-2 px-3 rounded-xl inline-flex items-center gap-1.5 transition-all font-semibold text-emerald-400 hover:text-white bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 cursor-pointer"
+                                title="Download Android Release APK"
+                              >
+                                <Download className="w-3.5 h-3.5" />
+                                <span>APK</span>
+                              </a>
+                            )}
+                            {proj.link && (
+                              <a
+                                href={proj.link}
+                                target="_blank"
+                                rel="noreferrer"
+                                className="min-h-[44px] min-w-[44px] py-2 px-4 rounded-xl inline-flex items-center gap-2 transition-all font-semibold text-amber-300 hover:text-white bg-amber-500/15 hover:bg-amber-500/30 border border-amber-500/40 hover:shadow-[0_0_20px_rgba(245,158,11,0.25)] cursor-pointer"
+                              >
+                                <span>
+                                  {proj.link.includes(".web.app") || proj.link.includes("firebaseapp.com")
+                                    ? "LIVE WEB APP"
+                                    : "VIEW PROJECT REPO"}
+                                </span>
+                                {proj.link.includes(".web.app") ? (
+                                  <ExternalLink className="w-3.5 h-3.5" />
+                                ) : (
+                                  <Github className="w-3.5 h-3.5" />
+                                )}
+                              </a>
+                            )}
+                          </div>
                         </div>
                       </div>
                     );

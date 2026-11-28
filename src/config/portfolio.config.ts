@@ -10,6 +10,7 @@ export interface ProjectItem {
   tags: string[];
   link?: string;
   githubUrl?: string;
+  apkUrl?: string;
   isFlagship?: boolean;
   isPersonal?: boolean;
   isFeaturedPersonal?: boolean;
@@ -249,7 +250,7 @@ export const portfolioConfig = {
     },
   ],
 
-  // 14 Complete Engineering Projects (11 Company Projects on top + 3 Personal Projects after)
+  // 15 Complete Engineering Projects (11 Company Projects on top + 4 Personal Projects after)
   projects: [
     {
       id: "achivr-social",
@@ -555,6 +556,48 @@ export const portfolioConfig = {
         "MCP Sandboxing",
       ],
       link: "https://github.com/IshwarPatro/IP-FORGE",
+    },
+    {
+      id: "memento-hybrid-ai",
+      title: "Memento — Offline-First Field Journal & Gamified Hybrid AI Investigation Canvas",
+      year: "2026",
+      clientOrOrg: "Google #BuildHybridAI 2026",
+      category: "Personal Project · Hybrid On-Device & Cloud AI · Google Hackathon",
+      status: "Google #BuildHybridAI 2026",
+      isFlagship: false,
+      isPersonal: true,
+      isFeaturedPersonal: false,
+      badgeHighlight: "GOOGLE #BUILDHYBRIDAI 2026",
+      description:
+        "An offline-first, retro-pixel multimedia field journal and spatial investigation workspace built with Flutter, LiteRT-LM on-device AI (Gemma), and Firebase AI Logic (gemini-3.8-flash) for Google's #BuildHybridAI 2026 Hackathon. Organizes scattered field evidence (sticky notes, photo polaroids, live microphone recordings) across an infinite zoomable dot-grid corkboard with gamified typed connector pins (SUPPORTS, CONTRADICTS), per-folder Cloud vs Local sync governance, and transparent edge vs. cloud inference telemetry badges.",
+      architectureDetails: [
+        "Hybrid AI Task Router: Edge LiteRT-LM runtime (flutter_gemma) with ungated on-device execution for private offline analysis, paired with Firebase AI Logic (gemini-3.8-flash) cloud synthesis and structured JSON schemas.",
+        "Infinite Corkboard Canvas & Gamified Threads: Zoomable & pannable (0.22×–1.8×) retro dot-grid canvas with 60fps scale-aware card dragging, typed push-pins, and interactive AI-suggested investigation threads.",
+        "Multimedia Field Capture & Audio Tape Deck: Inline sticky note editor, photo polaroid camera/gallery ingestion, and live microphone recording with a retro cassette tape deck player drawer.",
+        "Firebase Cloud Sync & Security: Google Sign-In, per-folder Cloud Firestore & Storage sync with strict owner-scoped security rules (ownerId == auth.uid), Firebase App Check, and Remote Config zero-deploy model updates.",
+        "Archival Pixel Design System (Google Stitch): Deep Archival Navy (#0A2947) & Warm Parchment (#F3E4C9) palette with 0px corners, 2px outlines, and 3px offset drop shadows.",
+      ],
+      impactMetrics: [
+        "Built for Google's #BuildHybridAI 2026 Hackathon (Web, Android & iOS)",
+        "LiteRT-LM On-Device Edge AI + Firebase AI Logic (gemini-3.8-flash)",
+        "Live production web deployment & open-source Apache 2.0 release",
+      ],
+      tags: [
+        "Personal Project",
+        "Flutter",
+        "Dart",
+        "Hybrid AI",
+        "LiteRT-LM (Gemma)",
+        "Firebase AI Logic",
+        "Gemini 3.8 Flash",
+        "Cloud Firestore",
+        "Firebase Auth",
+        "App Check",
+        "Google Hackathon",
+      ],
+      link: "https://memento-hybrid-ai-2026.web.app",
+      githubUrl: "https://github.com/IshwarPatro/Memento",
+      apkUrl: "https://github.com/IshwarPatro/Memento/releases/latest",
     },
     {
       id: "space-arcade",
